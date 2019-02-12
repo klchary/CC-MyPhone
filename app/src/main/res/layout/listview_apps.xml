@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/appIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:layout_toEndOf="@+id/appIcon"
+        android:layout_alignTop="@+id/appIcon"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:text="hello_world"/>
+
+    <TextView
+        android:id="@+id/appFirstinstall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:textColor="#000000"
+        android:layout_toEndOf="@+id/appIcon"
+        android:layout_below="@+id/appName"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:text="Install Time"/>
+
+
+    <TextView
+        android:id="@+id/appLastupdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:textColor="#000000"
+        android:layout_toEndOf="@+id/appIcon"
+        android:layout_below="@+id/appFirstinstall"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:text="Last Update Time"/>
+
+
+</RelativeLayout>

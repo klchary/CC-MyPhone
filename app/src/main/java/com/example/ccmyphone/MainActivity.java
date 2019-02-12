@@ -1,58 +1,67 @@
 package com.example.ccmyphone;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.StatFs;
+import android.support.annotation.NonNull;
+import android.support.design.bottomnavigation.LabelVisibilityMode;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.sql.Time;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     public static String TAG = "MainActivity";
-
-    TextView currentDate, currentTime;
-    TextView batteryPercet, batteryHealth, batteryVolt, batteryTemp;
-    TabHost tabHost;
-
-    ListView deviceinfoList;
-    ArrayList<String> stringArray;
-    ArrayAdapter<String> arrayAdapter;
-
-    ListView deviceinfoList1;
-    ArrayList<String> stringArray1;
-    ArrayAdapter<String> arrayAdapter1;
-
-    static int width;
-    static int height;
-
+    RelativeLayout fragmentLayout;
+    TextView currentDate, currentTime, currentTimezone;
+    TextView batteryPercet;
     String bPercentStr, bVoltageStr, bTempStr, bStatusStr, bChargingPlugStr, bHealthStr;
+    BottomNavigationView bottomNavigationView;
+
+    private static final int PHONE_STATE_PERMISSION_CODE = 24;
+    private static final int STORAGE_PERMISSION_CODE = 23;
+
 
     private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
         @SuppressLint("SetTextI18n")
@@ -133,11 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 bStatusStr = BatteryStatus;
                 bChargingPlugStr = BattPowerSource;
 
-                batteryHealth.setText(bHealthStr + "\n" + bChargingPlugStr);
                 batteryPercet.setText(bPercentStr);
-                batteryTemp.setText(bTempStr + " " + bStatusStr);
-                batteryVolt.setText(bVoltageStr);
-
                 if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
                     if (level <= 20) {
                         batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_20_charging, 0);
@@ -161,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                         batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_100, 0);
                         batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark));
                     }
-                }else {
+                } else {
                     if (level <= 20) {
                         batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_20, 0);
                         batteryPercet.setTextColor(getResources().getColor(R.color.Red_Dark));
@@ -186,23 +191,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-//                stringArray1.remove("Battery Percentage :\n" + bPercentStr);
-//                stringArray1.remove("Battery Charging :\n" + bStatusStr);
-//                stringArray1.remove("Battery Charging Type :\n" + bChargingPlugStr);
-//                stringArray1.remove("Battery Temprature :\n" + bTempStr);
-//                stringArray1.remove("Battery Voltage :\n" + bVoltageStr);
-//                stringArray1.remove("Battery Health :\n" + bHealthStr);
-//
-//                stringArray1.add("Battery Percentage :\n" + bPercentStr);
-//                stringArray1.add("Battery Charging :\n" + bStatusStr);
-//                stringArray1.add("Battery Charging Type :\n" + bChargingPlugStr);
-//                stringArray1.add("Battery Temprature :\n" + bTempStr);
-//                stringArray1.add("Battery Voltage :\n" + bVoltageStr);
-//                stringArray1.add("Battery Health :\n" + bHealthStr);
-//                stringArray1.add("Battery Technology :\n" + BTech);
-//                stringArray1.add("Battery Icon :\n" + BIcon);
-
-
             } catch (Exception e) {
                 Log.d(TAG, "Battery Info Error");
             }
@@ -214,283 +202,138 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tabHost = findViewById(R.id.tabhost);
-        tabHost.setup();
-        TabHost.TabSpec spec = tabHost.newTabSpec("General");
-        spec.setContent(R.id.generalInfo);
-        spec.setIndicator("General");
-        tabHost.addTab(spec);
+        //        loadFirstFragment();
+        loadSecondFragment();
 
-        spec = tabHost.newTabSpec("MemoryBattery");
-        spec.setContent(R.id.memoryBattery);
-        spec.setIndicator("Memory & Battery");
-        tabHost.addTab(spec);
+        bottomNavigationView = findViewById(R.id.bottombar);
 
-        spec = tabHost.newTabSpec("MemoryBattery");
-        spec.setContent(R.id.advanceInfo);
-        spec.setIndicator("Memory & Battery");
-        tabHost.addTab(spec);
-
-        deviceinfoList = findViewById(R.id.deviceinfoListview);
-        stringArray = new ArrayList<String>();
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stringArray);
-
-        getScreenResolution(this);
-
-        stringArray.add("Screen Resolution :\n" + width + " X " + height);
-        stringArray.add("Serial Number :\n" + Build.SERIAL);
-        stringArray.add("Device Model :\n" + Build.MODEL);
-        stringArray.add("ID Number :\n" + Build.ID);
-        stringArray.add("Manufacturer Name :\n" + Build.MANUFACTURER);
-        stringArray.add("Brand Name :\n" + Build.BRAND);
-        stringArray.add("Type :\n" + Build.TYPE);
-        stringArray.add("User :\n" + Build.USER);
-        stringArray.add("Base Version :\n" + Build.VERSION_CODES.BASE);
-        stringArray.add("Board :\n" + Build.BOARD);
-        stringArray.add("Incremental :\n" + Build.VERSION.INCREMENTAL);
-        stringArray.add("SDK Version :\n" + Build.VERSION.SDK_INT);
-        stringArray.add("Host :\n" + Build.HOST);
-        stringArray.add("FingerPrint :\n" + Build.FINGERPRINT);
-        stringArray.add("Bootloader :\n" + Build.BOOTLOADER);
-        stringArray.add("Hardware :\n" + Build.HARDWARE);
-        stringArray.add("Tags :\n" + Build.TAGS);
-        stringArray.add("Display :\n" + Build.DISPLAY);
-        stringArray.add("Radio Version :\n" + Build.getRadioVersion());
-
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy - hh:mm:ss");
-        String dateString = formatter.format(new Date(Build.TIME));
-        stringArray.add("Time :\n" + dateString);
-        Log.d("General", "Device Info :" + stringArray);
-        deviceinfoList.setAdapter(arrayAdapter);
-
-        currentDate = findViewById(R.id.currentDate);
+        fragmentLayout = findViewById(R.id.fragmentLayout);
         currentTime = findViewById(R.id.currentTime);
+        currentDate = findViewById(R.id.currentDate);
+        currentTimezone = findViewById(R.id.currentTimezone);
         batteryPercet = findViewById(R.id.batteryPercent);
-        batteryTemp = findViewById(R.id.batteryTemp);
-        batteryVolt = findViewById(R.id.batteryVoltage);
-        batteryHealth = findViewById(R.id.batteryHealth);
 
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd MMM yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
 //        currentTime.setText(timeFormat.format(Calendar.getInstance().getTime()));
         currentDate.setText(dateFormat.format(Calendar.getInstance().getTime()));
+        String timezoneP = String.valueOf(TimeZone.getDefault().getID()); // Output is "Asia/Culcutta"
+        String timezone = String.valueOf(TimeZone.getDefault().getDisplayName()); // Output is "India Standard time"
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"), Locale.getDefault());
+        Date currentLocalTime = calendar.getTime();
+        DateFormat date = new SimpleDateFormat("Z z", Locale.getDefault());
+
+        String localTime = date.format(currentLocalTime); // Output is "+0530 IST"
+        TimeZone timeZone = TimeZone.getDefault();
+        String timeZoneInGMTFormat = timeZone.getDisplayName(false, TimeZone.SHORT); // Output is if SHORT "IST" if LONG "India Standard Time"
+        currentTimezone.setText(localTime + " - " + timezoneP);
 
         final Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                String timezone = String.valueOf(TimeZone.getDefault().getID());
-                currentTime.setText(new SimpleDateFormat("h:mm:ss a").format(new Date()) + " - " +  timezone);
+                currentTime.setText(new SimpleDateFormat("h:mm:ss a").format(new Date()));
                 handler.postDelayed(this, 1000);
             }
         }, 10);
-
-
-        deviceinfoList1 = findViewById(R.id.memoryBatteryListview);
-        stringArray1 = new ArrayList<String>();
-        arrayAdapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stringArray1);
-
-        ActivityManager actManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
-        actManager.getMemoryInfo(memInfo);
-        long totalMemory = memInfo.totalMem;
-        sizeformat(totalMemory);
-
-        int density = getResources().getDisplayMetrics().densityDpi;
-        switch (density) {
-            case DisplayMetrics.DENSITY_LOW:
-                Toast.makeText(this, "LDPI", Toast.LENGTH_SHORT).show();
-                stringArray.add("Screen Size Type :\n" + "LDPI");
-                break;
-            case DisplayMetrics.DENSITY_MEDIUM:
-                Toast.makeText(this, "MDPI", Toast.LENGTH_SHORT).show();
-                stringArray.add("Screen Size Type :\n" + "MDPI");
-                break;
-            case DisplayMetrics.DENSITY_HIGH:
-                Toast.makeText(this, "HDPI", Toast.LENGTH_SHORT).show();
-                stringArray.add("Screen Size Type :\n" + "HDPI");
-                break;
-            case DisplayMetrics.DENSITY_XHIGH:
-                Toast.makeText(this, "XHDPI", Toast.LENGTH_SHORT).show();
-                stringArray.add("Screen Size Type :\n" + "XHDPI");
-                break;
-        }
-        int screenSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        switch (screenSize) {
-            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                Toast.makeText(this, "X - Large screen", Toast.LENGTH_LONG).show();
-                stringArray.add("Screen Size :\n" + "X - Large Screen");
-                break;
-            case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                Toast.makeText(this, "Large screen", Toast.LENGTH_LONG).show();
-                stringArray.add("Screen Size :\n" + "Large Screen");
-                break;
-            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-                Toast.makeText(this, "Normal screen", Toast.LENGTH_LONG).show();
-                stringArray.add("Screen Size :\n" + "Normal Screen");
-                break;
-            case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                Toast.makeText(this, "Small screen", Toast.LENGTH_LONG).show();
-                stringArray.add("Screen Size :\n" + "Small Screen");
-                break;
-            default:
-                Toast.makeText(this, "Screen size is neither large, normal or small", Toast.LENGTH_LONG).show();
-
-        }
 
 //        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
 //        Intent batteryStatus = registerReceiver(mBatInfoReceiver, ifilter);
 
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-
-
-        stringArray1.add("Available Internal Memory :\n" + getAvailableInternalMemorySize());
-        stringArray1.add("Available External Memory :\n" + getAvailableExternalMemorySize());
-        stringArray1.add("Total External Memory :\n" + getTotalExternalMemorySize());
-        stringArray1.add("Total Internal Memory :\n" + getTotalInternalMemorySize());
-        stringArray1.add("Total RAM Size :\n" + sizeformat(totalMemory));
-        stringArray1.add("Battery Capacity :\n" + getBatteryCapacity(this) + " mAh");
-
-
-        Log.d(TAG, "Device Memory :" + stringArray1);
-        deviceinfoList1.setAdapter(arrayAdapter1);
-
-
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+//        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
     }
 
-    public static boolean externalMemoryAvailable() {
-        return android.os.Environment.getExternalStorageState().equals(
-                android.os.Environment.MEDIA_MOUNTED);
+
+    public void loadFirstFragment() {
+        FragmentManager fmhome = getSupportFragmentManager();
+        FirtstFragment firstFragment = new FirtstFragment();
+        fmhome.beginTransaction().add(R.id.fragmentLayout, firstFragment, "FirstFrag").commit();
+        FragmentTransaction abouttransaction = getSupportFragmentManager().beginTransaction();
+        abouttransaction.replace(R.id.fragmentLayout, firstFragment, "FirstFrag").addToBackStack(firstFragment.getClass().getName()).commit();
     }
 
-    public static String getAvailableInternalMemorySize() {
-        File path = Environment.getDataDirectory();
-        StatFs stat = new StatFs(path.getPath());
-        long blockSize = stat.getBlockSizeLong();
-        long availableBlocks = stat.getAvailableBlocksLong();
-        return sizeformat(availableBlocks * blockSize);
+    public void loadSecondFragment() {
+        FragmentManager fmhome = getSupportFragmentManager();
+        SecondFragment secondFragment = new SecondFragment();
+        fmhome.beginTransaction().add(R.id.fragmentLayout, secondFragment, "FirstFrag").commit();
+        FragmentTransaction abouttransaction = getSupportFragmentManager().beginTransaction();
+        abouttransaction.replace(R.id.fragmentLayout, secondFragment, "FirstFrag").addToBackStack(secondFragment.getClass().getName()).commit();
     }
 
-    public static String getTotalInternalMemorySize() {
-        File path = Environment.getDataDirectory();
-        StatFs stat = new StatFs(path.getPath());
-        long blockSize = stat.getBlockSizeLong();
-        long totalBlocks = stat.getBlockCountLong();
-        return sizeformat(totalBlocks * blockSize);
-    }
-
-    public static String getAvailableExternalMemorySize() {
-        if (externalMemoryAvailable()) {
-            File path = Environment.getExternalStorageDirectory();
-            StatFs stat = new StatFs(path.getPath());
-            long blockSize = stat.getBlockSizeLong();
-            long availableBlocks = stat.getAvailableBlocksLong();
-            return sizeformat(availableBlocks * blockSize);
-        } else {
-            return sizeformat(0);
-        }
-    }
-
-    public static String getTotalExternalMemorySize() {
-        if (externalMemoryAvailable()) {
-            File path = Environment.getExternalStorageDirectory();
-            StatFs stat = new StatFs(path.getPath());
-            long blockSize = stat.getBlockSizeLong();
-            long totalBlocks = stat.getBlockCountLong();
-            return sizeformat(totalBlocks * blockSize);
-        } else {
-            return sizeformat(0);
-        }
-    }
-
-    public static String sizeformat(long size) {
-        String hrSize = "";
-        double kb = size;
-        Log.d(TAG, String.valueOf(size));
-        double mb = size / 1024.0;
-        double gb = size / 1048576.0;
-        double tb = size / 1073741824.0;
-        DecimalFormat dec = new DecimalFormat("0.00");
-
-        if (size >= 1024) {
-            hrSize = dec.format(size).concat(" KB");
-            size /= 1024;
-            if (size >= 1024) {
-                hrSize = dec.format(mb).concat(" MB");
-                size /= 1024;
-                if (size >= 1024) {
-                    hrSize = dec.format(gb).concat(" MB");
-                    size /= 1024;
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
                 }
-
             }
         }
-        return hrSize;
+        return true;
     }
 
-    public static String formatSize(double size) {
-        String suffix = null;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
-        if (size >= 1024) {
-            suffix = "KB";
-            size /= 1024;
-            if (size >= 1024) {
-                suffix = "MB";
-                size /= 1024;
-                if (size >= 1024) {
-                    suffix = "GB";
-                    size /= 1024;
-                    if (size >= 1024) {
-                        suffix = "TB";
-                        size /= 1024;
-                    }
-                }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-            }
-        }
-
-//        StringBuilder resultBuffer = new StringBuilder(Double.toString(size));
-//
-//        int commaOffset = resultBuffer.length() - 3;
-//        while (commaOffset > 0) {
-//            resultBuffer.insert(commaOffset, ',');
-//            commaOffset -= 3;
+        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
 //        }
-//
-//        if (suffix != null) resultBuffer.append(suffix);
-//        return resultBuffer.toString();
-        return String.valueOf(size);
+
+        return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-    private String getScreenResolution(Context context) {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        DisplayMetrics metrics = new DisplayMetrics();
-        display.getMetrics(metrics);
-        width = metrics.widthPixels;
-        height = metrics.heightPixels;
-        return "{" + width + "," + height + "}";
-    }
+        switch (menuItem.getItemId()) {
 
-    public double getBatteryCapacity(Context context) {
-        Object mPowerProfile;
-        double batteryCapacity = 0;
-        final String POWER_PROFILE_CLASS = "com.android.internal.os.PowerProfile";
-        try {
-            mPowerProfile = Class.forName(POWER_PROFILE_CLASS)
-                    .getConstructor(Context.class)
-                    .newInstance(context);
+            case R.id.bFragmentOne:
+                loadFirstFragment();
+                break;
 
-            batteryCapacity = (double) Class
-                    .forName(POWER_PROFILE_CLASS)
-                    .getMethod("getBatteryCapacity")
-                    .invoke(mPowerProfile);
-        } catch (Exception e) {
-            e.printStackTrace();
+            case R.id.bFragmentTwo:
+                loadSecondFragment();
+                break;
         }
-        return batteryCapacity;
+
+        return true;
+    }
+
+    public static class BottomNavigationViewHelper {
+        @SuppressLint("RestrictedApi")
+        public static void disableShiftMode(BottomNavigationView view) {
+            BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+            try {
+                Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+                shiftingMode.setAccessible(true);
+                shiftingMode.setBoolean(menuView, false);
+                shiftingMode.setAccessible(false);
+                for (int i = 0; i < menuView.getChildCount(); i++) {
+                    BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                    //noinspection RestrictedApi
+//                    item.setShiftingMode(false);
+                    item.setShifting(false);
+                    // set once again checked value, so view will be updated
+                    //noinspection RestrictedApi
+                    item.setChecked(item.getItemData().isChecked());
+                }
+            } catch (NoSuchFieldException e) {
+                Log.e("BNVHelper", "Unable to get shift mode field", e);
+            } catch (IllegalAccessException e) {
+                Log.e("BNVHelper", "Unable to change value of shift mode", e);
+            }
+        }
     }
 
 }
