@@ -20,8 +20,10 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -202,11 +204,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //        loadFirstFragment();
-        loadSecondFragment();
+        loadFirstFragment();
 
         bottomNavigationView = findViewById(R.id.bottombar);
-
         fragmentLayout = findViewById(R.id.fragmentLayout);
         currentTime = findViewById(R.id.currentTime);
         currentDate = findViewById(R.id.currentDate);
@@ -247,6 +247,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
     }
 
+    @Override
+    public void onBackPressed() {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentByTag("FirstFrag");
+        if (currentFragment != null && currentFragment.isVisible()) {
+            finish();
+        } else {
+            loadFirstFragment();
+        }
+    }
 
     public void loadFirstFragment() {
         FragmentManager fmhome = getSupportFragmentManager();

@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/bFragmentOne"
-        android:title="G M B"
+        android:title="GeMeBa"
         android:icon="@drawable/ic_phone"/>
 
     <item android:id="@+id/bFragmentTwo"
-        android:title="S C A"
+        android:title="SiAp"
         android:icon="@drawable/ic_phone"/>
 
 </menu>

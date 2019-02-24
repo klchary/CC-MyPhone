@@ -64,8 +64,6 @@ public class FirtstFragment extends Fragment {
 
     String bPercentStr, bVoltageStr, bTempStr, bStatusStr, bChargingPlugStr, bHealthStr;
 
-
-
     private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
         @SuppressLint("SetTextI18n")
         @Override
@@ -196,7 +194,6 @@ public class FirtstFragment extends Fragment {
         batteryInfoArray = new ArrayList<InfoModel>();
         batteryRecyclerview = view.findViewById(R.id.recyclervewBattery);
 
-
         getScreenResolution(getActivity());
 
         ActivityManager actManager = (ActivityManager) getActivity().getSystemService(ACTIVITY_SERVICE);
@@ -309,6 +306,10 @@ public class FirtstFragment extends Fragment {
         batteryRecyclerview.setItemAnimator(new DefaultItemAnimator());
         batteryRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         batteryRecyclerview.setAdapter(batteryAdapter);
+
+        batteryRecyclerview.addItemDecoration(new RecyclerviewDivider(getActivity()));
+        memoryRecyclerview.addItemDecoration(new RecyclerviewDivider(getActivity()));
+        generalRecyclreview.addItemDecoration(new RecyclerviewDivider(getActivity()));
 
         return view;
     }
