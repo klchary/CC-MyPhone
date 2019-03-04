@@ -1,4 +1,4 @@
-package com.example.ccmyphone;
+package com.example.ccmyphone.Models;
 
 import android.graphics.drawable.Drawable;
 
@@ -8,12 +8,22 @@ public class AppsListModel {
     private Drawable appIcon;
     private String installedTime;
     private String updateTime;
+    private String packageName;
 
-    public AppsListModel(String appName, Drawable appIcon, String installedTime, String updateTime) {
+    public AppsListModel(String appName, Drawable appIcon, String installedTime, String updateTime, String packageName) {
         this.appName = appName;
         this.appIcon = appIcon;
         this.installedTime = installedTime;
         this.updateTime = updateTime;
+        this.packageName = packageName;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 
     public String getUpdateTime() {

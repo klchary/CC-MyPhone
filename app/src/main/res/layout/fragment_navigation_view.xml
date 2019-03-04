@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="260dp"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".NavigationViewFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/navHeaderLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/blue"
+                android:gravity="center_vertical"
+                android:minHeight="200dp">
+
+                <RelativeLayout
+                    android:id="@+id/NHUserPicLayout"
+                    android:layout_width="80dp"
+                    android:layout_height="130dp"
+                    android:layout_marginStart="26dp"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/navMobilePic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="TODO"
+                        android:src="@mipmap/ic_launcher" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/NHUserPicLayout"
+                    android:layout_toEndOf="@+id/NHUserPicLayout"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/navUserName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:gravity="start|center"
+                        android:text="User Name"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/navUserMobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:gravity="center|start"
+                        android:text="Mobile Name"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/navUserMobileDes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:gravity="center|start"
+                        android:text="Mobile Name"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/navItemLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/navHeaderLayout"
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical"
+                android:padding="6dp">
+
+                <Button
+                    android:id="@+id/navPhoneAct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="start|center"
+                    android:text="Mobile Details"
+                    android:drawableEnd="@drawable/ic_plus"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_mobile"
+                    android:textAllCaps="false"
+                    android:textColor="#383838" />
+
+                <LinearLayout
+                    android:id="@+id/phoneCateLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/navGeneral"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center|start"
+                        android:maxHeight="40dp"
+                        android:minHeight="30dp"
+                        android:text="General Device Details"
+                        android:textAllCaps="false"
+                        android:textColor="#383838" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/statusTheme" />
+
+                    <Button
+                        android:id="@+id/navMemory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center|start"
+                        android:maxHeight="40dp"
+                        android:minHeight="30dp"
+                        android:text="Memory Details"
+                        android:textAllCaps="false"
+                        android:textColor="#383838" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/statusTheme" />
+
+                    <Button
+                        android:id="@+id/navBattery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center|start"
+                        android:maxHeight="40dp"
+                        android:minHeight="30dp"
+                        android:text="Battery Details"
+                        android:textAllCaps="false"
+                        android:textColor="#383838" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/statusTheme" />
+
+                    <Button
+                        android:id="@+id/navNetwork"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center|start"
+                        android:maxHeight="40dp"
+                        android:minHeight="30dp"
+                        android:text="Network Details"
+                        android:textAllCaps="false"
+                        android:textColor="#383838" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/statusTheme" />
+
+                    <Button
+                        android:id="@+id/navInApps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center|start"
+                        android:maxHeight="40dp"
+                        android:minHeight="30dp"
+                        android:text="Installed APPs"
+                        android:textAllCaps="false"
+                        android:textColor="#383838" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/statusTheme" />
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@color/blue" />
+
+                <Button
+                    android:id="@+id/navTotaliserAct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="start|center"
+                    android:drawableEnd="@drawable/ic_plus"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_mobile"
+                    android:text="New"
+                    android:textAllCaps="false"
+                    android:textColor="#383838" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@color/blue" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</LinearLayout>

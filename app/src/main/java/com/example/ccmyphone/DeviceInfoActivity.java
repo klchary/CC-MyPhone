@@ -1,68 +1,56 @@
 package com.example.ccmyphone;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.os.BatteryManager;
-import android.os.Build;
-import android.os.Environment;
 import android.os.Handler;
-import android.os.StatFs;
 import android.support.annotation.NonNull;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.File;
+import com.example.ccmyphone.OtherClasses.TabViewPager;
+
 import java.lang.reflect.Field;
-import java.sql.Time;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class DeviceInfoActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    public static String TAG = "MainActivity";
+    public static String TAG = "DeviceInfoActivity";
     RelativeLayout fragmentLayout;
     TextView currentDate, currentTime, currentTimezone;
     TextView batteryPercet;
     String bPercentStr, bVoltageStr, bTempStr, bStatusStr, bChargingPlugStr, bHealthStr;
-    BottomNavigationView bottomNavigationView;
+
+    public static DrawerLayout deviceDrawerLayout;
 
     private static final int PHONE_STATE_PERMISSION_CODE = 24;
     private static final int STORAGE_PERMISSION_CODE = 23;
+
+    private TabLayout tabLayout;
+    public static ViewPager viewPager;
+
+    static boolean deviceInfoActive = false;
 
 
     private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
@@ -161,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     } else if (level <= 80) {
                         batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_80_charging, 0);
                         batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark_Lite));
-                    } else if (level <= 90) {
+                    } else if (level <= 99) {
                         batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_90_charging, 0);
                         batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark_Lite));
                     } else if (level <= 100) {
@@ -202,16 +190,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        addShortcut();
+        setContentView(R.layout.activity_device_info);
 
-        loadFirstFragment();
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-        bottomNavigationView = findViewById(R.id.bottombar);
         fragmentLayout = findViewById(R.id.fragmentLayout);
         currentTime = findViewById(R.id.currentTime);
         currentDate = findViewById(R.id.currentDate);
         currentTimezone = findViewById(R.id.currentTimezone);
         batteryPercet = findViewById(R.id.batteryPercent);
+
+        deviceDrawerLayout = findViewById(R.id.devideDrawerLayout);
+
+        tabLayout.addTab(tabLayout.newTab());
+        tabLayout.addTab(tabLayout.newTab());
+        tabLayout.addTab(tabLayout.newTab());
+        tabLayout.addTab(tabLayout.newTab());
+        tabLayout.addTab(tabLayout.newTab());
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd MMM yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
@@ -242,36 +239,61 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //        Intent batteryStatus = registerReceiver(mBatInfoReceiver, ifilter);
 
         this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
-//        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-        bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+
+        TabViewPager tabViewPager = new TabViewPager(getSupportFragmentManager(), tabLayout.getTabCount(), this);
+        viewPager.setAdapter(tabViewPager);
+        tabLayout.setupWithViewPager(viewPager);
+//        viewPager.setCurrentItem(2);
+//        viewPager.getCurrentItem();
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+//                Toast.makeText(DeviceInfoActivity.this, "Selected page position: " + position, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
-        Fragment currentFragment = getSupportFragmentManager().findFragmentByTag("FirstFrag");
-        if (currentFragment != null && currentFragment.isVisible()) {
-            finish();
-        } else {
-            loadFirstFragment();
-        }
+        finish();
     }
 
-    public void loadFirstFragment() {
-        FragmentManager fmhome = getSupportFragmentManager();
-        FirtstFragment firstFragment = new FirtstFragment();
-        fmhome.beginTransaction().add(R.id.fragmentLayout, firstFragment, "FirstFrag").commit();
-        FragmentTransaction abouttransaction = getSupportFragmentManager().beginTransaction();
-        abouttransaction.replace(R.id.fragmentLayout, firstFragment, "FirstFrag").addToBackStack(firstFragment.getClass().getName()).commit();
+    @Override
+    public void onStart() {
+        super.onStart();
+        deviceInfoActive = true;
     }
 
-    public void loadSecondFragment() {
-        FragmentManager fmhome = getSupportFragmentManager();
-        SecondFragment secondFragment = new SecondFragment();
-        fmhome.beginTransaction().add(R.id.fragmentLayout, secondFragment, "FirstFrag").commit();
-        FragmentTransaction abouttransaction = getSupportFragmentManager().beginTransaction();
-        abouttransaction.replace(R.id.fragmentLayout, secondFragment, "FirstFrag").addToBackStack(secondFragment.getClass().getName()).commit();
+    @Override
+    public void onStop() {
+        super.onStop();
+        deviceInfoActive = false;
     }
+
 
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
@@ -307,13 +329,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (menuItem.getItemId()) {
 
-            case R.id.bFragmentOne:
-                loadFirstFragment();
-                break;
-
-            case R.id.bFragmentTwo:
-                loadSecondFragment();
-                break;
         }
 
         return true;
@@ -343,6 +358,28 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 Log.e("BNVHelper", "Unable to change value of shift mode", e);
             }
         }
+    }
+
+    private void addShortcut() {
+        Intent shortcutIntent = new Intent(getApplicationContext(), DeviceInfoActivity.class);
+        shortcutIntent.setAction(Intent.ACTION_MAIN);
+        Intent addIntent = new Intent();
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, R.string.app_name);
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                Intent.ShortcutIconResource.fromContext(getApplicationContext(), R.mipmap.ic_launcher));
+        addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+        getApplicationContext().sendBroadcast(addIntent);
+    }
+
+    private void removeShortcut() {
+        Intent shortcutIntent = new Intent(getApplicationContext(), DeviceInfoActivity.class);
+        shortcutIntent.setAction(Intent.ACTION_MAIN);
+        Intent addIntent = new Intent();
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, R.string.app_name);
+        addIntent.setAction("com.android.launcher.action.UNINSTALL_SHORTCUT");
+        getApplicationContext().sendBroadcast(addIntent);
     }
 
 }

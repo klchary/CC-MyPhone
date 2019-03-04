@@ -1,10 +1,12 @@
-package com.example.ccmyphone;
+package com.example.ccmyphone.OtherClasses;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.example.ccmyphone.R;
 
 public class RecyclerviewDivider extends RecyclerView.ItemDecoration {
 

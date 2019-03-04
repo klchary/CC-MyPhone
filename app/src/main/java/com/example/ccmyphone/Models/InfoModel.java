@@ -1,4 +1,4 @@
-package com.example.ccmyphone;
+package com.example.ccmyphone.Models;
 
 public class InfoModel {
 

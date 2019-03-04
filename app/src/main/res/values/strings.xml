@@ -1,6 +1,25 @@
 <resources>
     <string name="app_name">CC MyPhone</string>
 
+    // Activities
+    <string name="MainActivity">MainActivity</string>
+
+    // Fragments
+    <string name="GeneralFragment">GeneralFragment</string>
+    <string name="BatteryFragment">BatteryFragment</string>
+    <string name="APPsFragment">APPsFragment</string>
+    <string name="MemoryFragment">MemoryFragment</string>
+    <string name="NetworkFragment">SIMFragment</string>
+
+    // Tab Titles
+    <string name="GeneralFragmentTab">General</string>
+    <string name="BatteryFragmentTab">Battery</string>
+    <string name="APPsFragmentTab">APPs</string>
+    <string name="MemoryFragmentTab">Memory</string>
+    <string name="NetworkFragmentTab">NetWork</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
