@@ -18,16 +18,11 @@ public class TotaliserActivity extends AppCompatActivity {
         totaliserDrawerLayout = findViewById(R.id.totaliserDrawerLayout);
 
 
-
-
     }
 
     @Override
     public void onBackPressed() {
-        if (totaliserActive) {
-            Intent intent = new Intent(TotaliserActivity.this, DeviceInfoActivity.class);
-            startActivity(intent);
-        }
+        finish();
     }
 
     @Override

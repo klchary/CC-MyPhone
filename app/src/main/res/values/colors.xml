@@ -24,6 +24,18 @@
     <color name="Red_Lite_Dark">#F84C4C</color>
     <color name="Red_Lite">#F7A8A8</color>
 
+    <color name="Yello_Dark">#998700</color>
+    <color name="Yello_Dark_Lite">#CCB402</color>
+    <color name="Yello_Normal">#FFE102</color>
+    <color name="Yello_Lite_Dark">#FCE53E</color>
+    <color name="Yello_Lite">#FCED81</color>
+
+    <color name="Black_Dark">#030000</color>
+    <color name="Black_Dark_Lite">#2B2927</color>
+    <color name="Black_Normal">#46463F</color>
+    <color name="Black_Lite_Dark">#494848</color>
+    <color name="Black_Lite">#777675</color>
+
 
 
 </resources>

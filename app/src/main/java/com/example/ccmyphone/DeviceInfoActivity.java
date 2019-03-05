@@ -24,7 +24,7 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.ccmyphone.OtherClasses.TabViewPager;
+import com.example.ccmyphone.Adapters.TabViewPager;
 
 import java.lang.reflect.Field;
 import java.text.DateFormat;
@@ -51,141 +51,6 @@ public class DeviceInfoActivity extends AppCompatActivity implements BottomNavig
     public static ViewPager viewPager;
 
     static boolean deviceInfoActive = false;
-
-
-    private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
-        @SuppressLint("SetTextI18n")
-        @Override
-        public void onReceive(Context arg0, Intent intent) {
-            //this will give you battery current status
-
-            try {
-                int level = intent.getIntExtra("level", 0);
-                float temp = (float) (intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)) / 10;
-                int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
-                int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, 0);
-                int chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
-                int BHealth = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, 0);
-                int BIcon = intent.getIntExtra(BatteryManager.EXTRA_ICON_SMALL, 0);
-                int BTech = intent.getIntExtra(BatteryManager.EXTRA_TECHNOLOGY, 0);
-                Log.d(TAG, "Voltage " + voltage);
-
-                String BatteryStatus = "No Data";
-                if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
-                    BatteryStatus = "Charging";
-                }
-                if (status == BatteryManager.BATTERY_STATUS_DISCHARGING) {
-                    BatteryStatus = "Discharging";
-                }
-                if (status == BatteryManager.BATTERY_STATUS_FULL) {
-                    BatteryStatus = "Full";
-                }
-                if (status == BatteryManager.BATTERY_STATUS_NOT_CHARGING) {
-                    BatteryStatus = "Not Charging";
-                }
-                if (status == BatteryManager.BATTERY_STATUS_UNKNOWN) {
-                    BatteryStatus = "Unknown";
-                }
-                Log.d(TAG, "BatteryStatus " + BatteryStatus);
-
-                String BattPowerSource = "";
-                if (chargePlug == BatteryManager.BATTERY_PLUGGED_AC) {
-                    BattPowerSource = "AC";
-                }
-                if (chargePlug == BatteryManager.BATTERY_PLUGGED_USB) {
-                    BattPowerSource = "USB";
-                }
-                if (chargePlug == BatteryManager.BATTERY_PLUGGED_WIRELESS) {
-                    BattPowerSource = "WIRELESS";
-                }
-                Log.d(TAG, "PowerSource " + BattPowerSource);
-
-                String BatteryHealth = "No Data";
-                if (BHealth == BatteryManager.BATTERY_HEALTH_COLD) {
-                    BatteryHealth = "Cold";
-                }
-                if (BHealth == BatteryManager.BATTERY_HEALTH_DEAD) {
-                    BatteryHealth = "Dead";
-                }
-                if (BHealth == BatteryManager.BATTERY_HEALTH_GOOD) {
-                    BatteryHealth = "Good";
-                }
-                if (BHealth == BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE) {
-                    BatteryHealth = "Over-Voltage";
-                }
-                if (BHealth == BatteryManager.BATTERY_HEALTH_OVERHEAT) {
-                    BatteryHealth = "Overheat";
-                }
-                if (BHealth == BatteryManager.BATTERY_HEALTH_UNKNOWN) {
-                    BatteryHealth = "Unknown";
-                }
-                if (BHealth == BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE) {
-                    BatteryHealth = "Unspecified Failure";
-                }
-                Log.d(TAG, "Health " + BatteryHealth);
-
-                float fullVoltage = (float) (voltage * 0.001);
-                bPercentStr = String.valueOf(level) + "%";
-                bTempStr = temp + "°C";
-                bVoltageStr = fullVoltage + "\nvolt";
-                bHealthStr = BatteryHealth;
-                bStatusStr = BatteryStatus;
-                bChargingPlugStr = BattPowerSource;
-
-                batteryPercet.setText(bPercentStr);
-                if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
-                    if (level <= 20) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_20_charging, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Red_Dark));
-                    } else if (level <= 30) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_30_charging, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Red_Dark_Lite));
-                    } else if (level <= 50) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_50_charging, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Green_Normal));
-                    } else if (level <= 60) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_60_charging, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Green_Normal));
-                    } else if (level <= 80) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_80_charging, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark_Lite));
-                    } else if (level <= 99) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_90_charging, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark_Lite));
-                    } else if (level <= 100) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_100, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark));
-                    }
-                } else {
-                    if (level <= 20) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_20, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Red_Dark));
-                    } else if (level <= 30) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_30, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Red_Dark_Lite));
-                    } else if (level <= 50) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_50, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Green_Normal));
-                    } else if (level <= 60) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_60, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Green_Normal));
-                    } else if (level <= 80) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_80, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark_Lite));
-                    } else if (level <= 90) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_90, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark_Lite));
-                    } else if (level <= 100) {
-                        batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_100, 0);
-                        batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark));
-                    }
-                }
-
-            } catch (Exception e) {
-                Log.d(TAG, "Battery Info Error");
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,8 +103,6 @@ public class DeviceInfoActivity extends AppCompatActivity implements BottomNavig
 //        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
 //        Intent batteryStatus = registerReceiver(mBatInfoReceiver, ifilter);
 
-        this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-
         TabViewPager tabViewPager = new TabViewPager(getSupportFragmentManager(), tabLayout.getTabCount(), this);
         viewPager.setAdapter(tabViewPager);
         tabLayout.setupWithViewPager(viewPager);
@@ -275,6 +138,141 @@ public class DeviceInfoActivity extends AppCompatActivity implements BottomNavig
             public void onPageScrollStateChanged(int state) {
             }
         });
+
+        BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onReceive(Context arg0, Intent intent) {
+                //this will give you battery current status
+
+                try {
+                    int level = intent.getIntExtra("level", 0);
+                    float temp = (float) (intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)) / 10;
+                    int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
+                    int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, 0);
+                    int chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
+                    int BHealth = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, 0);
+                    int BIcon = intent.getIntExtra(BatteryManager.EXTRA_ICON_SMALL, 0);
+                    int BTech = intent.getIntExtra(BatteryManager.EXTRA_TECHNOLOGY, 0);
+                    Log.d(TAG, "Voltage " + voltage);
+
+                    String BatteryStatus = "No Data";
+                    if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
+                        BatteryStatus = "Charging";
+                    }
+                    if (status == BatteryManager.BATTERY_STATUS_DISCHARGING) {
+                        BatteryStatus = "Discharging";
+                    }
+                    if (status == BatteryManager.BATTERY_STATUS_FULL) {
+                        BatteryStatus = "Full";
+                    }
+                    if (status == BatteryManager.BATTERY_STATUS_NOT_CHARGING) {
+                        BatteryStatus = "Not Charging";
+                    }
+                    if (status == BatteryManager.BATTERY_STATUS_UNKNOWN) {
+                        BatteryStatus = "Unknown";
+                    }
+                    Log.d(TAG, "BatteryStatus " + BatteryStatus);
+
+                    String BattPowerSource = "";
+                    if (chargePlug == BatteryManager.BATTERY_PLUGGED_AC) {
+                        BattPowerSource = "AC";
+                    }
+                    if (chargePlug == BatteryManager.BATTERY_PLUGGED_USB) {
+                        BattPowerSource = "USB";
+                    }
+                    if (chargePlug == BatteryManager.BATTERY_PLUGGED_WIRELESS) {
+                        BattPowerSource = "WIRELESS";
+                    }
+                    Log.d(TAG, "PowerSource " + BattPowerSource);
+
+                    String BatteryHealth = "No Data";
+                    if (BHealth == BatteryManager.BATTERY_HEALTH_COLD) {
+                        BatteryHealth = "Cold";
+                    }
+                    if (BHealth == BatteryManager.BATTERY_HEALTH_DEAD) {
+                        BatteryHealth = "Dead";
+                    }
+                    if (BHealth == BatteryManager.BATTERY_HEALTH_GOOD) {
+                        BatteryHealth = "Good";
+                    }
+                    if (BHealth == BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE) {
+                        BatteryHealth = "Over-Voltage";
+                    }
+                    if (BHealth == BatteryManager.BATTERY_HEALTH_OVERHEAT) {
+                        BatteryHealth = "Overheat";
+                    }
+                    if (BHealth == BatteryManager.BATTERY_HEALTH_UNKNOWN) {
+                        BatteryHealth = "Unknown";
+                    }
+                    if (BHealth == BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE) {
+                        BatteryHealth = "Unspecified Failure";
+                    }
+                    Log.d(TAG, "Health " + BatteryHealth);
+
+                    float fullVoltage = (float) (voltage * 0.001);
+                    bPercentStr = String.valueOf(level) + "%";
+                    bTempStr = temp + "°C";
+                    bVoltageStr = fullVoltage + "\nvolt";
+                    bHealthStr = BatteryHealth;
+                    bStatusStr = BatteryStatus;
+                    bChargingPlugStr = BattPowerSource;
+
+                    batteryPercet.setText(bPercentStr);
+                    if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
+                        if (level <= 20) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_20_charging, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Red_Dark));
+                        } else if (level <= 30) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_30_charging, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Red_Dark_Lite));
+                        } else if (level <= 50) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_50_charging, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Green_Normal));
+                        } else if (level <= 60) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_60_charging, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Green_Normal));
+                        } else if (level <= 80) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_80_charging, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark_Lite));
+                        } else if (level <= 99) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_90_charging, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark_Lite));
+                        } else if (level <= 100) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_100, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark));
+                        }
+                    } else {
+                        if (level <= 20) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_20, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Red_Dark));
+                        } else if (level <= 30) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_30, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Red_Dark_Lite));
+                        } else if (level <= 50) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_50, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Green_Normal));
+                        } else if (level <= 60) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_60, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Green_Normal));
+                        } else if (level <= 80) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_80, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark_Lite));
+                        } else if (level <= 90) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_90, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark_Lite));
+                        } else if (level <= 100) {
+                            batteryPercet.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_battery_100, 0);
+                            batteryPercet.setTextColor(getResources().getColor(R.color.Green_Dark));
+                        }
+                    }
+
+                } catch (Exception e) {
+                    Log.d(TAG, "Battery Info Error");
+                }
+            }
+        };
+        this.registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.ccmyphone.OtherClasses;
+package com.example.ccmyphone.Adapters;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
