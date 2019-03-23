@@ -2,26 +2,34 @@ package com.example.ccmyphone.Models;
 
 public class InfoModel {
 
-    private String InfoTitle, InfoDetail;
+    private String infoTitle, infoDetail, infoDetailText;
 
-    public InfoModel (String infoTitle, String infoDetail){
-        this.InfoTitle = infoTitle;
-        this.InfoDetail = infoDetail;
+//    public InfoModel(String infoTitle, String infoDetail) {
+//        this.infoTitle = infoTitle;
+//        this.infoDetail = infoDetail;
+//    }
+
+    public String getInfoDetailText() {
+        return infoDetailText;
+    }
+
+    public void setInfoDetailText(String infoDetailText) {
+        this.infoDetailText = infoDetailText;
     }
 
     public String getInfoTitle() {
-        return InfoTitle;
+        return infoTitle;
     }
 
     public void setInfoTitle(String infoTitle) {
-        InfoTitle = infoTitle;
+        infoTitle = infoTitle;
     }
 
     public String getInfoDetail() {
-        return InfoDetail;
+        return infoDetail;
     }
 
     public void setInfoDetail(String infoDetail) {
-        InfoDetail = infoDetail;
+        infoDetail = infoDetail;
     }
 }

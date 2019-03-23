@@ -24,6 +24,11 @@ import com.example.ccmyphone.Adapters.RecyclerViewAdapter;
 import com.example.ccmyphone.Models.InfoModel;
 import com.example.ccmyphone.OtherClasses.RecyclerTouchListener;
 import com.example.ccmyphone.OtherClasses.RecyclerviewDivider;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -44,8 +49,16 @@ public class BatteryFragment extends Fragment {
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerViewAdapter batteryAdapter;
 
-    String bPercentStr, bVoltageStr, bTempStr, bStatusStr, bChargingPlugStr, bHealthStr;
+    String bPercentStr = null, bVoltageStr = null, bTempStr = null, bStatusStr = null;
+    String bChargingPlugStr = null, bHealthStr = null, bCapacityStr = null;
+    int colorText; // 0 = Normal, 1 = Yellow, 2 = Red, 3 = Green
+    String bPercentStrT = null, bVoltageStrT = null, bTempStrT = null, bStatusStrT = null;
+    String bChargingPlugStrT = null, bHealthStrT = null, bCapacityStrT = null;
 
+    Gson gson = new Gson();
+    InfoModel infoModel;
+    JSONObject jsonObject = null;
+    String[] titles, descriptions, descTexts;
 
 
     public BatteryFragment() {
@@ -61,6 +74,7 @@ public class BatteryFragment extends Fragment {
 
         batteryInfoArray = new ArrayList<InfoModel>();
         batteryRecyclerview = view.findViewById(R.id.recyclervewBattery);
+//        infoModel = new InfoModel();
 
         BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
             @SuppressLint("SetTextI18n")
@@ -82,58 +96,65 @@ public class BatteryFragment extends Fragment {
                     String BatteryStatus = "No Data";
                     if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
                         BatteryStatus = "Charging";
-                    }
-                    if (status == BatteryManager.BATTERY_STATUS_DISCHARGING) {
+                        bStatusStrT = "Battery is Charging,is at " + level + "%";
+                    } else if (status == BatteryManager.BATTERY_STATUS_DISCHARGING) {
                         BatteryStatus = "Discharging";
-                    }
-                    if (status == BatteryManager.BATTERY_STATUS_FULL) {
+                        bStatusStrT = "Battery is draining continuously,is at " + level + "%";
+                    } else if (status == BatteryManager.BATTERY_STATUS_FULL) {
                         BatteryStatus = "Full";
-                    }
-                    if (status == BatteryManager.BATTERY_STATUS_NOT_CHARGING) {
+                        bStatusStrT = "Battery is Full,is at " + level + "%";
+                    } else if (status == BatteryManager.BATTERY_STATUS_NOT_CHARGING) {
                         BatteryStatus = "Not Charging";
-                    }
-                    if (status == BatteryManager.BATTERY_STATUS_UNKNOWN) {
+                        bStatusStrT = "Battery is Not Charging,is at " + level + "%";
+                    } else if (status == BatteryManager.BATTERY_STATUS_UNKNOWN) {
                         BatteryStatus = "Unknown";
+                        bStatusStrT = "Battery status is Unknown,is at " + level + "%";
                     }
                     Log.d(TAG, "BatteryStatus " + BatteryStatus);
 
                     String BattPowerSource = "";
                     if (chargePlug == BatteryManager.BATTERY_PLUGGED_AC) {
                         BattPowerSource = "AC";
-                    }
-                    if (chargePlug == BatteryManager.BATTERY_PLUGGED_USB) {
+                        bChargingPlugStr = "Battery is Charging, connected with AC charger";
+                    } else if (chargePlug == BatteryManager.BATTERY_PLUGGED_USB) {
                         BattPowerSource = "USB";
-                    }
-                    if (chargePlug == BatteryManager.BATTERY_PLUGGED_WIRELESS) {
+                        bChargingPlugStr = "Battery is Charging, connected with USB";
+                    } else if (chargePlug == BatteryManager.BATTERY_PLUGGED_WIRELESS) {
                         BattPowerSource = "WIRELESS";
+                        bChargingPlugStr = "Battery is Charging, connected with WIRELESS";
+                    } else {
+                        BattPowerSource = "Not connected to Charger";
+                        bChargingPlugStr = "";
                     }
                     Log.d(TAG, "PowerSource " + BattPowerSource);
 
                     String BatteryHealth = "No Data";
                     if (BHealth == BatteryManager.BATTERY_HEALTH_COLD) {
                         BatteryHealth = "Cold";
-                    }
-                    if (BHealth == BatteryManager.BATTERY_HEALTH_DEAD) {
+                        bHealthStrT = "Battery temperature is too Cold";
+                    } else if (BHealth == BatteryManager.BATTERY_HEALTH_DEAD) {
                         BatteryHealth = "Dead";
-                    }
-                    if (BHealth == BatteryManager.BATTERY_HEALTH_GOOD) {
+                        bHealthStrT = "Battery is Dead, replace your battery";
+                    } else if (BHealth == BatteryManager.BATTERY_HEALTH_GOOD) {
                         BatteryHealth = "Good";
-                    }
-                    if (BHealth == BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE) {
+                        bHealthStrT = "Battery condition is Good";
+                    } else if (BHealth == BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE) {
                         BatteryHealth = "Over-Voltage";
-                    }
-                    if (BHealth == BatteryManager.BATTERY_HEALTH_OVERHEAT) {
+                        bHealthStrT = "Battery is Over-Voltage, try to change your Charger";
+                    } else if (BHealth == BatteryManager.BATTERY_HEALTH_OVERHEAT) {
                         BatteryHealth = "Overheat";
-                    }
-                    if (BHealth == BatteryManager.BATTERY_HEALTH_UNKNOWN) {
+                        bHealthStrT = "Battery is Overheating, try to clear background running apps (or) replace your battery";
+                    } else if (BHealth == BatteryManager.BATTERY_HEALTH_UNKNOWN) {
                         BatteryHealth = "Unknown";
-                    }
-                    if (BHealth == BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE) {
+                        bHealthStrT = "";
+                    } else if (BHealth == BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE) {
                         BatteryHealth = "Unspecified Failure";
+                        bHealthStrT = "";
                     }
                     Log.d(TAG, "Health " + BatteryHealth);
 
                     float fullVoltage = (float) (voltage * 0.001);
+                    bCapacityStr = getBatteryCapacity(getActivity()) + " mAh";
                     bPercentStr = String.valueOf(level) + "%";
                     bTempStr = temp + "°C";
                     bVoltageStr = fullVoltage + "volt";
@@ -141,12 +162,40 @@ public class BatteryFragment extends Fragment {
                     bStatusStr = BatteryStatus;
                     bChargingPlugStr = BattPowerSource;
 
-                    batteryInfoArray.add(new InfoModel("Battery Level", bPercentStr));
-                    batteryInfoArray.add(new InfoModel("Battery Status", bStatusStr));
-                    batteryInfoArray.add(new InfoModel("Power Source", bChargingPlugStr));
-                    batteryInfoArray.add(new InfoModel("Battery Voltage", bVoltageStr));
-                    batteryInfoArray.add(new InfoModel("Battery Temperature", bTempStr));
-                    batteryInfoArray.add(new InfoModel("Battery Health", bHealthStr));
+//                    batteryInfoArray.add(new InfoModel("Battery Capacity", bCapacityStr));
+//                    batteryInfoArray.add(new InfoModel("Battery Level", bPercentStr));
+//                    batteryInfoArray.add(new InfoModel("Battery Status", bStatusStr));
+//                    batteryInfoArray.add(new InfoModel("Power Source", bChargingPlugStr));
+//                    batteryInfoArray.add(new InfoModel("Battery Voltage", bVoltageStr));
+//                    batteryInfoArray.add(new InfoModel("Battery Temperature", bTempStr));
+//                    batteryInfoArray.add(new InfoModel("Battery Health", bHealthStr));
+
+                    JSONArray jsonArray = new JSONArray();
+                    infoModel = new InfoModel();
+                    descTexts = new String[]{bCapacityStrT, bPercentStrT, bStatusStrT, bChargingPlugStrT, bVoltageStrT, bTempStrT, bHealthStrT};
+                    descriptions = new String[]{bCapacityStr, bPercentStr, bStatusStr, bChargingPlugStr, bVoltageStr, bTempStr, bHealthStr};
+                    titles = new String[]{"Battery Capacity", "Battery Level", "Battery Status",
+                            "Power Source", "Battery Voltage", "Battery Temperature", "Battery Health"};
+                    for (int i = 0; i < titles.length; i++) {
+                        jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("infoTitle", titles[i]);
+                            jsonObject.put("infoDetail", descriptions[i]);
+                            jsonObject.put("infoDetailText", descTexts[i]);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        jsonArray.put(jsonObject);
+                    }
+                    for (int j = 0; j < jsonArray.length(); j++) {
+                        String jsonString = jsonArray.getJSONObject(j).toString();
+                        infoModel = gson.fromJson(jsonString, InfoModel.class);
+                        batteryInfoArray.add(infoModel);
+                        Log.d(TAG, "jsonJob" + jsonString);
+                    }
+                    Log.d(TAG, "JSONArray" + jsonArray);
+//                    JSONObject finalobject = new JSONObject();
+//                    finalobject.put("FullObject", jsonArray);
 
                     batteryAdapter.notifyDataSetChanged();
 
@@ -157,7 +206,6 @@ public class BatteryFragment extends Fragment {
         };
 
         getActivity().registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        batteryInfoArray.add(new InfoModel("Battery Capacity", getBatteryCapacity(getActivity()) + " mAh"));
 
         batteryAdapter = new RecyclerViewAdapter(batteryInfoArray);
         batteryRecyclerview.setHasFixedSize(true);
@@ -175,6 +223,7 @@ public class BatteryFragment extends Fragment {
                 InfoModel infoModel = batteryInfoArray.get(position);
                 Toast.makeText(getActivity(), infoModel.getInfoTitle() + "Click selected!", Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onLongClick(View view, int position) {
                 InfoModel infoModel = batteryInfoArray.get(position);

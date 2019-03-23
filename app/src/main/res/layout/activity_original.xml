@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/totaliserDrawerLayout"
-    tools:context=".TotaliserActivity">
+    android:id="@+id/originalDrawerLayout"
+    tools:context=".OriginalActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -43,10 +43,10 @@
                         android:layout_height="match_parent"
                         android:layout_toEndOf="@+id/logoimage"
                         android:gravity="center"
-                        android:text="CC Totaliser"
+                        android:text="CC Original"
                         android:textColor="@color/white"
                         android:textSize="18sp"
-                        android:textStyle="bold" />s
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
@@ -79,6 +79,7 @@
         </android.support.v4.view.ViewPager>
 
     </RelativeLayout>
+
 
 
     <fragment

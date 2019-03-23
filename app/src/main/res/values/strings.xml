@@ -3,23 +3,32 @@
 
     // Activities
     <string name="MainActivity">MainActivity</string>
+    <string name="TotaliserActivity">TotaliserActivity</string>
+    <string name="OriginalActivity">OriginalActivity</string>
 
-    // Fragments
+    // Fragments Device Info
     <string name="GeneralFragment">GeneralFragment</string>
     <string name="BatteryFragment">BatteryFragment</string>
     <string name="APPsFragment">APPsFragment</string>
     <string name="MemoryFragment">MemoryFragment</string>
     <string name="NetworkFragment">SIMFragment</string>
 
-    // Tab Titles
+    // Tab Titles Device Info
     <string name="GeneralFragmentTab">General</string>
     <string name="BatteryFragmentTab">Battery</string>
     <string name="APPsFragmentTab">APPs</string>
     <string name="MemoryFragmentTab">Memory</string>
     <string name="NetworkFragmentTab">NetWork</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    // Fragments Totaliser
+    <string name="GeneralCalculatorFragment">GeneralCalculatorFragment</string>
+
+    // Fragments Original
+    <string name="TorchFragment">TorchFragment</string>
+
+    // Tab Titles Original
+    <string name="TorchFragmentTab">Torch</string>
+
 
 
 </resources>

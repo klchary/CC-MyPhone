@@ -12,6 +12,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,11 @@ import com.example.ccmyphone.Adapters.RecyclerViewAdapter;
 import com.example.ccmyphone.Models.InfoModel;
 import com.example.ccmyphone.OtherClasses.RecyclerTouchListener;
 import com.example.ccmyphone.OtherClasses.RecyclerviewDivider;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -39,7 +45,21 @@ public class NetworkFragment extends Fragment {
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerViewAdapter simAdapter;
 
-    String simType;
+    String simType, simTypeT;
+
+    Gson gson = new Gson();
+    InfoModel infoModel;
+    JSONObject jsonObject = null;
+    String[] titles, descriptions, descTexts;
+
+    String imeiStr0 = null, imeiStr1 = null, defaDevicIdStr = null, simSerialNumStr = null, simNoStr = null, countryIsoStr = null,
+            simOperaStr = null, simOperaNameStr = null, softVersionStr = null,
+            simStateStr = null, simState0Str = null, simState1Str = null, networkTypeStr = null, dataStateStr = null, dataActivStr = null,
+            simNaiStr = null, serviceStateStr = null, signalStrengthStr = null;
+    String imeiStr0T = null, imeiStr1T = null, defaDevicIdStrT = null, simSerialNumStrT = null, simNoStrT = null, countryIsoStrT = null,
+            simOperaStrT = null, simOperaNameStrT = null, softVersionStrT = null,
+            simStateStrT = null, simState0StrT = null, simState1StrT = null, networkTypeStrT = null, dataStateStrT = null, dataActivStrT = null,
+            simNaiStrT = null, serviceStateStrT = null, signalStrengthStrT = null;
 
     public NetworkFragment() {
         // Required empty public constructor
@@ -67,47 +87,72 @@ public class NetworkFragment extends Fragment {
                 // for ActivityCompat#requestPermissions for more details.
                 return null;
             }
-            simInfoArray.add(new InfoModel("IMEI 1", manager.getDeviceId(0)));
-            simInfoArray.add(new InfoModel("IMEI 2", manager.getDeviceId(1)));
+            imeiStr0 = manager.getDeviceId(0);
+            imeiStr1 = manager.getDeviceId(1);
         }
 
-        //        String simCarrierId = String.valueOf(manager.getSimCarrierId());
-//        String simCarrieridName = String.valueOf(manager.getSimCarrierIdName());
-        String simState = String.valueOf(manager.getSimState());
-        String simState0 = null, simState1 = null, serviceStaee = null;
+        simStateStr = String.valueOf(manager.getSimState());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            simState0 = String.valueOf(manager.getSimState(0));
-            simState1 = String.valueOf(manager.getSimState(1));
-            serviceStaee = String.valueOf(manager.getServiceState());
+            simState0Str = String.valueOf(manager.getSimState(0));
+            simState1Str = String.valueOf(manager.getSimState(1));
+            serviceStateStr = String.valueOf(manager.getServiceState());
         }
-        String dataNetworktype = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            dataNetworktype = String.valueOf(manager.getDataNetworkType());
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            networkTypeStr = String.valueOf(manager.getDataNetworkType());
+//        }
+
+        networkTypeStr = getNetworkClass(getActivity());
+
+        dataStateStr = String.valueOf(manager.getDataState());
+        dataActivStr = String.valueOf(manager.getDataActivity());
+//        signalStrengthStr = String.valueOf(manager.getSignalStrength());
+
+        defaDevicIdStr = manager.getDeviceId();
+        simSerialNumStr = manager.getSimSerialNumber();
+        simNoStr = manager.getLine1Number();
+        countryIsoStr = manager.getSimCountryIso();
+        simOperaStr = manager.getSimOperator();
+        simOperaNameStr = manager.getSimOperatorName();
+        softVersionStr = manager.getDeviceSoftwareVersion();
+        simNaiStr = manager.getNai();
+
+        JSONArray jsonArray = new JSONArray();
+        infoModel = new InfoModel();
+        descTexts = new String[]{imeiStr0T, imeiStr1T, simTypeT, defaDevicIdStrT, simSerialNumStrT, simNoStrT, countryIsoStrT, simOperaStrT,
+                simOperaNameStrT, softVersionStrT, simStateStrT, simState0StrT, simState1StrT, networkTypeStrT,
+                dataStateStrT, dataActivStrT, simNaiStrT, serviceStateStrT, signalStrengthStrT};
+        descriptions = new String[]{imeiStr0, imeiStr1, simType, defaDevicIdStr, simSerialNumStr, simNoStr, countryIsoStr, simOperaStr,
+                simOperaNameStr, softVersionStr, simStateStr, simState0Str, simState1Str, networkTypeStr,
+                dataStateStr, dataActivStr, simNaiStr, serviceStateStr, signalStrengthStr};
+        titles = new String[]{"IMEI 1", "IMEI 2", "SIM Count", "Defualt Device ID", "SIM Serial No.", "SIM No.", "SIM Country ISO",
+                "SIM Operator", "SIM Operator Name", "SIM Software Version", "SIM State",
+                "SIM State0", "SIM State1", "SIM Data NetworkType", "SIM Data State", "SIM Data Activity", "SIM Nai", "Service State", "Signal Strength"};
+
+        for (int i = 0; i < titles.length; i++) {
+            jsonObject = new JSONObject();
+            try {
+                jsonObject.put("infoTitle", titles[i]);
+                jsonObject.put("infoDetail", descriptions[i]);
+                jsonObject.put("infoDetailText", descTexts[i]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            jsonArray.put(jsonObject);
         }
-        String dataState = String.valueOf(manager.getDataState());
-        String dataActivity = String.valueOf(manager.getDataActivity());
-//        String signalStrenth = String.valueOf(manager.getSignalStrength());
-
-
-        simInfoArray.add(new InfoModel("SIM Count", simType));
-        simInfoArray.add(new InfoModel("Defualt Device ID", manager.getDeviceId()));
-        simInfoArray.add(new InfoModel("SIM Serial No.", manager.getSimSerialNumber()));
-        simInfoArray.add(new InfoModel("SIM No.", manager.getLine1Number()));
-        simInfoArray.add(new InfoModel("SIM Country ISO", manager.getSimCountryIso()));
-        simInfoArray.add(new InfoModel("SIM Operator", manager.getSimOperator()));
-        simInfoArray.add(new InfoModel("SIM Operator Name", manager.getSimOperatorName()));
-//        simInfoArray.add(new InfoModel("SIM Carrier ID", simCarrierId));
-//        simInfoArray.add(new InfoModel("SIM CarrierId Name", simCarrieridName));
-        simInfoArray.add(new InfoModel("SIM Software Version", manager.getDeviceSoftwareVersion()));
-        simInfoArray.add(new InfoModel("SIM State", simState));
-        simInfoArray.add(new InfoModel("SIM State0", simState0));
-        simInfoArray.add(new InfoModel("SIM State1", simState1));
-        simInfoArray.add(new InfoModel("SIM Data NetworType", dataNetworktype));
-        simInfoArray.add(new InfoModel("SIM Data State", dataState));
-        simInfoArray.add(new InfoModel("SIM Data Activity", dataActivity));
-        simInfoArray.add(new InfoModel("SIM Nai", manager.getNai()));
-        simInfoArray.add(new InfoModel("Service State", serviceStaee));
-//        simInfoArray.add(new InfoModel("Signal Strenth", signalStrenth));
+        for (int j = 0; j < jsonArray.length(); j++) {
+            String jsonString = null;
+            try {
+                jsonString = jsonArray.getJSONObject(j).toString();
+                infoModel = gson.fromJson(jsonString, InfoModel.class);
+                simInfoArray.add(infoModel);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.d(TAG, "jsonJob" + jsonString);
+        }
+        Log.d(TAG, "JSONArray" + jsonArray);
+//        JSONObject finalobject = new JSONObject();
+//        finalobject.put("FullObject", jsonArray);
 
         simAdapter = new RecyclerViewAdapter(simInfoArray);
         simRecyclreview.setHasFixedSize(true);
@@ -124,6 +169,7 @@ public class NetworkFragment extends Fragment {
                 InfoModel infoModel = simInfoArray.get(position);
                 Toast.makeText(getActivity(), infoModel.getInfoTitle() + "Click selected!", Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onLongClick(View view, int position) {
                 InfoModel infoModel = simInfoArray.get(position);
@@ -132,6 +178,34 @@ public class NetworkFragment extends Fragment {
         }));
 
         return view;
+    }
+
+    public String getNetworkClass(Context context) {
+        TelephonyManager mTelephonyManager = (TelephonyManager)
+                context.getSystemService(Context.TELEPHONY_SERVICE);
+        int networkType = mTelephonyManager.getNetworkType();
+        switch (networkType) {
+            case TelephonyManager.NETWORK_TYPE_GPRS:
+            case TelephonyManager.NETWORK_TYPE_EDGE:
+            case TelephonyManager.NETWORK_TYPE_CDMA:
+            case TelephonyManager.NETWORK_TYPE_1xRTT:
+            case TelephonyManager.NETWORK_TYPE_IDEN:
+                return "2G";
+            case TelephonyManager.NETWORK_TYPE_UMTS:
+            case TelephonyManager.NETWORK_TYPE_EVDO_0:
+            case TelephonyManager.NETWORK_TYPE_EVDO_A:
+            case TelephonyManager.NETWORK_TYPE_HSDPA:
+            case TelephonyManager.NETWORK_TYPE_HSUPA:
+            case TelephonyManager.NETWORK_TYPE_HSPA:
+            case TelephonyManager.NETWORK_TYPE_EVDO_B:
+            case TelephonyManager.NETWORK_TYPE_EHRPD:
+            case TelephonyManager.NETWORK_TYPE_HSPAP:
+                return "3G";
+            case TelephonyManager.NETWORK_TYPE_LTE:
+                return "4G";
+            default:
+                return "Unknown";
+        }
     }
 
 }

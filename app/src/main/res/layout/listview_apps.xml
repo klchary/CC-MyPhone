@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="120dp"
-    android:padding="10dp"
+    android:minHeight="100dp"
     android:orientation="horizontal">
 
     <ImageView
@@ -16,7 +15,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:weightSum="6"
+        android:gravity="center"
         android:layout_marginStart="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,34 +23,31 @@
         <TextView
             android:id="@+id/appName"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:text="hello_world"
             android:gravity="center|start"
-            android:layout_weight="2"
             android:textColor="#000000"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/appFirstinstall"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_height="wrap_content"
             android:gravity="center|start"
             android:text="Install Time"
             android:textColor="#000000"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="normal" />
 
         <TextView
             android:id="@+id/appLastupdate"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_height="wrap_content"
             android:gravity="center|start"
             android:text="Last Update Time"
             android:textColor="#000000"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="normal" />
 
     </LinearLayout>

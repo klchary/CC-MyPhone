@@ -19,6 +19,11 @@ import com.example.ccmyphone.Adapters.RecyclerViewAdapter;
 import com.example.ccmyphone.Models.InfoModel;
 import com.example.ccmyphone.OtherClasses.RecyclerTouchListener;
 import com.example.ccmyphone.OtherClasses.RecyclerviewDivider;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -41,6 +46,15 @@ public class MemoryFragment extends Fragment {
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerViewAdapter memoryAdapter;
 
+    Gson gson = new Gson();
+    InfoModel infoModel;
+    JSONObject jsonObject = null;
+    String[] titles, descriptions, descTexts;
+
+    String totalInternalStr = null, availableInternalStr = null, totalInternalStrT = null, availableInternalStrT = null;
+    String totalExternalStr = null, availableExternalStr = null, totalExternalStrT = null, availableExternalStrT = null;
+    String totalRAMStr = null, totalRAMStrT = null;
+
     public MemoryFragment() {
         // Required empty public constructor
     }
@@ -60,11 +74,43 @@ public class MemoryFragment extends Fragment {
         long totalMemory = memInfo.totalMem;
         bytesToHuman(totalMemory);
 
-        memoryInfoArray.add(new InfoModel("Total InternalMemory", getTotalInternalMemorySize()));
-        memoryInfoArray.add(new InfoModel("Available Internal Memory", getAvailableInternalMemorySize()));
-        memoryInfoArray.add(new InfoModel("Total External Memory", getTotalExternalMemorySize()));
-        memoryInfoArray.add(new InfoModel("Available External Memory", getAvailableExternalMemorySize()));
-        memoryInfoArray.add(new InfoModel("Total RAM Size", bytesToHuman(totalMemory)));
+        totalInternalStr = getTotalInternalMemorySize();
+        availableInternalStr = getAvailableInternalMemorySize();
+        totalExternalStr = getTotalExternalMemorySize();
+        availableExternalStr = getAvailableExternalMemorySize();
+        totalRAMStr = bytesToHuman(totalMemory);
+
+        JSONArray jsonArray = new JSONArray();
+        infoModel = new InfoModel();
+        descTexts = new String[]{totalInternalStrT, availableInternalStrT, totalExternalStrT, availableExternalStrT, totalRAMStrT};
+        descriptions = new String[]{totalInternalStr, availableInternalStr, totalExternalStr, availableExternalStr, totalRAMStr};
+        titles = new String[]{"Total InternalMemory", "Available Internal Memory", "Total External Memory", "Available External Memory", "Total RAM Size"};
+        for (int i = 0; i < titles.length; i++) {
+            jsonObject = new JSONObject();
+            try {
+                jsonObject.put("infoTitle", titles[i]);
+                jsonObject.put("infoDetail", descriptions[i]);
+                jsonObject.put("infoDetailText", descTexts[i]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            jsonArray.put(jsonObject);
+        }
+        for (int j = 0; j < jsonArray.length(); j++) {
+            String jsonString = null;
+            try {
+                jsonString = jsonArray.getJSONObject(j).toString();
+                infoModel = gson.fromJson(jsonString, InfoModel.class);
+                memoryInfoArray.add(infoModel);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            Log.d(TAG, "jsonJob" + jsonString);
+        }
+        Log.d(TAG, "JSONArray" + jsonArray);
+//                    JSONObject finalobject = new JSONObject();
+//                    finalobject.put("FullObject", jsonArray);
 
         memoryAdapter = new RecyclerViewAdapter(memoryInfoArray);
         recyclervewMemory.setHasFixedSize(true);

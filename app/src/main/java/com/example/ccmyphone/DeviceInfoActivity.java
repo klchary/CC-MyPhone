@@ -24,7 +24,7 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.ccmyphone.Adapters.TabViewPager;
+import com.example.ccmyphone.Adapters.TabViewPagerDevice;
 
 import java.lang.reflect.Field;
 import java.text.DateFormat;
@@ -44,22 +44,18 @@ public class DeviceInfoActivity extends AppCompatActivity implements BottomNavig
 
     public static DrawerLayout deviceDrawerLayout;
 
-    private static final int PHONE_STATE_PERMISSION_CODE = 24;
-    private static final int STORAGE_PERMISSION_CODE = 23;
-
     private TabLayout tabLayout;
-    public static ViewPager viewPager;
+    public static ViewPager viewPagerDevice;
 
     static boolean deviceInfoActive = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addShortcut();
         setContentView(R.layout.activity_device_info);
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPagerDevice = (ViewPager) findViewById(R.id.viewPager);
 
         fragmentLayout = findViewById(R.id.fragmentLayout);
         currentTime = findViewById(R.id.currentTime);
@@ -103,15 +99,15 @@ public class DeviceInfoActivity extends AppCompatActivity implements BottomNavig
 //        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
 //        Intent batteryStatus = registerReceiver(mBatInfoReceiver, ifilter);
 
-        TabViewPager tabViewPager = new TabViewPager(getSupportFragmentManager(), tabLayout.getTabCount(), this);
-        viewPager.setAdapter(tabViewPager);
-        tabLayout.setupWithViewPager(viewPager);
+        TabViewPagerDevice tabViewPager = new TabViewPagerDevice(getSupportFragmentManager(), tabLayout.getTabCount(), this);
+        viewPagerDevice.setAdapter(tabViewPager);
+        tabLayout.setupWithViewPager(viewPagerDevice);
 //        viewPager.setCurrentItem(2);
 //        viewPager.getCurrentItem();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+                viewPagerDevice.setCurrentItem(tab.getPosition());
             }
 
             @Override
@@ -123,7 +119,7 @@ public class DeviceInfoActivity extends AppCompatActivity implements BottomNavig
             }
         });
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewPagerDevice.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
 //                Toast.makeText(DeviceInfoActivity.this, "Selected page position: " + position, Toast.LENGTH_SHORT).show();
@@ -290,18 +286,6 @@ public class DeviceInfoActivity extends AppCompatActivity implements BottomNavig
     public void onStop() {
         super.onStop();
         deviceInfoActive = false;
-    }
-
-
-    public static boolean hasPermissions(Context context, String... permissions) {
-        if (context != null && permissions != null) {
-            for (String permission : permissions) {
-                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     @Override

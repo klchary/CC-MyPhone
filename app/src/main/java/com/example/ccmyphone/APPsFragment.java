@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,7 @@ public class APPsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_second, container, false);
+        View view = inflater.inflate(R.layout.fragment_apps, container, false);
 
         appsListview = view.findViewById(R.id.appsListview);
         appsInfoArray = new ArrayList<AppsListModel>();
@@ -80,7 +79,7 @@ public class APPsFragment extends Fragment {
             PackageInfo packageInfo = packs.get(i);
             if ((!isSystemPackage(packageInfo))) {
                 long installedTime = 0, updateTime = 0;
-                String installedDT = "", updateDT = "";
+                String installedDT = "", updateDT = "", appSize = "";
                 String appName = packageInfo.applicationInfo.loadLabel(getActivity().getPackageManager()).toString();
                 Drawable icon = packageInfo.applicationInfo.loadIcon(getActivity().getPackageManager());
                 String packageName = packageInfo.packageName;

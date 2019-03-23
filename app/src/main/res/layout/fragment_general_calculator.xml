@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="end"
         android:minHeight="80dp"
-        android:text="Result"
+        android:hint="Result"
         android:textSize="60sp" />
 
     <EditText
@@ -23,7 +23,7 @@
         android:gravity="end"
         android:inputType="numberDecimal"
         android:minHeight="80dp"
-        android:text="Entry"
+        android:hint="Entry"
         android:textSize="40sp" />
 
     <RelativeLayout
@@ -120,7 +120,7 @@
                 android:textSize="40sp" />
 
             <Button
-                android:id="@+id/btnZero"
+                android:id="@+id/numberZero"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"

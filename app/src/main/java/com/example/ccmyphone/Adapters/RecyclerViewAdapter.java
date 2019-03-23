@@ -25,12 +25,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView Title, Des;
+        TextView Title, Description, DescrText;
 
         public MyViewHolder(View view) {
             super(view);
             Title = view.findViewById(R.id.infoTitle);
-            Des = view.findViewById(R.id.infoDetails);
+            Description = view.findViewById(R.id.infoDetails);
+            DescrText = view.findViewById(R.id.infoDetailsText);
         }
     }
 
@@ -45,8 +46,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull final RecyclerViewAdapter.MyViewHolder myViewHolder, final int i) {
 
-        myViewHolder.Title.setText(infoModel.get(i).getInfoTitle());
-        myViewHolder.Des.setText(infoModel.get(i).getInfoDetail());
+        String title = infoModel.get(i).getInfoTitle();
+        String description = infoModel.get(i).getInfoDetail();
+        String descrText = infoModel.get(i).getInfoDetailText();
+
+        myViewHolder.Title.setText(title);
+        myViewHolder.Description.setText(description);
+        myViewHolder.DescrText.setText(descrText);
+
+        if (myViewHolder.DescrText.getText().toString().equals("") || myViewHolder.DescrText.getText().toString().isEmpty()) {
+            myViewHolder.DescrText.setVisibility(View.GONE);
+        } else {
+            myViewHolder.DescrText.setVisibility(View.VISIBLE);
+        }
 
         final int position = myViewHolder.getAdapterPosition();
     }

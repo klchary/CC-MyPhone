@@ -11,8 +11,9 @@ import com.example.ccmyphone.GeneralFragment;
 import com.example.ccmyphone.MemoryFragment;
 import com.example.ccmyphone.NetworkFragment;
 import com.example.ccmyphone.R;
+import com.example.ccmyphone.TorchFragment;
 
-public class TabViewPager extends FragmentStatePagerAdapter {
+public class TabViewPagerOriginal extends FragmentStatePagerAdapter {
 
 //    extends SmartFragmentStatePagerAdapter
 //    FirstFragment fragment = (FirstFragment) adapterViewPager.getRegisteredFragment(0);
@@ -21,7 +22,7 @@ public class TabViewPager extends FragmentStatePagerAdapter {
     private int tabCount;
     private Context mContext;
 
-    public TabViewPager(FragmentManager fm, int tabCount, Context mContext) {
+    public TabViewPagerOriginal(FragmentManager fm, int tabCount, Context mContext) {
         super(fm);
         this.tabCount = tabCount;
         this.mContext = mContext;
@@ -32,17 +33,17 @@ public class TabViewPager extends FragmentStatePagerAdapter {
 
         switch (i) {
             case 0:
-                return new GeneralFragment();
-            case 1:
-                return new MemoryFragment();
-            case 2:
-                return new BatteryFragment();
-            case 3:
-                return new NetworkFragment();
-            case 4:
-                return new APPsFragment();
+                return new TorchFragment();
+//            case 1:
+//                return new MemoryFragment();
+//            case 2:
+//                return new BatteryFragment();
+//            case 3:
+//                return new NetworkFragment();
+//            case 4:
+//                return new APPsFragment();
             default:
-                return new GeneralFragment();
+                return new TorchFragment();
         }
     }
 
@@ -57,15 +58,15 @@ public class TabViewPager extends FragmentStatePagerAdapter {
         // Generate title based on item position
         switch (position) {
             case 0:
-                return mContext.getString(R.string.GeneralFragmentTab);
-            case 1:
-                return mContext.getString(R.string.MemoryFragmentTab);
-            case 2:
-                return mContext.getString(R.string.BatteryFragmentTab);
-            case 3:
-                return mContext.getString(R.string.NetworkFragmentTab);
-            case 4:
-                return mContext.getString(R.string.APPsFragmentTab);
+                return mContext.getString(R.string.TorchFragmentTab);
+//            case 1:
+//                return mContext.getString(R.string.MemoryFragmentTab);
+//            case 2:
+//                return mContext.getString(R.string.BatteryFragmentTab);
+//            case 3:
+//                return mContext.getString(R.string.NetworkFragmentTab);
+//            case 4:
+//                return mContext.getString(R.string.APPsFragmentTab);
             default:
                 return null;
         }

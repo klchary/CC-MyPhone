@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,11 @@ import com.example.ccmyphone.Adapters.RecyclerViewAdapter;
 import com.example.ccmyphone.Models.InfoModel;
 import com.example.ccmyphone.OtherClasses.RecyclerTouchListener;
 import com.example.ccmyphone.OtherClasses.RecyclerviewDivider;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +50,20 @@ public class GeneralFragment extends Fragment {
     static int width;
     static int height;
 
+    Gson gson = new Gson();
+    InfoModel infoModel;
+    JSONObject jsonObject = null;
+    String[] titles, descriptions, descTexts;
+
+    String screenSizeTypeStr = null, screenSizeStr = null, apiLevelStr = null, screenResoStr = null, serialNoStr = null, deviceModelStr = null,
+            idNumberStr = null, manufacturerStr = null, brandNameStr = null, typeStr = null, userStr = null, baseVersionStr = null, boardStr = null,
+            incrementalStr = null, sdkVersionStr = null, hostStr = null, fingerPrintStr = null, bootloaderStr = null, hardwareStr = null, tagsStr = null,
+            displayStr = null, radioVersionStr = null, buildTimeStr = null;
+    String screenSizeTypeStrT = null, screenSizeStrT = null, apiLevelStrT = null, screenResoStrT = null, serialNoStrT = null, deviceModelStrT = null,
+            idNumberStrT = null, manufacturerStrT = null, brandNameStrT = null, typeStrT = null, userStrT = null, baseVersionStrT = null, boardStrT = null,
+            incrementalStrT = null, sdkVersionStrT = null, hostStrT = null, fingerPrintStrT = null, bootloaderStrT = null, hardwareStrT = null, tagsStrT = null,
+            displayStrT = null, radioVersionStrT = null, buildTimeStrT = null;
+
     public GeneralFragment() {
         // Required empty public constructor
     }
@@ -60,76 +80,102 @@ public class GeneralFragment extends Fragment {
 
         getScreenResolution(getActivity());
 
-        int density = getResources().getDisplayMetrics().densityDpi;
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        int density = dm.densityDpi;
         switch (density) {
             case DisplayMetrics.DENSITY_LOW:
-                Toast.makeText(getActivity(), "LDPI", Toast.LENGTH_SHORT).show();
-                generalInfoArray.add(new InfoModel("Screen Size Type", "LDPI"));
+                screenSizeTypeStr = "LDPI";
                 break;
             case DisplayMetrics.DENSITY_MEDIUM:
-                Toast.makeText(getActivity(), "MDPI", Toast.LENGTH_SHORT).show();
-                generalInfoArray.add(new InfoModel("Screen Size Type", "MDPI"));
+                screenSizeTypeStr = "MDPI";
                 break;
             case DisplayMetrics.DENSITY_HIGH:
-                Toast.makeText(getActivity(), "HDPI", Toast.LENGTH_SHORT).show();
-                generalInfoArray.add(new InfoModel("Screen Size Type", "HDPI"));
+                screenSizeTypeStr = "HDPI";
                 break;
             case DisplayMetrics.DENSITY_XHIGH:
-                Toast.makeText(getActivity(), "XHDPI", Toast.LENGTH_SHORT).show();
-                generalInfoArray.add(new InfoModel("Screen Size Type", "XHDPI"));
+                screenSizeTypeStr = "XHDPI";
                 break;
         }
         int screenSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         switch (screenSize) {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                Toast.makeText(getActivity(), "X - Large screen", Toast.LENGTH_LONG).show();
-                generalInfoArray.add(new InfoModel("Screen Size", "X - Large Screen"));
+                screenSizeStr = "X - Large Screen";
                 break;
             case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                Toast.makeText(getActivity(), "Large screen", Toast.LENGTH_LONG).show();
-                generalInfoArray.add(new InfoModel("Screen Size", "Large Screen"));
+                screenSizeStr = "Large Screen";
                 break;
             case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-                Toast.makeText(getActivity(), "Normal screen", Toast.LENGTH_LONG).show();
-                generalInfoArray.add(new InfoModel("Screen Size", "Normal Screen"));
+                screenSizeStr = "Normal Screen";
                 break;
             case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                Toast.makeText(getActivity(), "Small screen", Toast.LENGTH_LONG).show();
-                generalInfoArray.add(new InfoModel("Screen Size", "Small Screen"));
+                screenSizeStr = "Small Screen";
                 break;
             default:
                 Toast.makeText(getActivity(), "Screen size is neither large, normal or small", Toast.LENGTH_LONG).show();
 
         }
 
-        String BaseVersionCode = String.valueOf(Build.VERSION_CODES.BASE);
+        baseVersionStr = String.valueOf(Build.VERSION_CODES.BASE);
         String BaseVersionCode1 = String.valueOf(Build.VERSION_CODES.BASE_1_1);
-        String SdkIntVersion = String.valueOf(Build.VERSION.SDK_INT);
+        sdkVersionStr = apiLevelStr = String.valueOf(Build.VERSION.SDK_INT);
 
-        generalInfoArray.add(new InfoModel("API Level", SdkIntVersion));
-        generalInfoArray.add(new InfoModel("Screen Resolution", width + " X " + height));
-        generalInfoArray.add(new InfoModel("Serial Number", Build.SERIAL));
-        generalInfoArray.add(new InfoModel("Device Model", Build.MODEL));
-        generalInfoArray.add(new InfoModel("ID Number", Build.ID));
-        generalInfoArray.add(new InfoModel("Manufacturer Name", Build.MANUFACTURER));
-        generalInfoArray.add(new InfoModel("Brand Name", Build.BRAND));
-        generalInfoArray.add(new InfoModel("Type", Build.TYPE));
-        generalInfoArray.add(new InfoModel("User", Build.USER));
-        generalInfoArray.add(new InfoModel("Base Version", BaseVersionCode));
-        generalInfoArray.add(new InfoModel("Board", Build.BOARD));
-        generalInfoArray.add(new InfoModel("Incremental", Build.VERSION.INCREMENTAL));
-        generalInfoArray.add(new InfoModel("SDK Version", SdkIntVersion));
-        generalInfoArray.add(new InfoModel("Host", Build.HOST));
-        generalInfoArray.add(new InfoModel("FingerPrint", Build.FINGERPRINT));
-        generalInfoArray.add(new InfoModel("Bootloader", Build.BOOTLOADER));
-        generalInfoArray.add(new InfoModel("Hardware", Build.HARDWARE));
-        generalInfoArray.add(new InfoModel("Tags", Build.TAGS));
-        generalInfoArray.add(new InfoModel("Display", Build.DISPLAY));
-        generalInfoArray.add(new InfoModel("Radio Version", Build.getRadioVersion()));
+        screenResoStr = width + " X " + height;
+        serialNoStr = Build.SERIAL;
+        deviceModelStr = Build.MODEL;
+        idNumberStr = Build.ID;
+        manufacturerStr = Build.MANUFACTURER;
+        brandNameStr = Build.BRAND;
+        typeStr = Build.TYPE;
+        userStr = Build.USER;
+        boardStr = Build.BOARD;
+        incrementalStr = Build.VERSION.INCREMENTAL;
+        hostStr = Build.HOST;
+        fingerPrintStr = Build.FINGERPRINT;
+        bootloaderStr = Build.BOOTLOADER;
+        hardwareStr = Build.HARDWARE;
+        tagsStr = Build.TAGS;
+        displayStr = Build.DISPLAY;
+        radioVersionStr = Build.getRadioVersion();
 
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE, dd MMM yyyy - hh:mm:ss");
-        String dateString = formatter.format(new Date(Build.TIME));
-        generalInfoArray.add(new InfoModel("Build Time", dateString));
+        buildTimeStr = formatter.format(new Date(Build.TIME));
+
+        JSONArray jsonArray = new JSONArray();
+        infoModel = new InfoModel();
+        descTexts = new String[]{screenSizeTypeStrT, screenSizeStrT, apiLevelStrT, screenResoStrT, serialNoStrT, deviceModelStrT, idNumberStrT,
+                manufacturerStrT, brandNameStrT, typeStrT, userStrT, baseVersionStrT, boardStrT, incrementalStrT, sdkVersionStrT, hostStrT, fingerPrintStrT,
+                bootloaderStrT, hardwareStrT, tagsStrT, displayStrT, radioVersionStrT, buildTimeStrT};
+        descriptions = new String[]{screenSizeTypeStr, screenSizeStr, apiLevelStr, screenResoStr, serialNoStr, deviceModelStr, idNumberStr,
+                manufacturerStr, brandNameStr, typeStr, userStr, baseVersionStr, boardStr, incrementalStr, sdkVersionStr, hostStr, fingerPrintStr,
+                bootloaderStr, hardwareStr, tagsStr, displayStr, radioVersionStr, buildTimeStr};
+        titles = new String[]{"Screen Size Type", "Screen Size", "API Level", "Screen Resolution", "Serial Number", "Device Model",
+                "ID Number", "Manufacturer Name", "Brand Name", "Type", "User", "Base Version", "Board", "Incremental", "SDK Version",
+                "Host", "FingerPrint", "Bootloader", "Hardware", "Tags", "Display", "Radio Version", "Build Time"};
+        for (int i = 0; i < titles.length; i++) {
+            jsonObject = new JSONObject();
+            try {
+                jsonObject.put("infoTitle", titles[i]);
+                jsonObject.put("infoDetail", descriptions[i]);
+                jsonObject.put("infoDetailText", descTexts[i]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            jsonArray.put(jsonObject);
+        }
+        for (int j = 0; j < jsonArray.length(); j++) {
+            String jsonString = null;
+            try {
+                jsonString = jsonArray.getJSONObject(j).toString();
+                infoModel = gson.fromJson(jsonString, InfoModel.class);
+                generalInfoArray.add(infoModel);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.d(TAG, "jsonJob" + jsonString);
+        }
+        Log.d(TAG, "JSONArray" + jsonArray);
+//                    JSONObject finalobject = new JSONObject();
+//                    finalobject.put("FullObject", jsonArray);
 
         generalAdapter = new RecyclerViewAdapter(generalInfoArray);
         generalRecyclreview.setHasFixedSize(true);
@@ -146,6 +192,7 @@ public class GeneralFragment extends Fragment {
                 InfoModel infoModel = generalInfoArray.get(position);
                 Toast.makeText(getActivity(), infoModel.getInfoTitle() + "Click selected!", Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onLongClick(View view, int position) {
                 InfoModel infoModel = generalInfoArray.get(position);

@@ -221,9 +221,83 @@
                     android:drawableEnd="@drawable/ic_plus"
                     android:drawablePadding="10dp"
                     android:drawableStart="@drawable/ic_mobile"
-                    android:text="New"
+                    android:text="Totaliser"
                     android:textAllCaps="false"
                     android:textColor="#383838" />
+
+                <LinearLayout
+                    android:id="@+id/totaliserCateLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/navGenCalculator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center|start"
+                        android:maxHeight="40dp"
+                        android:minHeight="30dp"
+                        android:text="General Calculator"
+                        android:textAllCaps="false"
+                        android:textColor="#383838" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/statusTheme" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@color/blue" />
+
+                <Button
+                    android:id="@+id/navOriginalAct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="start|center"
+                    android:drawableEnd="@drawable/ic_plus"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_mobile"
+                    android:text="Original"
+                    android:textAllCaps="false"
+                    android:textColor="#383838" />
+
+                <LinearLayout
+                    android:id="@+id/originalCateLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/navTorch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center|start"
+                        android:drawableStart="@drawable/ic_flare"
+                        android:maxHeight="40dp"
+                        android:minHeight="30dp"
+                        android:text="Torch"
+                        android:textAllCaps="false"
+                        android:textColor="#383838" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/statusTheme" />
+
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
