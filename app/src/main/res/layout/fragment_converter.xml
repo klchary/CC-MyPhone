@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="50dp"
+    tools:context=".ConverterFragment">
+
+    <LinearLayout
+        android:id="@+id/spinnerLayout_Converter"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:weightSum="2"
+        android:padding="6dp"
+        android:minHeight="60dp"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            android:layout_gravity="center"
+            android:background="@drawable/spinner_bg">
+
+            <Spinner
+                android:id="@+id/spinnerFrom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:entries="@array/DifferenceEntries"
+                android:background="@android:color/transparent"
+                android:spinnerMode="dialog" />
+
+            <ImageView
+                android:id="@+id/spinnerFromiv"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/dropdown" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:background="@drawable/spinner_bg">
+
+            <Spinner
+                android:id="@+id/spinnerTo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:entries="@array/DifferenceEntries"
+                android:background="@android:color/transparent"
+                android:spinnerMode="dialog" />
+
+            <ImageView
+                android:id="@+id/spinnerToiv"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/dropdown" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/etLayout_Converter"
+        android:layout_below="@+id/spinnerLayout_Converter"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:weightSum="2"
+        android:padding="6dp"
+        android:minHeight="60dp"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/value1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="Value"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/value2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/Black_Dark"
+            android:enabled="false"
+            android:hint="Value"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/convertBtn"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/etLayout_Converter"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:background="@color/primaryTheme"
+        android:gravity="center"
+        android:text="Converte"
+        android:textAllCaps="false"
+        android:textColor="@color/white" />
+
+
+
+</RelativeLayout>

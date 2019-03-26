@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.BatteryManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -13,7 +12,6 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -143,76 +141,9 @@ public class DeviceInfoActivity extends AppCompatActivity implements BottomNavig
 
                 try {
                     int level = intent.getIntExtra("level", 0);
-                    float temp = (float) (intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)) / 10;
-                    int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
                     int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, 0);
-                    int chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
-                    int BHealth = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, 0);
-                    int BIcon = intent.getIntExtra(BatteryManager.EXTRA_ICON_SMALL, 0);
-                    int BTech = intent.getIntExtra(BatteryManager.EXTRA_TECHNOLOGY, 0);
-                    Log.d(TAG, "Voltage " + voltage);
 
-                    String BatteryStatus = "No Data";
-                    if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
-                        BatteryStatus = "Charging";
-                    }
-                    if (status == BatteryManager.BATTERY_STATUS_DISCHARGING) {
-                        BatteryStatus = "Discharging";
-                    }
-                    if (status == BatteryManager.BATTERY_STATUS_FULL) {
-                        BatteryStatus = "Full";
-                    }
-                    if (status == BatteryManager.BATTERY_STATUS_NOT_CHARGING) {
-                        BatteryStatus = "Not Charging";
-                    }
-                    if (status == BatteryManager.BATTERY_STATUS_UNKNOWN) {
-                        BatteryStatus = "Unknown";
-                    }
-                    Log.d(TAG, "BatteryStatus " + BatteryStatus);
-
-                    String BattPowerSource = "";
-                    if (chargePlug == BatteryManager.BATTERY_PLUGGED_AC) {
-                        BattPowerSource = "AC";
-                    }
-                    if (chargePlug == BatteryManager.BATTERY_PLUGGED_USB) {
-                        BattPowerSource = "USB";
-                    }
-                    if (chargePlug == BatteryManager.BATTERY_PLUGGED_WIRELESS) {
-                        BattPowerSource = "WIRELESS";
-                    }
-                    Log.d(TAG, "PowerSource " + BattPowerSource);
-
-                    String BatteryHealth = "No Data";
-                    if (BHealth == BatteryManager.BATTERY_HEALTH_COLD) {
-                        BatteryHealth = "Cold";
-                    }
-                    if (BHealth == BatteryManager.BATTERY_HEALTH_DEAD) {
-                        BatteryHealth = "Dead";
-                    }
-                    if (BHealth == BatteryManager.BATTERY_HEALTH_GOOD) {
-                        BatteryHealth = "Good";
-                    }
-                    if (BHealth == BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE) {
-                        BatteryHealth = "Over-Voltage";
-                    }
-                    if (BHealth == BatteryManager.BATTERY_HEALTH_OVERHEAT) {
-                        BatteryHealth = "Overheat";
-                    }
-                    if (BHealth == BatteryManager.BATTERY_HEALTH_UNKNOWN) {
-                        BatteryHealth = "Unknown";
-                    }
-                    if (BHealth == BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE) {
-                        BatteryHealth = "Unspecified Failure";
-                    }
-                    Log.d(TAG, "Health " + BatteryHealth);
-
-                    float fullVoltage = (float) (voltage * 0.001);
                     bPercentStr = String.valueOf(level) + "%";
-                    bTempStr = temp + "°C";
-                    bVoltageStr = fullVoltage + "\nvolt";
-                    bHealthStr = BatteryHealth;
-                    bStatusStr = BatteryStatus;
-                    bChargingPlugStr = BattPowerSource;
 
                     batteryPercet.setText(bPercentStr);
                     if (status == BatteryManager.BATTERY_STATUS_CHARGING) {

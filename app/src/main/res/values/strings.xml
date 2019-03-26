@@ -22,6 +22,13 @@
 
     // Fragments Totaliser
     <string name="GeneralCalculatorFragment">GeneralCalculatorFragment</string>
+    <string name="PercentageFragment">PercentageFragment</string>
+    <string name="ConverterFragment">ConverterFragment</string>
+
+    // Tab Titles Totaliser
+    <string name="GeneralCalculatorFragmentTab">Standard</string>
+    <string name="PercentageFragmentTab">Percentage</string>
+    <string name="ConverterFragmentTab">Converter</string>
 
     // Fragments Original
     <string name="TorchFragment">TorchFragment</string>
@@ -29,6 +36,25 @@
     // Tab Titles Original
     <string name="TorchFragmentTab">Torch</string>
 
+    <string-array name="PercentageEntries">
+        <item name="Percentage">Percentage</item>
+        <item name="Score">Score</item>
+        <item name="GST">GST</item>
+        <item name="IncreDecre">Increased / Decreased</item>
+    </string-array>
 
+    <string-array name="DifferenceEntries">
+        <item name="MM">Milli Metre</item>
+        <item name="CM">Centi Metre</item>
+        <item name="ME">Metre</item>
+        <item name="KM">Kilo Metre</item>
+        <item name="Mile">Mile</item>
+        <item name="FEET">Feet/Foot</item>
+        <item name="INCH">Inch</item>
+        <item name="YARD">Yard</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
