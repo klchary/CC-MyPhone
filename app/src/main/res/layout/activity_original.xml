@@ -25,7 +25,7 @@
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:title="CC MyPhone"
-                app:titleTextColor="@color/white">
+                app:titleTextColor="@color/White">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                         android:layout_toEndOf="@+id/logoimage"
                         android:gravity="center"
                         android:text="CC Original"
-                        android:textColor="@color/white"
+                        android:textColor="@color/White"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 

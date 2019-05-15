@@ -2,6 +2,8 @@ package com.example.ccmyphone.Models;
 
 import android.graphics.drawable.Drawable;
 
+import java.util.List;
+
 public class AppsListModel {
 
     private String appName;
@@ -9,13 +11,26 @@ public class AppsListModel {
     private String installedTime;
     private String updateTime;
     private String packageName;
+    private String permissions;
 
-    public AppsListModel(String appName, Drawable appIcon, String installedTime, String updateTime, String packageName) {
+
+    public AppsListModel(String appName, Drawable appIcon, String installedTime,
+                         String updateTime, String packageName, String permissions) {
         this.appName = appName;
         this.appIcon = appIcon;
         this.installedTime = installedTime;
         this.updateTime = updateTime;
         this.packageName = packageName;
+        this.permissions = permissions;
+
+    }
+
+    public String getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
     }
 
     public String getPackageName() {

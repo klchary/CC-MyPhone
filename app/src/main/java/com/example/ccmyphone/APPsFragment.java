@@ -5,11 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageStats;
+import android.content.pm.PermissionInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +23,12 @@ import android.widget.ListView;
 import com.example.ccmyphone.Adapters.AppListViewAdapter;
 import com.example.ccmyphone.Models.AppsListModel;
 
+import java.io.File;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -49,15 +56,8 @@ public class APPsFragment extends Fragment {
 
 //        ArrayList<AppsListModel> installedApps = getInstalledApps();
         appsInfoArray = getInstalledApps();
-        installedAppAdapter = new AppListViewAdapter(getActivity().getApplicationContext(), appsInfoArray);
+        installedAppAdapter = new AppListViewAdapter(getActivity(), appsInfoArray);
         appsListview.setAdapter(installedAppAdapter);
-
-        appsListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
 
         return view;
     }
@@ -89,7 +89,27 @@ public class APPsFragment extends Fragment {
                 installedDT = DateFormat.format("dd MMM yyyy EEE - hh:mm:ss a", new Date(installedTime)).toString();
                 updateDT = DateFormat.format("dd MMM yyyy EEE - hh:mm:ss a", new Date(updateTime)).toString();
 
-                appsInfoArray.add(new AppsListModel(appName, icon, installedDT, updateDT, packageName));
+                StringBuilder stringBuilder = null;
+                try {
+                    packageInfo = getActivity().getPackageManager().getPackageInfo(
+                            packageInfo.applicationInfo.packageName, PackageManager.GET_PERMISSIONS);
+                    String[] requestedPermissions = packageInfo.requestedPermissions;
+                    stringBuilder = new StringBuilder();
+                    if (requestedPermissions != null) {
+                        for (int j = 0; j < requestedPermissions.length; j++) {                     //for loop
+                            Log.d(TAG, "requestedPermissions " + requestedPermissions[j]);
+                            stringBuilder.append(requestedPermissions[j]).append("\n");
+                        }
+//                        for (String requestedPermission : requestedPermissions) {                 //foreach loop
+//                            Log.d(TAG, "requestedPermissions " + requestedPermission);
+//                            stringBuilder.append(requestedPermission).append("\n");
+//                        }
+                    }
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                appsInfoArray.add(new AppsListModel(appName, icon, installedDT, updateDT, packageName, stringBuilder.toString()));
             }
         }
         return appsInfoArray;

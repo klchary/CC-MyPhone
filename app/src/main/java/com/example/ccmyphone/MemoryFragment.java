@@ -30,6 +30,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import static android.content.Context.ACTIVITY_SERVICE;
+import static com.example.ccmyphone.ApplicationConstants.INFO_DETAIL;
+import static com.example.ccmyphone.ApplicationConstants.INFO_DETAIL_TEXT;
+import static com.example.ccmyphone.ApplicationConstants.INFO_TITLE;
 
 
 /**
@@ -88,9 +91,9 @@ public class MemoryFragment extends Fragment {
         for (int i = 0; i < titles.length; i++) {
             jsonObject = new JSONObject();
             try {
-                jsonObject.put("infoTitle", titles[i]);
-                jsonObject.put("infoDetail", descriptions[i]);
-                jsonObject.put("infoDetailText", descTexts[i]);
+                jsonObject.put(INFO_TITLE, titles[i]);
+                jsonObject.put(INFO_DETAIL, descriptions[i]);
+                jsonObject.put(INFO_DETAIL_TEXT, descTexts[i]);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -102,13 +105,12 @@ public class MemoryFragment extends Fragment {
                 jsonString = jsonArray.getJSONObject(j).toString();
                 infoModel = gson.fromJson(jsonString, InfoModel.class);
                 memoryInfoArray.add(infoModel);
+                Log.d(TAG, "Memory JSONObject " + jsonString);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            Log.d(TAG, "jsonJob" + jsonString);
         }
-        Log.d(TAG, "JSONArray" + jsonArray);
+        Log.d(TAG, "Memory JSONArray " + jsonArray);
 //                    JSONObject finalobject = new JSONObject();
 //                    finalobject.put("FullObject", jsonArray);
 

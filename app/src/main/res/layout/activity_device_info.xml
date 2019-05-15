@@ -27,7 +27,7 @@
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:title="CC MyPhone"
-                app:titleTextColor="@color/white">
+                app:titleTextColor="@color/White">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -45,8 +45,8 @@
                         android:layout_height="match_parent"
                         android:layout_toEndOf="@+id/logoimage"
                         android:gravity="center"
-                        android:text="CC Myphone"
-                        android:textColor="@color/white"
+                        android:text="CC MyPhone"
+                        android:textColor="@color/White"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -58,7 +58,7 @@
                         android:layout_marginEnd="10dp"
                         android:gravity="center"
                         android:text="timeview"
-                        android:textColor="@color/white"
+                        android:textColor="@color/White"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Date"
-                        android:textColor="@color/black"
+                        android:textColor="@color/Black"
                         android:textSize="20sp" />
 
                     <TextView
@@ -105,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Time"
-                        android:textColor="@color/black"
+                        android:textColor="@color/Black"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -117,7 +117,7 @@
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/White"
                 app:tabGravity="center"
                 app:tabMode="scrollable">
 

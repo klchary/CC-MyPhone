@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="260dp"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/White"
     android:orientation="vertical"
     tools:context=".NavigationViewFragment">
 
@@ -20,7 +20,7 @@
                 android:id="@+id/navHeaderLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue"
+                android:background="@color/Blue"
                 android:gravity="center_vertical"
                 android:minHeight="200dp">
 
@@ -29,7 +29,7 @@
                     android:layout_width="80dp"
                     android:layout_height="130dp"
                     android:layout_marginStart="26dp"
-                    android:background="@color/white">
+                    android:background="@color/White">
 
                     <ImageView
                         android:id="@+id/navMobilePic"
@@ -56,7 +56,7 @@
                         android:layout_marginStart="5dp"
                         android:gravity="start|center"
                         android:text="User Name"
-                        android:textColor="@color/white"
+                        android:textColor="@color/White"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -67,7 +67,7 @@
                         android:layout_marginStart="5dp"
                         android:gravity="center|start"
                         android:text="Mobile Name"
-                        android:textColor="@color/white"
+                        android:textColor="@color/White"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -78,7 +78,7 @@
                         android:layout_marginStart="5dp"
                         android:gravity="center|start"
                         android:text="Mobile Name"
-                        android:textColor="@color/white"
+                        android:textColor="@color/White"
                         android:textSize="12sp" />
 
 
@@ -210,7 +210,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="6dp"
-                    android:background="@color/blue" />
+                    android:background="@color/Blue" />
 
                 <Button
                     android:id="@+id/navTotaliserAct"
@@ -257,7 +257,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="6dp"
-                    android:background="@color/blue" />
+                    android:background="@color/Blue" />
 
                 <Button
                     android:id="@+id/navOriginalAct"
@@ -305,7 +305,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="6dp"
-                    android:background="@color/blue" />
+                    android:background="@color/Blue" />
 
 
             </LinearLayout>

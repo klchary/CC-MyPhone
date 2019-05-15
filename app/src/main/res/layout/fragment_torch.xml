@@ -41,7 +41,7 @@
         android:textAllCaps="true"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/flashLayout"
-        android:textColor="@color/white"
+        android:textColor="@color/White"
         android:background="@drawable/round_green"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
         android:layout_marginTop="20dp"
         android:background="@color/Green_Dark"
         android:layout_below="@+id/bntBlink"
-        android:textColor="@color/white"
+        android:textColor="@color/White"
         android:layout_centerHorizontal="true"
         android:layout_width="120dp"
         android:layout_height="60dp" />

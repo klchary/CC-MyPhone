@@ -79,7 +79,7 @@
             android:gravity="center"
             android:text="Scored"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/White" />
 
     </RelativeLayout>
 
@@ -128,7 +128,7 @@
             android:gravity="center"
             android:text="Percentage"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/White" />
 
 
     </RelativeLayout>
@@ -181,7 +181,7 @@
             android:padding="6dp"
             android:text="Difference"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/White" />
 
     </RelativeLayout>
 
@@ -271,7 +271,7 @@
                 android:enabled="false"
                 android:gravity="center"
                 android:hint="Total Bill"
-                android:textColor="@color/black" />
+                android:textColor="@color/Black" />
 
         </LinearLayout>
 
@@ -287,7 +287,7 @@
             android:gravity="center"
             android:text="Amount"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/White" />
 
     </RelativeLayout>
 

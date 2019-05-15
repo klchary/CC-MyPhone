@@ -8,9 +8,10 @@
     <color name="statusTheme">#189203</color>
     <color name="secondaryTheme">#3356F1</color>
 
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-    <color name="blue">#3356F1</color>
+    <color name="White">#FFFFFF</color>
+    <color name="Black">#000000</color>
+    <color name="Blue">#3356F1</color>
+    <color name="Silver">#C0C0C0</color>
 
     <color name="Green_Dark">#288D02</color>
     <color name="Green_Dark_Lite">#39C001</color>
@@ -36,6 +37,11 @@
     <color name="Black_Lite_Dark">#494848</color>
     <color name="Black_Lite">#777675</color>
 
+    <color name="Gray_Dark">#696969</color>
+    <color name="Gray_Dark_Lite">#808080</color>
+    <color name="Gray_Normal">#A9A9A9</color>
+    <color name="Gray_Lite_Dark">#D3D3D3</color>
+    <color name="Gray_Lite">#DCDCDC</color>
 
 
 </resources>
