@@ -41,14 +41,7 @@ public class ConverterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_converter, container, false);
-
-        spinnerFrom = view.findViewById(R.id.spinnerFrom);
-        spinnerTo = view.findViewById(R.id.spinnerTo);
-        spinnerFromiv = view.findViewById(R.id.spinnerFromiv);
-        spinnerToiv = view.findViewById(R.id.spinnerToiv);
-        value1 = view.findViewById(R.id.value1);
-        value2 = view.findViewById(R.id.value2);
-        convertBtn = view.findViewById(R.id.convertBtn);
+        FindAllViews(view);
 
         MM = CM / 10;
         MM = ME / 1000;
@@ -147,6 +140,16 @@ public class ConverterFragment extends Fragment {
 
 
         return view;
+    }
+
+    public void FindAllViews(View view){
+        spinnerFrom = view.findViewById(R.id.spinnerFrom);
+        spinnerTo = view.findViewById(R.id.spinnerTo);
+        spinnerFromiv = view.findViewById(R.id.spinnerFromiv);
+        spinnerToiv = view.findViewById(R.id.spinnerToiv);
+        value1 = view.findViewById(R.id.value1);
+        value2 = view.findViewById(R.id.value2);
+        convertBtn = view.findViewById(R.id.convertBtn);
     }
 
 

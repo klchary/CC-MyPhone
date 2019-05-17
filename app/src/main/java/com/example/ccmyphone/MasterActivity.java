@@ -1,7 +1,9 @@
 package com.example.ccmyphone;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -14,35 +16,52 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.ccmyphone.Models.UserDetails;
 import com.example.ccmyphone.OtherClasses.PermissionsClass;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.ccmyphone.ApplicationConstants.SHARED_PERSISTENT_VALUES;
+import static com.example.ccmyphone.ApplicationConstants.USER_DETAILS;
+
 public class MasterActivity extends AppCompatActivity {
+
+    String TAG = "MasterActivity";
 
     CardView cardMainDevice, cardMainTotaliser, cardMainOriginal;
     ImageView ivCateDevice, ivCateTotaliser, ivCateOriginal;
     Button btnCateDevice, btnCateTotaliser, btnCateOriginal;
+    TextView userName;
 
     public static final int REQUIRED_MULTIPLE_PERMISSIONS = 100;
+
+    SharedPreferences sharedpref;
+    String userSharedDetails;
+    Gson gson = new Gson();
+    UserDetails userDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master);
+        FindAllViews();
 
-        cardMainDevice = findViewById(R.id.cardMainDevice);
-        cardMainTotaliser = findViewById(R.id.cardMainTotaliser);
-        cardMainOriginal = findViewById(R.id.cardMainOriginal);
-        ivCateDevice = findViewById(R.id.ivCateDevice);
-        ivCateTotaliser = findViewById(R.id.ivCateTotaliser);
-        ivCateOriginal = findViewById(R.id.ivCateOriginal);
-        btnCateDevice = findViewById(R.id.btnCateDevice);
-        btnCateTotaliser = findViewById(R.id.btnCateTotaliser);
-        btnCateOriginal = findViewById(R.id.btnCateOriginal);
+        sharedpref = getSharedPreferences(SHARED_PERSISTENT_VALUES, Context.MODE_PRIVATE);
+        userSharedDetails = sharedpref.getString(USER_DETAILS, null);
+        if (userSharedDetails != null) {
+            userDetails = gson.fromJson(userSharedDetails, UserDetails.class);
+        }
+        Log.d(TAG, "userDetails " + userDetails);
 
+        if (userDetails != null) {
+            userName.setText("Hello, " + userDetails.getUserName());
+        } else {
+            userName.setText("Hello, Guest");
+        }
 
         cardMainDevice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,6 +252,19 @@ public class MasterActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void FindAllViews(){
+        cardMainDevice = findViewById(R.id.cardMainDevice);
+        cardMainTotaliser = findViewById(R.id.cardMainTotaliser);
+        cardMainOriginal = findViewById(R.id.cardMainOriginal);
+        ivCateDevice = findViewById(R.id.ivCateDevice);
+        ivCateTotaliser = findViewById(R.id.ivCateTotaliser);
+        ivCateOriginal = findViewById(R.id.ivCateOriginal);
+        btnCateDevice = findViewById(R.id.btnCateDevice);
+        btnCateTotaliser = findViewById(R.id.btnCateTotaliser);
+        btnCateOriginal = findViewById(R.id.btnCateOriginal);
+        userName = findViewById(R.id.userName);
     }
 
 }

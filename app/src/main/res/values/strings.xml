@@ -2,9 +2,11 @@
     <string name="app_name">CC MyPhone</string>
 
     // Activities
-    <string name="MainActivity">MainActivity</string>
+    <string name="MasterActivity">MasterActivity</string>
     <string name="TotaliserActivity">TotaliserActivity</string>
     <string name="OriginalActivity">OriginalActivity</string>
+    <string name="DeviceInfoActivity">DeviceInfoActivity</string>
+    <string name="LoginRegisterActivity">LoginRegisterActivity</string>
 
     // Fragments Device Info
     <string name="GeneralFragment">GeneralFragment</string>
@@ -35,6 +37,10 @@
 
     // Tab Titles Original
     <string name="TorchFragmentTab">Torch</string>
+
+    // Fragments LoginRegister
+    <string name="LoginFragment">LoginFragment</string>
+    <string name="RegisterFragment">RegisterFragment</string>
 
     <string-array name="PercentageEntries">
         <item name="Percentage">Percentage</item>

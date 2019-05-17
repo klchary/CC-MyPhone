@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:gravity="start|center"
-                        android:text="User Name"
+                        android:text=""
                         android:textColor="@color/White"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:gravity="center|start"
-                        android:text="Mobile Name"
+                        android:text=""
                         android:textColor="@color/White"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -77,7 +77,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:gravity="center|start"
-                        android:text="Mobile Name"
+                        android:text=""
                         android:textColor="@color/White"
                         android:textSize="12sp" />
 

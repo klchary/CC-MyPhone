@@ -51,30 +51,7 @@ public class PercentageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_percentage, container, false);
-
-        spinnerPer = view.findViewById(R.id.spinnerPer);
-        ivSpinner = view.findViewById(R.id.ivSpinner);
-        scoredLayout = view.findViewById(R.id.scoredLayout);
-        percentageLayout = view.findViewById(R.id.percentageLayout);
-        incDecLayout = view.findViewById(R.id.incDecLayout);
-        gstLayout = view.findViewById(R.id.gstLayout);
-
-        scoredPercentage = view.findViewById(R.id.scoredPercentage);
-        total1 = view.findViewById(R.id.total1);
-        scoredBtn = view.findViewById(R.id.scoredBtn);
-
-        entryOne = view.findViewById(R.id.entryOne);
-        entryTwo = view.findViewById(R.id.entryTwo);
-        differenceBtn = view.findViewById(R.id.differenceBtn);
-
-        scored = view.findViewById(R.id.scored);
-        total2 = view.findViewById(R.id.total2);
-        percentBtn = view.findViewById(R.id.percentBtn);
-
-        billAmount = view.findViewById(R.id.billAmount);
-        gstTax = view.findViewById(R.id.gstTax);
-        totalBill = view.findViewById(R.id.totalBill);
-        amountBtn = view.findViewById(R.id.amountBtn);
+        FindAllViews(view);
 
         scoredBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,8 +184,32 @@ public class PercentageFragment extends Fragment {
             diffPercent = 0;
         }
         differenceBtn.setText("Difference is :" + difference + "\n" + "Difference Percentage is :" + diffPercent + "%");
+    }
 
+    public void FindAllViews(View view){
+        spinnerPer = view.findViewById(R.id.spinnerPer);
+        ivSpinner = view.findViewById(R.id.ivSpinner);
+        scoredLayout = view.findViewById(R.id.scoredLayout);
+        percentageLayout = view.findViewById(R.id.percentageLayout);
+        incDecLayout = view.findViewById(R.id.incDecLayout);
+        gstLayout = view.findViewById(R.id.gstLayout);
 
+        scoredPercentage = view.findViewById(R.id.scoredPercentage);
+        total1 = view.findViewById(R.id.total1);
+        scoredBtn = view.findViewById(R.id.scoredBtn);
+
+        entryOne = view.findViewById(R.id.entryOne);
+        entryTwo = view.findViewById(R.id.entryTwo);
+        differenceBtn = view.findViewById(R.id.differenceBtn);
+
+        scored = view.findViewById(R.id.scored);
+        total2 = view.findViewById(R.id.total2);
+        percentBtn = view.findViewById(R.id.percentBtn);
+
+        billAmount = view.findViewById(R.id.billAmount);
+        gstTax = view.findViewById(R.id.gstTax);
+        totalBill = view.findViewById(R.id.totalBill);
+        amountBtn = view.findViewById(R.id.amountBtn);
     }
 
 }

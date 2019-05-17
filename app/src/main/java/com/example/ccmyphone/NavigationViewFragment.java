@@ -1,9 +1,13 @@
 package com.example.ccmyphone;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +16,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ccmyphone.Models.UserDetails;
+import com.google.gson.Gson;
+
+import static com.example.ccmyphone.ApplicationConstants.SHARED_PERSISTENT_VALUES;
+import static com.example.ccmyphone.ApplicationConstants.USER_DETAILS;
 import static com.example.ccmyphone.DeviceInfoActivity.deviceDrawerLayout;
 import static com.example.ccmyphone.DeviceInfoActivity.deviceInfoActive;
 import static com.example.ccmyphone.DeviceInfoActivity.viewPagerDevice;
@@ -26,6 +35,8 @@ import static com.example.ccmyphone.TotaliserActivity.totaliserDrawerLayout;
  * A simple {@link Fragment} subclass.
  */
 public class NavigationViewFragment extends Fragment implements View.OnClickListener {
+
+    String TAG = "NavigationViewFragment";
 
     ImageView navMobilePic;
     TextView navUserName, navUserMobile, navUserMobileDes;
@@ -45,6 +56,12 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
     LinearLayout originalCateLayout;
     Button navTorch;
 
+    // For all Activities
+    SharedPreferences sharedpref;
+    String userSharedDetails;
+    Gson gson = new Gson();
+    UserDetails userDetails;
+
 
     public NavigationViewFragment() {
         // Required empty public constructor
@@ -56,36 +73,39 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_navigation_view, container, false);
+        FindAllViews(view);
 
-        navPhoneAct = view.findViewById(R.id.navPhoneAct);
-        phoneCateLayout = view.findViewById(R.id.phoneCateLayout);
-        navGeneral = view.findViewById(R.id.navGeneral);
-        navMemory = view.findViewById(R.id.navMemory);
-        navBattery = view.findViewById(R.id.navBattery);
-        navNetwork = view.findViewById(R.id.navNetwork);
-        navInApps = view.findViewById(R.id.navInApps);
         navGeneral.setOnClickListener(this);
         navMemory.setOnClickListener(this);
         navBattery.setOnClickListener(this);
         navNetwork.setOnClickListener(this);
         navInApps.setOnClickListener(this);
 
-        navTotaliserAct = view.findViewById(R.id.navTotaliserAct);
-        totaliserCateLayout = view.findViewById(R.id.totaliserCateLayout);
-        navGenCalculator = view.findViewById(R.id.navGenCalculator);
+        sharedpref = getActivity().getSharedPreferences(SHARED_PERSISTENT_VALUES, Context.MODE_PRIVATE);
+        userSharedDetails = sharedpref.getString(USER_DETAILS, null);
+        if (userSharedDetails != null) {
+            userDetails = gson.fromJson(userSharedDetails, UserDetails.class);
+        }
+        Log.d(TAG, "userDetails " + userDetails);
 
-        navOriginalAct = view.findViewById(R.id.navOriginalAct);
-        originalCateLayout = view.findViewById(R.id.originalCateLayout);
-        navTorch = view.findViewById(R.id.navTorch);
+        if (userDetails != null) {
+            navUserName.setText(userDetails.getUserName());
+            navUserMobile.setText(userDetails.getUserMobile());
+            navUserMobileDes.setText(Build.MODEL);
+        } else {
+            navUserName.setText("Guest");
+            navUserMobile.setText("");
+            navUserMobileDes.setText(Build.MODEL);
+        }
 
         phoneCateLayout.setVisibility(View.GONE);
         navPhoneAct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (deviceInfoActive){
+                if (deviceInfoActive) {
                     phoneCateLayout.setVisibility(View.VISIBLE);
                     navPhoneAct.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_mobile, 0, R.drawable.ic_minus, 0);
-                }else {
+                } else {
                     phoneCateLayout.setVisibility(View.GONE);
                     navPhoneAct.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_mobile, 0, R.drawable.ic_plus, 0);
                     Intent intent = new Intent(getActivity(), DeviceInfoActivity.class);
@@ -93,7 +113,6 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
                     startActivity(intent);
                     closerDrawers();
                 }
-
             }
         });
 
@@ -101,10 +120,10 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
         navTotaliserAct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (totaliserActive){
+                if (totaliserActive) {
                     totaliserCateLayout.setVisibility(View.VISIBLE);
                     navTotaliserAct.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_mobile, 0, R.drawable.ic_minus, 0);
-                }else {
+                } else {
                     totaliserCateLayout.setVisibility(View.GONE);
                     navTotaliserAct.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_mobile, 0, R.drawable.ic_plus, 0);
                     Intent intent = new Intent(getActivity(), TotaliserActivity.class);
@@ -120,10 +139,10 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
         navOriginalAct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (originalActive){
+                if (originalActive) {
                     originalCateLayout.setVisibility(View.VISIBLE);
                     navOriginalAct.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_mobile, 0, R.drawable.ic_minus, 0);
-                }else {
+                } else {
                     originalCateLayout.setVisibility(View.GONE);
                     navOriginalAct.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_mobile, 0, R.drawable.ic_plus, 0);
                     Intent intent = new Intent(getActivity(), OriginalActivity.class);
@@ -136,13 +155,12 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
         });
 
 
-
-        return  view;
+        return view;
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.navGeneral:
                 viewPagerDevice.setCurrentItem(0);
                 closerDrawers();
@@ -172,13 +190,37 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
         }
     }
 
-    public void closerDrawers (){
-        if (deviceInfoActive){
+    public void closerDrawers() {
+        if (deviceInfoActive) {
             deviceDrawerLayout.closeDrawers();
         } else if (totaliserActive) {
             totaliserDrawerLayout.closeDrawers();
-        }else if (originalActive){
+        } else if (originalActive) {
             originalDrawerLayout.closeDrawers();
         }
     }
+
+    private void FindAllViews(View view) {
+        navPhoneAct = view.findViewById(R.id.navPhoneAct);
+        phoneCateLayout = view.findViewById(R.id.phoneCateLayout);
+        navGeneral = view.findViewById(R.id.navGeneral);
+        navMemory = view.findViewById(R.id.navMemory);
+        navBattery = view.findViewById(R.id.navBattery);
+        navNetwork = view.findViewById(R.id.navNetwork);
+        navInApps = view.findViewById(R.id.navInApps);
+
+        navTotaliserAct = view.findViewById(R.id.navTotaliserAct);
+        totaliserCateLayout = view.findViewById(R.id.totaliserCateLayout);
+        navGenCalculator = view.findViewById(R.id.navGenCalculator);
+
+        navOriginalAct = view.findViewById(R.id.navOriginalAct);
+        originalCateLayout = view.findViewById(R.id.originalCateLayout);
+        navTorch = view.findViewById(R.id.navTorch);
+
+        navMobilePic = view.findViewById(R.id.navMobilePic);
+        navUserName = view.findViewById(R.id.navUserName);
+        navUserMobile = view.findViewById(R.id.navUserMobile);
+        navUserMobileDes = view.findViewById(R.id.navUserMobileDes);
+    }
+
 }

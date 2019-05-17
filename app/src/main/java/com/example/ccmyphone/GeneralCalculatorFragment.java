@@ -36,28 +36,7 @@ public class GeneralCalculatorFragment extends Fragment implements View.OnClickL
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_general_calculator, container, false);
-
-        calResultPanel = view.findViewById(R.id.calResultPanel);
-        calEntryPanel = view.findViewById(R.id.calEntryPanel);
-
-        numberZero = view.findViewById(R.id.numberZero);
-        numberOne = view.findViewById(R.id.numberOne);
-        numberTwo = view.findViewById(R.id.numberTwo);
-        numberThree = view.findViewById(R.id.numberThree);
-        numberFour = view.findViewById(R.id.numberFour);
-        numberFive = view.findViewById(R.id.numberFive);
-        numberSix = view.findViewById(R.id.numberSix);
-        numberSeven = view.findViewById(R.id.numberSeven);
-        numberEight = view.findViewById(R.id.numberEight);
-        numberNine = view.findViewById(R.id.numberNine);
-
-        btnDot = view.findViewById(R.id.btnDot);
-        btnEqual = view.findViewById(R.id.btnEqual);
-        btnPlus = view.findViewById(R.id.btnPlus);
-        btnMinus = view.findViewById(R.id.btnMinus);
-        btnCross = view.findViewById(R.id.btnCross);
-        btnDivide = view.findViewById(R.id.btnDivide);
-        btnClear = view.findViewById(R.id.btnClear);
+        FindAllViews(view);
 
         numberZero.setOnClickListener(this);
         numberOne.setOnClickListener(this);
@@ -185,4 +164,29 @@ public class GeneralCalculatorFragment extends Fragment implements View.OnClickL
 
         }
     }
+
+    public void FindAllViews(View view){
+        calResultPanel = view.findViewById(R.id.calResultPanel);
+        calEntryPanel = view.findViewById(R.id.calEntryPanel);
+
+        numberZero = view.findViewById(R.id.numberZero);
+        numberOne = view.findViewById(R.id.numberOne);
+        numberTwo = view.findViewById(R.id.numberTwo);
+        numberThree = view.findViewById(R.id.numberThree);
+        numberFour = view.findViewById(R.id.numberFour);
+        numberFive = view.findViewById(R.id.numberFive);
+        numberSix = view.findViewById(R.id.numberSix);
+        numberSeven = view.findViewById(R.id.numberSeven);
+        numberEight = view.findViewById(R.id.numberEight);
+        numberNine = view.findViewById(R.id.numberNine);
+
+        btnDot = view.findViewById(R.id.btnDot);
+        btnEqual = view.findViewById(R.id.btnEqual);
+        btnPlus = view.findViewById(R.id.btnPlus);
+        btnMinus = view.findViewById(R.id.btnMinus);
+        btnCross = view.findViewById(R.id.btnCross);
+        btnDivide = view.findViewById(R.id.btnDivide);
+        btnClear = view.findViewById(R.id.btnClear);
+    }
+
 }
