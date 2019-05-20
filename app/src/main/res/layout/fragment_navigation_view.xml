@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="260dp"
     android:layout_height="match_parent"
     android:background="@color/White"
-    android:orientation="vertical"
     tools:context=".NavigationViewFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/logoutUser"
         android:scrollbars="none">
 
         <RelativeLayout
@@ -22,13 +22,13 @@
                 android:layout_height="wrap_content"
                 android:background="@color/Blue"
                 android:gravity="center_vertical"
-                android:minHeight="200dp">
+                android:minHeight="200dp"
+                android:padding="10dp">
 
                 <RelativeLayout
                     android:id="@+id/NHUserPicLayout"
                     android:layout_width="80dp"
                     android:layout_height="130dp"
-                    android:layout_marginStart="26dp"
                     android:background="@color/White">
 
                     <ImageView
@@ -36,8 +36,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
-                        android:contentDescription="TODO"
-                        android:src="@mipmap/ic_launcher" />
+                        android:background="@color/LauncherBg"
+                        android:contentDescription="appImage"
+                        android:src="@drawable/app_image" />
 
                 </RelativeLayout>
 
@@ -57,7 +58,7 @@
                         android:gravity="start|center"
                         android:text=""
                         android:textColor="@color/White"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -96,15 +97,27 @@
                 android:padding="6dp">
 
                 <Button
+                    android:id="@+id/navAdminPanel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_mobile"
+                    android:drawablePadding="10dp"
+                    android:gravity="start|center"
+                    android:text="Admin Panel"
+                    android:textAllCaps="false"
+                    android:textColor="#383838" />
+
+                <Button
                     android:id="@+id/navPhoneAct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:gravity="start|center"
-                    android:text="Mobile Details"
+                    android:drawableStart="@drawable/ic_mobile"
                     android:drawableEnd="@drawable/ic_plus"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@drawable/ic_mobile"
+                    android:gravity="start|center"
+                    android:text="Mobile Details"
                     android:textAllCaps="false"
                     android:textColor="#383838" />
 
@@ -217,10 +230,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:gravity="start|center"
+                    android:drawableStart="@drawable/ic_mobile"
                     android:drawableEnd="@drawable/ic_plus"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@drawable/ic_mobile"
+                    android:gravity="start|center"
                     android:text="Totaliser"
                     android:textAllCaps="false"
                     android:textColor="#383838" />
@@ -264,10 +277,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:gravity="start|center"
+                    android:drawableStart="@drawable/ic_mobile"
                     android:drawableEnd="@drawable/ic_plus"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@drawable/ic_mobile"
+                    android:gravity="start|center"
                     android:text="Original"
                     android:textAllCaps="false"
                     android:textColor="#383838" />
@@ -284,8 +297,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:gravity="center|start"
                         android:drawableStart="@drawable/ic_flare"
+                        android:gravity="center|start"
                         android:maxHeight="40dp"
                         android:minHeight="30dp"
                         android:text="Torch"
@@ -314,4 +327,16 @@
 
     </ScrollView>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/logoutUser"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/Blue"
+        android:text="Logout"
+        android:textAllCaps="true"
+        android:textColor="@color/White"
+        android:textSize="14sp"
+        android:textStyle="normal" />
+
+</RelativeLayout>

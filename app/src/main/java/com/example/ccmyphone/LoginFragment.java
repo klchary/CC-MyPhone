@@ -4,6 +4,7 @@ package com.example.ccmyphone;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -20,18 +21,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ccmyphone.Models.UserDetails;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
-import static com.example.ccmyphone.ApplicationConstants.IS_LOGGED_IN;
+import java.util.Date;
+
 import static com.example.ccmyphone.ApplicationConstants.SHARED_PERSISTENT_VALUES;
-import static com.example.ccmyphone.ApplicationConstants.TRUE;
 import static com.example.ccmyphone.ApplicationConstants.USER_DETAILS;
+import static com.example.ccmyphone.ApplicationConstants.databaseRef_Users;
+import static com.example.ccmyphone.ApplicationConstants.userDetails_All;
 
 
 /**
@@ -46,7 +49,7 @@ public class LoginFragment extends Fragment {
     TextInputLayout tilPassword, tilMobile;
     EditText etMobile, etPassword;
     Button btnLogin;
-    TextView toRegister;
+    TextView toRegister, continueGuest;
 
     private DatabaseReference mDatabase;
 
@@ -73,7 +76,17 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS");
+        continueGuest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MasterActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
+        mDatabase = databaseRef_Users;
+        final Date date = new Date();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,19 +107,34 @@ public class LoginFragment extends Fragment {
                                     String userMobileData = dataSnapshot.child("userMobile").getValue().toString();
                                     String userPasswordData = dataSnapshot.child("password").getValue().toString();
                                     String userNameData = dataSnapshot.child("userName").getValue().toString();
+                                    String userRegTimeData = dataSnapshot.child("registrationTime").getValue().toString();
                                     Log.d(TAG, "UserData " + userMobileData + " " + userPasswordData);
                                     if (userMobile.equalsIgnoreCase(userMobileData) && password.equalsIgnoreCase(userPasswordData)) {
-                                        Intent intent = new Intent(getActivity(), MasterActivity.class);
-                                        UserDetails userDetails = new UserDetails();
-                                        userDetails.setUserMobile(userPasswordData);
-                                        userDetails.setUserName(userNameData);
+                                        userDetails_All.setUserMobile(userMobileData);
+                                        userDetails_All.setUserName(userNameData);
+                                        userDetails_All.setPassword(userPasswordData);
+                                        userDetails_All.setLoggedIn(true);
+                                        userDetails_All.setActive(true);
+                                        userDetails_All.setDeviceName((Build.MODEL));
+                                        userDetails_All.setLoginTime(date.toString());
+                                        userDetails_All.setRegistrationTime(userRegTimeData);
+                                        userData.setValue(userDetails_All).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d(TAG, "Login Details Successfully Inserted");
+                                                } else {
+                                                    Log.d(TAG, "Login Details Not Inserted");
+                                                }
+                                            }
+                                        });
                                         userPreferences = getActivity().getSharedPreferences(SHARED_PERSISTENT_VALUES, Context.MODE_PRIVATE);
                                         editor = userPreferences.edit();
                                         Gson gson = new Gson();
-                                        String userDetailsStr = gson.toJson(userDetails);
+                                        String userDetailsStr = gson.toJson(userDetails_All);
                                         editor.putString(USER_DETAILS, userDetailsStr);
-                                        editor.putBoolean(IS_LOGGED_IN, TRUE);
                                         editor.apply();
+                                        Intent intent = new Intent(getActivity(), MasterActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
                                     } else if (!password.equalsIgnoreCase(userPasswordData)) {
@@ -134,7 +162,7 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    public void FindAllViews(View view){
+    public void FindAllViews(View view) {
         logoImageCardLay = view.findViewById(R.id.logoImageCardLay);
         logoimage = view.findViewById(R.id.logoimage);
         tilPassword = view.findViewById(R.id.tilPassword);
@@ -143,6 +171,7 @@ public class LoginFragment extends Fragment {
         etPassword = view.findViewById(R.id.etPassword);
         btnLogin = view.findViewById(R.id.btnLogin);
         toRegister = view.findViewById(R.id.toRegister);
+        continueGuest = view.findViewById(R.id.continueGuest);
     }
 
 }

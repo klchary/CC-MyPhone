@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,10 +18,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ccmyphone.Models.UserDetails;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+
+import java.util.Map;
 
 import static com.example.ccmyphone.ApplicationConstants.SHARED_PERSISTENT_VALUES;
 import static com.example.ccmyphone.ApplicationConstants.USER_DETAILS;
+import static com.example.ccmyphone.ApplicationConstants.databaseRef_Users;
 import static com.example.ccmyphone.DeviceInfoActivity.deviceDrawerLayout;
 import static com.example.ccmyphone.DeviceInfoActivity.deviceInfoActive;
 import static com.example.ccmyphone.DeviceInfoActivity.viewPagerDevice;
@@ -40,6 +50,7 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
 
     ImageView navMobilePic;
     TextView navUserName, navUserMobile, navUserMobileDes;
+    Button logoutUser;
 
     // Activity DeviceInfo
     Button navPhoneAct;
@@ -56,12 +67,14 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
     LinearLayout originalCateLayout;
     Button navTorch;
 
+    // Activity Admin Panel
+    Button navAdminPanel;
+
     // For all Activities
     SharedPreferences sharedpref;
     String userSharedDetails;
     Gson gson = new Gson();
     UserDetails userDetails;
-
 
     public NavigationViewFragment() {
         // Required empty public constructor
@@ -89,14 +102,34 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
         Log.d(TAG, "userDetails " + userDetails);
 
         if (userDetails != null) {
+            navUserMobile.setVisibility(View.VISIBLE);
             navUserName.setText(userDetails.getUserName());
             navUserMobile.setText(userDetails.getUserMobile());
             navUserMobileDes.setText(Build.MODEL);
+            logoutUser.setText("LOGOUT");
+            if (userDetails.getUserMobile().equalsIgnoreCase("9581474449")) {
+                navAdminPanel.setVisibility(View.VISIBLE);
+            } else {
+                navAdminPanel.setVisibility(View.GONE);
+            }
         } else {
+            navUserMobile.setVisibility(View.GONE);
+            navAdminPanel.setVisibility(View.GONE);
             navUserName.setText("Guest");
             navUserMobile.setText("");
             navUserMobileDes.setText(Build.MODEL);
+            logoutUser.setText("LOGIN");
         }
+
+        navAdminPanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AdminPanelActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                closerDrawers();
+            }
+        });
 
         phoneCateLayout.setVisibility(View.GONE);
         navPhoneAct.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +142,7 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
                     phoneCateLayout.setVisibility(View.GONE);
                     navPhoneAct.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_mobile, 0, R.drawable.ic_plus, 0);
                     Intent intent = new Intent(getActivity(), DeviceInfoActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     closerDrawers();
                 }
@@ -127,7 +160,7 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
                     totaliserCateLayout.setVisibility(View.GONE);
                     navTotaliserAct.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_mobile, 0, R.drawable.ic_plus, 0);
                     Intent intent = new Intent(getActivity(), TotaliserActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     closerDrawers();
                 }
@@ -146,11 +179,42 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
                     originalCateLayout.setVisibility(View.GONE);
                     navOriginalAct.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_mobile, 0, R.drawable.ic_plus, 0);
                     Intent intent = new Intent(getActivity(), OriginalActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     closerDrawers();
                 }
 
+            }
+        });
+
+        final String userMobileStr = userDetails.getUserMobile();
+        final DatabaseReference database = databaseRef_Users.child(userMobileStr);
+
+        logoutUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (userDetails != null && logoutUser.getText().toString().equalsIgnoreCase("Logout")) {
+                    Map<String, ?> values = sharedpref.getAll();
+                    Log.d(TAG, "pref" + values);
+                    for (Map.Entry entry : values.entrySet()) {
+                        Log.d(TAG, "pref" + entry.getKey().toString());
+
+                        SharedPreferences.Editor editor = sharedpref.edit();
+                        editor.remove(entry.getKey().toString());
+                        editor.apply();
+
+                        database.child("loggedIn").setValue(false);
+                        database.child("active").setValue(false);
+
+                        Intent intent = new Intent(getActivity(), LoginRegisterActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                } else {
+                    Intent intent = new Intent(getActivity(), LoginRegisterActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -221,6 +285,10 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
         navUserName = view.findViewById(R.id.navUserName);
         navUserMobile = view.findViewById(R.id.navUserMobile);
         navUserMobileDes = view.findViewById(R.id.navUserMobileDes);
+
+        navAdminPanel = view.findViewById(R.id.navAdminPanel);
+
+        logoutUser = view.findViewById(R.id.logoutUser);
     }
 
 }

@@ -26,11 +26,13 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/CustomTheme">
+        <activity android:name=".AdminPanelActivity"></activity>
         <activity
             android:name=".FlashScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -49,6 +51,14 @@
         <activity
             android:name=".TotaliserActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2479880548676052~2800021293" />
     </application>
 
 </manifest>

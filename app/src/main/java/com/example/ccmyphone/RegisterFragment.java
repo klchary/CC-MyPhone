@@ -3,6 +3,7 @@ package com.example.ccmyphone;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -25,19 +26,24 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import static com.example.ccmyphone.ApplicationConstants.ALREADY_REG_ERROR;
 import static com.example.ccmyphone.ApplicationConstants.OK;
 import static com.example.ccmyphone.ApplicationConstants.REG_ERROR;
 import static com.example.ccmyphone.ApplicationConstants.REG_SUCCESS;
 import static com.example.ccmyphone.ApplicationConstants.REG_TO_LOGIN;
+import static com.example.ccmyphone.ApplicationConstants.databaseRef;
+import static com.example.ccmyphone.ApplicationConstants.databaseRef_Users;
 
 
 /**
@@ -55,6 +61,7 @@ public class RegisterFragment extends Fragment {
     TextView toLogin;
 
     private DatabaseReference mDatabase;
+    UserDetails userDetails;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -67,8 +74,7 @@ public class RegisterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
         FindAllViews(view);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mDatabase = database.getReference();
+        mDatabase = databaseRef_Users;
 
         toLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +85,9 @@ public class RegisterFragment extends Fragment {
             }
         });
 
+        Date date = new Date();
+        final String dateandTime = date.toString();
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,10 +97,15 @@ public class RegisterFragment extends Fragment {
                 String PasswordStr = etPassword.getText().toString().trim();
                 String ConfirmPasswordStr = etConfirmPassword.getText().toString().trim();
 
-                final UserDetails userDetails = new UserDetails();
+                userDetails = new UserDetails();
                 userDetails.setUserName(UserNameStr);
                 userDetails.setUserMobile(MobileNoStr);
                 userDetails.setPassword(PasswordStr);
+                userDetails.setRegistrationTime(dateandTime);
+                userDetails.setDeviceName(Build.MODEL);
+                userDetails.setActive(false);
+                userDetails.setLoggedIn(false);
+                userDetails.setLoginTime("");
 
 //                HashMap<String, String> userDetailsMap = new HashMap<String, String>();
 //                userDetailsMap.put("userName", UserNameStr);
@@ -104,7 +118,7 @@ public class RegisterFragment extends Fragment {
                         if (dataSnapshot.hasChild(MobileNoStr)) {
                             AlertDialogRegistration(ALREADY_REG_ERROR);
                         } else {
-                            mDatabase.child("USERS").child(MobileNoStr).setValue(userDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            mDatabase.child(MobileNoStr).setValue(userDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {

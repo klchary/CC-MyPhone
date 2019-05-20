@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
@@ -20,11 +20,23 @@ import android.widget.TextView;
 
 import com.example.ccmyphone.Models.UserDetails;
 import com.example.ccmyphone.OtherClasses.PermissionsClass;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
+import static com.example.ccmyphone.ApplicationConstants.ADMOB_ADUNIT_ID_GUEST_USER_BANNER;
+import static com.example.ccmyphone.ApplicationConstants.ADMOB_ADUNIT_ID_GUEST_USER_FULL;
+import static com.example.ccmyphone.ApplicationConstants.ADMOB_APPID;
 import static com.example.ccmyphone.ApplicationConstants.SHARED_PERSISTENT_VALUES;
 import static com.example.ccmyphone.ApplicationConstants.USER_DETAILS;
 
@@ -44,11 +56,26 @@ public class MasterActivity extends AppCompatActivity {
     Gson gson = new Gson();
     UserDetails userDetails;
 
+    AdView masterAcAdBanner;
+    private InterstitialAd mInterstitialAd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master);
         FindAllViews();
+
+        MobileAds.initialize(this, ADMOB_APPID);
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.SMART_BANNER);
+        adView.setAdUnitId(ADMOB_ADUNIT_ID_GUEST_USER_BANNER);
+        AdRequest adRequest = new AdRequest.Builder().build();
+//        masterAcAdBanner.loadAd(adRequest);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(ADMOB_ADUNIT_ID_GUEST_USER_FULL);
+        AdRequest adRequestFull = new AdRequest.Builder().addTestDevice("deviceid").build();
+//        mInterstitialAd.loadAd(adRequestFull);
 
         sharedpref = getSharedPreferences(SHARED_PERSISTENT_VALUES, Context.MODE_PRIVATE);
         userSharedDetails = sharedpref.getString(USER_DETAILS, null);
@@ -62,6 +89,17 @@ public class MasterActivity extends AppCompatActivity {
         } else {
             userName.setText("Hello, Guest");
         }
+
+        userName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
+            }
+        });
 
         cardMainDevice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +175,131 @@ public class MasterActivity extends AppCompatActivity {
 
         checkAndRequestPermissions();
 
+        masterAcAdBanner.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+                Log.d(TAG, "AdMob BannerAd Loaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+                if (errorCode == 0) {
+                    Log.d(TAG, "ERROR_CODE_INTERNAL_ERROR - " +
+                            "Something happened internally; for instance, an invalid response was received from the ad server. " + errorCode);
+                } else if (errorCode == 1) {
+                    Log.d(TAG, "ERROR_CODE_INVALID_REQUEST - " +
+                            "The ad request was invalid; for instance, the ad unit ID was incorrect. " + errorCode);
+                } else if (errorCode == 2) {
+                    Log.d(TAG, "ERROR_CODE_NETWORK_ERROR - " +
+                            "The ad request was unsuccessful due to network connectivity. " + errorCode);
+                } else if (errorCode == 3) {
+                    Log.d(TAG, "ERROR_CODE_NO_FILL - " +
+                            "The ad request was successful, but no ad was returned due to lack of ad inventory. " + errorCode);
+                }
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+                Log.d(TAG, "User Clicked BannerAd");
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+                Log.d(TAG, "User Clicked BannerAd and Opened another App");
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+                Log.d(TAG, "User Closed BannerAd");
+            }
+        });
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+                mInterstitialAd.show();
+                Log.d(TAG, "AdMob BannerAd Loaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+                if (errorCode == 0) {
+                    Log.d(TAG, "ERROR_CODE_INTERNAL_ERROR - " +
+                            "Something happened internally; for instance, an invalid response was received from the ad server. " + errorCode);
+                } else if (errorCode == 1) {
+                    Log.d(TAG, "ERROR_CODE_INVALID_REQUEST - " +
+                            "The ad request was invalid; for instance, the ad unit ID was incorrect. " + errorCode);
+                } else if (errorCode == 2) {
+                    Log.d(TAG, "ERROR_CODE_NETWORK_ERROR - " +
+                            "The ad request was unsuccessful due to network connectivity. " + errorCode);
+                } else if (errorCode == 3) {
+                    Log.d(TAG, "ERROR_CODE_NO_FILL - " +
+                            "The ad request was successful, but no ad was returned due to lack of ad inventory. " + errorCode);
+                }
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+                Log.d(TAG, "User Clicked BannerAd");
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+                Log.d(TAG, "User Clicked BannerAd and Opened another App");
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the interstitial ad is closed.
+                Log.d(TAG, "User Closed BannerAd");
+            }
+        });
+
+    }
+
+    @Override
+    protected void onPause() {
+        if (masterAcAdBanner != null) {
+            masterAcAdBanner.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        if (masterAcAdBanner != null) {
+            masterAcAdBanner.resume();
+        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (masterAcAdBanner != null) {
+            masterAcAdBanner.destroy();
+        }
+        super.onDestroy();
     }
 
     public void RequestPermissions() {
@@ -254,7 +417,7 @@ public class MasterActivity extends AppCompatActivity {
         }
     }
 
-    public void FindAllViews(){
+    public void FindAllViews() {
         cardMainDevice = findViewById(R.id.cardMainDevice);
         cardMainTotaliser = findViewById(R.id.cardMainTotaliser);
         cardMainOriginal = findViewById(R.id.cardMainOriginal);
@@ -265,6 +428,8 @@ public class MasterActivity extends AppCompatActivity {
         btnCateTotaliser = findViewById(R.id.btnCateTotaliser);
         btnCateOriginal = findViewById(R.id.btnCateOriginal);
         userName = findViewById(R.id.userName);
+
+        masterAcAdBanner = findViewById(R.id.masterAcAdBanner);
     }
 
 }

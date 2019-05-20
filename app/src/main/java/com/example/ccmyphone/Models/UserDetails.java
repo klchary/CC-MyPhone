@@ -5,6 +5,12 @@ public class UserDetails {
     private String userName;
     private String password;
     private String userMobile;
+    private boolean isLoggedIn;
+    private boolean isActive;
+    private String registrationTime;
+    private String loginTime;
+    private String deviceName;
+
 
     public String getUserName() {
         return userName;
@@ -28,5 +34,45 @@ public class UserDetails {
 
     public void setUserMobile(String userMobile) {
         this.userMobile = userMobile;
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public String getRegistrationTime() {
+        return registrationTime;
+    }
+
+    public void setRegistrationTime(String registrationTime) {
+        this.registrationTime = registrationTime;
+    }
+
+    public String getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(String loginTime) {
+        this.loginTime = loginTime;
+    }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
     }
 }
