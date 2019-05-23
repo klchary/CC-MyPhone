@@ -5,10 +5,12 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="primaryTheme">#6FD666</color>
-    <color name="statusTheme">#189203</color>
+    <color name="statusTheme">#137902</color>
     <color name="secondaryTheme">#3356F1</color>
 
     <color name="LauncherBg">#FFF400</color>
+    <color name="Background">#22b14c</color>
+    <color name="Background2">#66FA91</color>
 
     <color name="White">#FFFFFF</color>
     <color name="Black">#000000</color>

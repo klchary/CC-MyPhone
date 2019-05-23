@@ -4,20 +4,27 @@ package com.example.ccmyphone;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,11 +37,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.Date;
+import java.util.Objects;
 
 import static com.example.ccmyphone.ApplicationConstants.SHARED_PERSISTENT_VALUES;
 import static com.example.ccmyphone.ApplicationConstants.USER_DETAILS;
-import static com.example.ccmyphone.ApplicationConstants.databaseRef_Users;
-import static com.example.ccmyphone.ApplicationConstants.userDetails_All;
+import static com.example.ccmyphone.ApplicationConstants.DATABASE_REF_USERS;
+import static com.example.ccmyphone.ApplicationConstants.USER_DETAILS_ALL;
 
 
 /**
@@ -56,6 +64,8 @@ public class LoginFragment extends Fragment {
     SharedPreferences userPreferences;
     SharedPreferences.Editor editor;
 
+    RelativeLayout loginFrag_layout;
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -64,14 +74,26 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        final View view = inflater.inflate(R.layout.fragment_login, container, false);
         FindAllViews(view);
+
+        GradientDrawable gradientDrawable = new GradientDrawable(
+                GradientDrawable.Orientation.BL_TR,
+                new int[]{ContextCompat.getColor(getActivity(), R.color.Black),
+                        ContextCompat.getColor(getActivity(), R.color.Blue),
+                        ContextCompat.getColor(getActivity(), R.color.Red_Dark),
+                        ContextCompat.getColor(getActivity(), R.color.Silver),
+                        ContextCompat.getColor(getActivity(), R.color.Gray_Dark),
+                        ContextCompat.getColor(getActivity(), R.color.White)});
+        loginFrag_layout = view.findViewById(R.id.loginFrag_layout);
+//        loginFrag_layout.setBackground(gradientDrawable);
 
         toRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 RegisterFragment registerFragment = new RegisterFragment();
+                fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
                 fragmentTransaction.replace(R.id.LoginRegisterLayout, registerFragment).addToBackStack(null).commit();
             }
         });
@@ -85,7 +107,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        mDatabase = databaseRef_Users;
+        mDatabase = DATABASE_REF_USERS;
         final Date date = new Date();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -110,15 +132,15 @@ public class LoginFragment extends Fragment {
                                     String userRegTimeData = dataSnapshot.child("registrationTime").getValue().toString();
                                     Log.d(TAG, "UserData " + userMobileData + " " + userPasswordData);
                                     if (userMobile.equalsIgnoreCase(userMobileData) && password.equalsIgnoreCase(userPasswordData)) {
-                                        userDetails_All.setUserMobile(userMobileData);
-                                        userDetails_All.setUserName(userNameData);
-                                        userDetails_All.setPassword(userPasswordData);
-                                        userDetails_All.setLoggedIn(true);
-                                        userDetails_All.setActive(true);
-                                        userDetails_All.setDeviceName((Build.MODEL));
-                                        userDetails_All.setLoginTime(date.toString());
-                                        userDetails_All.setRegistrationTime(userRegTimeData);
-                                        userData.setValue(userDetails_All).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        USER_DETAILS_ALL.setUserMobile(userMobileData);
+                                        USER_DETAILS_ALL.setUserName(userNameData);
+                                        USER_DETAILS_ALL.setPassword(userPasswordData);
+                                        USER_DETAILS_ALL.setLoggedIn(true);
+                                        USER_DETAILS_ALL.setActive(true);
+                                        USER_DETAILS_ALL.setDeviceName((Build.MODEL));
+                                        USER_DETAILS_ALL.setLoginTime(date.toString());
+                                        USER_DETAILS_ALL.setRegistrationTime(userRegTimeData);
+                                        userData.setValue(USER_DETAILS_ALL).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
@@ -131,7 +153,7 @@ public class LoginFragment extends Fragment {
                                         userPreferences = getActivity().getSharedPreferences(SHARED_PERSISTENT_VALUES, Context.MODE_PRIVATE);
                                         editor = userPreferences.edit();
                                         Gson gson = new Gson();
-                                        String userDetailsStr = gson.toJson(userDetails_All);
+                                        String userDetailsStr = gson.toJson(USER_DETAILS_ALL);
                                         editor.putString(USER_DETAILS, userDetailsStr);
                                         editor.apply();
                                         Intent intent = new Intent(getActivity(), MasterActivity.class);

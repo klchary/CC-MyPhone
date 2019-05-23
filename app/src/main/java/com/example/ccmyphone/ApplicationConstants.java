@@ -8,19 +8,23 @@ public interface ApplicationConstants {
 
     String APPNAME = "CC MyPhone";
 
-    UserDetails userDetails_All = new UserDetails();
+    UserDetails USER_DETAILS_ALL = new UserDetails();
 
     String FIREBASE_PROJECT_NUMBER = "610100917097";
     String FIREBASE_URL = "https://cc-myphone.firebaseio.com";
     String FIREBASE_PROJECT_ID = "cc-myphone";
 
-    DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference databaseRef_Users = FirebaseDatabase.getInstance().getReference().child("USERS");
+    DatabaseReference DATABASE_REF = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference DATABASE_REF_USERS = FirebaseDatabase.getInstance().getReference().child("USERS");
 
     String ADMOB_APPID = "ca-app-pub-2479880548676052~2800021293";
     String ADMOB_ADUNIT_ID_GUEST_USER_BANNER = "ca-app-pub-2479880548676052/9441930191";
     String ADMOB_ADUNIT_ID_GUEST_USER_FULL = "ca-app-pub-2479880548676052/2842407416";
     String ADMOB_TESTUNIT_ID = "ca-app-pub-3940256099942544/6300978111";
+
+    String APPID = "2366302220";
+    String ADUNIT_ID_FULL = "2366300712";
+    String ADUNIT_ID_BANNER = "2366329210";
 
     boolean TRUE = true;
     boolean FALSE = false;

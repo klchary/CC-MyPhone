@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,31 +18,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ccmyphone.Models.UserDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 import static com.example.ccmyphone.ApplicationConstants.ALREADY_REG_ERROR;
 import static com.example.ccmyphone.ApplicationConstants.OK;
 import static com.example.ccmyphone.ApplicationConstants.REG_ERROR;
 import static com.example.ccmyphone.ApplicationConstants.REG_SUCCESS;
 import static com.example.ccmyphone.ApplicationConstants.REG_TO_LOGIN;
-import static com.example.ccmyphone.ApplicationConstants.databaseRef;
-import static com.example.ccmyphone.ApplicationConstants.databaseRef_Users;
+import static com.example.ccmyphone.ApplicationConstants.DATABASE_REF_USERS;
 
 
 /**
@@ -74,13 +65,14 @@ public class RegisterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
         FindAllViews(view);
 
-        mDatabase = databaseRef_Users;
+        mDatabase = DATABASE_REF_USERS;
 
         toLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 LoginFragment loginFragment = new LoginFragment();
+                fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
                 fragmentTransaction.replace(R.id.LoginRegisterLayout, loginFragment).addToBackStack(null).commit();
             }
         });

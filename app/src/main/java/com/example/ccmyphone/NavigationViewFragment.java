@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,19 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ccmyphone.Models.UserDetails;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.util.Map;
 
 import static com.example.ccmyphone.ApplicationConstants.SHARED_PERSISTENT_VALUES;
 import static com.example.ccmyphone.ApplicationConstants.USER_DETAILS;
-import static com.example.ccmyphone.ApplicationConstants.databaseRef_Users;
+import static com.example.ccmyphone.ApplicationConstants.DATABASE_REF_USERS;
 import static com.example.ccmyphone.DeviceInfoActivity.deviceDrawerLayout;
 import static com.example.ccmyphone.DeviceInfoActivity.deviceInfoActive;
 import static com.example.ccmyphone.DeviceInfoActivity.viewPagerDevice;
@@ -188,7 +182,7 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
         });
 
         final String userMobileStr = userDetails.getUserMobile();
-        final DatabaseReference database = databaseRef_Users.child(userMobileStr);
+        final DatabaseReference database = DATABASE_REF_USERS.child(userMobileStr);
 
         logoutUser.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -24,7 +24,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -64,6 +63,13 @@
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:background="@color/Silver" />
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -73,10 +79,70 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <View
+                    <TextView
+                        android:id="@+id/userViewDeviceName"
                         android:layout_width="match_parent"
-                        android:layout_height="0.3dp"
-                        android:background="@color/Silver" />
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:padding="2dp"
+                        android:text="Device Name"
+                        android:textColor="#000000"
+                        android:textSize="12sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/userViewRegTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:padding="2dp"
+                        android:text="Registration Time"
+                        android:textColor="#000000"
+                        android:textSize="12sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/userViewLoginTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:padding="2dp"
+                        android:text="Login Time"
+                        android:textColor="#000000"
+                        android:textSize="12sp"
+                        android:textStyle="normal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:id="@+id/userViewIsActive"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center|start"
+                            android:padding="2dp"
+                            android:text="Is Active"
+                            android:textColor="#000000"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/userViewIsLoggedIn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center|start"
+                            android:padding="2dp"
+                            android:text="Is LoggedIn"
+                            android:textColor="#000000"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/userViewPassword"
@@ -88,7 +154,6 @@
                         android:textColor="#000000"
                         android:textSize="12sp"
                         android:textStyle="normal" />
-
 
                 </LinearLayout>
             </ScrollView>

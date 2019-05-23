@@ -18,11 +18,9 @@ import com.example.ccmyphone.Adapters.AdminUsersListAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,9 +30,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import static com.example.ccmyphone.ApplicationConstants.databaseRef_Users;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
+import static com.example.ccmyphone.ApplicationConstants.DATABASE_REF_USERS;
 
 public class AdminPanelActivity extends AppCompatActivity {
 
@@ -56,7 +52,7 @@ public class AdminPanelActivity extends AppCompatActivity {
         usersList = findViewById(R.id.usersList);
         panelUsersCount = findViewById(R.id.panelUsersCount);
 
-        databaseReference = databaseRef_Users;
+        databaseReference = DATABASE_REF_USERS;
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -99,7 +95,7 @@ public class AdminPanelActivity extends AppCompatActivity {
         usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                DatabaseReference database = databaseRef_Users.child(listOfValues.get(position));
+                DatabaseReference database = DATABASE_REF_USERS.child(listOfValues.get(position));
                 Log.d(TAG, "databaseREference " + database);
                 final Dialog alertLayout = new Dialog(AdminPanelActivity.this, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
                 alertLayout.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -113,16 +109,31 @@ public class AdminPanelActivity extends AppCompatActivity {
                             String userMobileData = dataSnapshot.child("userMobile").getValue().toString();
                             String userPasswordData = dataSnapshot.child("password").getValue().toString();
                             String userNameData = dataSnapshot.child("userName").getValue().toString();
+                            String userDeviceNameData = dataSnapshot.child("deviceName").getValue().toString();
+                            String userRegTimeData = dataSnapshot.child("registrationTime").getValue().toString();
+                            String userLoginTimeData = dataSnapshot.child("loginTime").getValue().toString();
+                            String userIsActiveData = dataSnapshot.child("active").getValue().toString();
+                            String userIsLoggedInData = dataSnapshot.child("loggedIn").getValue().toString();
                             Log.d(TAG, "userDetails " + userMobileData + userNameData + userPasswordData);
 
                             TextView userViewMobile = alertLayout.findViewById(R.id.userViewMobile);
                             TextView userViewName = alertLayout.findViewById(R.id.userViewName);
                             ImageView userViewIcon = alertLayout.findViewById(R.id.userViewIcon);
                             TextView userViewPassword = alertLayout.findViewById(R.id.userViewPassword);
+                            TextView usberViewDeviceName = alertLayout.findViewById(R.id.userViewDeviceName);
+                            TextView userViewRegTime = alertLayout.findViewById(R.id.userViewRegTime);
+                            TextView userViewLoginTime = alertLayout.findViewById(R.id.userViewLoginTime);
+                            TextView userViewIsActive = alertLayout.findViewById(R.id.userViewIsActive);
+                            TextView userViewIsLoggedIn = alertLayout.findViewById(R.id.userViewIsLoggedIn);
 
                             userViewMobile.setText(userMobileData);
                             userViewName.setText(userNameData);
-                            userViewPassword.setText(userPasswordData);
+                            userViewPassword.setText("Password: " + userPasswordData);
+                            usberViewDeviceName.setText("Password: " + userDeviceNameData);
+                            userViewRegTime.setText("Reg Time: " + userRegTimeData);
+                            userViewLoginTime.setText("Login Time: " + userLoginTimeData);
+                            userViewIsActive.setText("Is Active: " + userIsActiveData);
+                            userViewIsLoggedIn.setText("Is LoggedIn: " + userIsLoggedInData);
                         } else {
                             Log.d(TAG, "dataSnapshot Not Exists... " + dataSnapshot + dataSnapshot.exists());
                         }

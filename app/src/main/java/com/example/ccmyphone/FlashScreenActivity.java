@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,11 +26,14 @@ public class FlashScreenActivity extends Activity {
 
     final int SPLASH_DISPLAY_LENGTH = 3000;
 
+    CardView logoImageCardLay;
     ImageView flashScreenLogo;
     SharedPreferences sharedpref;
     String userSharedDetails;
     Gson gson = new Gson();
     UserDetails userDetails;
+
+    Animation bounceAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,9 @@ public class FlashScreenActivity extends Activity {
         setContentView(R.layout.activity_flash_screen);
 
         flashScreenLogo = findViewById(R.id.flashScreenLogo);
+        logoImageCardLay = findViewById(R.id.logoImageCardLay);
+        bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        logoImageCardLay.startAnimation(bounceAnimation);
 
         sharedpref = getSharedPreferences(SHARED_PERSISTENT_VALUES, Context.MODE_PRIVATE);
         userSharedDetails = sharedpref.getString(USER_DETAILS, null);
