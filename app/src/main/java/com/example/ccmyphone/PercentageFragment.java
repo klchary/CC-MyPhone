@@ -14,10 +14,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
-
 /**
- * A simple {@link Fragment} subclass.
- */
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class PercentageFragment extends Fragment {
 
     public static final String TAG = "PercentageFragment";

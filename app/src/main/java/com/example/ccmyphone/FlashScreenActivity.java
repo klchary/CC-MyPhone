@@ -20,6 +20,12 @@ import com.google.gson.Gson;
 import static com.example.ccmyphone.ApplicationConstants.SHARED_PERSISTENT_VALUES;
 import static com.example.ccmyphone.ApplicationConstants.USER_DETAILS;
 
+/**
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class FlashScreenActivity extends Activity {
 
     String TAG = "FlashScreenActivity";

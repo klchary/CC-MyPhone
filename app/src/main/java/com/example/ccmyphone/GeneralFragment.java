@@ -32,10 +32,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-
 /**
- * A simple {@link Fragment} subclass.
- */
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class GeneralFragment extends Fragment {
 
     private String title;

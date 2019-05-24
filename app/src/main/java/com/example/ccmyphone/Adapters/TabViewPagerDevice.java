@@ -12,6 +12,12 @@ import com.example.ccmyphone.MemoryFragment;
 import com.example.ccmyphone.NetworkFragment;
 import com.example.ccmyphone.R;
 
+/**
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class TabViewPagerDevice extends FragmentStatePagerAdapter {
 
 //    extends SmartFragmentStatePagerAdapter

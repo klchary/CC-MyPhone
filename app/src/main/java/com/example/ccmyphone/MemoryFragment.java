@@ -34,10 +34,12 @@ import static com.example.ccmyphone.ApplicationConstants.INFO_DETAIL;
 import static com.example.ccmyphone.ApplicationConstants.INFO_DETAIL_TEXT;
 import static com.example.ccmyphone.ApplicationConstants.INFO_TITLE;
 
-
 /**
- * A simple {@link Fragment} subclass.
- */
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class MemoryFragment extends Fragment {
 
     private String title;

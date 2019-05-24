@@ -14,6 +14,12 @@ import com.example.ccmyphone.R;
 
 import java.util.ArrayList;
 
+/**
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private ArrayList<InfoModel> infoModel;

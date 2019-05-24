@@ -30,10 +30,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-
 /**
- * A simple {@link Fragment} subclass.
- */
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class NetworkFragment extends Fragment {
 
     private String title;

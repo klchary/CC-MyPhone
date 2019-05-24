@@ -8,6 +8,12 @@ import android.view.View;
 
 import com.example.ccmyphone.R;
 
+/**
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class RecyclerviewDivider extends RecyclerView.ItemDecoration {
 
     private Drawable mDivider;

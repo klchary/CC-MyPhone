@@ -1,5 +1,11 @@
 package com.example.ccmyphone.Models;
 
+/**
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class InfoModel {
 
     private String infoTitle, infoDetail, infoDetailText;

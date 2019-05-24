@@ -10,10 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 /**
- * A simple {@link Fragment} subclass.
- */
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class GeneralCalculatorFragment extends Fragment implements View.OnClickListener {
 
     TextView calResultPanel;

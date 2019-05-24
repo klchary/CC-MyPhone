@@ -34,10 +34,13 @@ import static com.example.ccmyphone.OriginalActivity.viewPagerOriginal;
 import static com.example.ccmyphone.TotaliserActivity.totaliserActive;
 import static com.example.ccmyphone.TotaliserActivity.totaliserDrawerLayout;
 
-
 /**
- * A simple {@link Fragment} subclass.
- */
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
+
 public class NavigationViewFragment extends Fragment implements View.OnClickListener {
 
     String TAG = "NavigationViewFragment";

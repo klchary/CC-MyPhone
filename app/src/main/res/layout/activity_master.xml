@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_image_2"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".MasterActivity">
@@ -12,7 +13,6 @@
         android:id="@+id/l1"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/primaryTheme"
         android:gravity="center">
 
         <TextView
@@ -39,20 +39,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/l1"
-        android:background="@drawable/background"
         android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardMainDevice"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginEnd="-10dp"
                 app:cardBackgroundColor="@color/White"
                 app:cardCornerRadius="10dp"
@@ -190,26 +190,60 @@
                             android:textSize="16sp" />
 
                     </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardMainAdminPanel"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginStart="-10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                app:cardBackgroundColor="@color/White"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="6">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/btnCateAdminPanel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/Green_Normal"
+                            android:padding="10dp"
+                            android:text="Totaliser"
+                            android:textAllCaps="false"
+                            android:textColor="@color/White"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivCateAdminPanel"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:src="@drawable/ic_phone" />
 
                 </LinearLayout>
 
-
             </android.support.v7.widget.CardView>
 
+
         </LinearLayout>
-
-
     </ScrollView>
-
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/masterAcAdBanner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-    </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>

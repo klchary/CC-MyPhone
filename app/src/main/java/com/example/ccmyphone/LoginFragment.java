@@ -44,10 +44,12 @@ import static com.example.ccmyphone.ApplicationConstants.USER_DETAILS;
 import static com.example.ccmyphone.ApplicationConstants.DATABASE_REF_USERS;
 import static com.example.ccmyphone.ApplicationConstants.USER_DETAILS_ALL;
 
-
 /**
- * A simple {@link Fragment} subclass.
- */
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class LoginFragment extends Fragment {
 
     String TAG = "LoginFragment";

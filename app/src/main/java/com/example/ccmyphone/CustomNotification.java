@@ -13,6 +13,12 @@ import android.widget.RemoteViews;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
+/**
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class CustomNotification extends BroadcastReceiver {
 
     private final String TAG = "CustomNotification";

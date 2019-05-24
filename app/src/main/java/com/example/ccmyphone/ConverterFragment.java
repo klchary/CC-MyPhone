@@ -15,10 +15,12 @@ import android.widget.Spinner;
 
 import com.example.ccmyphone.OtherClasses.ConverterClass;
 
-
 /**
- * A simple {@link Fragment} subclass.
- */
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class ConverterFragment extends Fragment {
 
     public static final String TAG = "ConverterFragment";

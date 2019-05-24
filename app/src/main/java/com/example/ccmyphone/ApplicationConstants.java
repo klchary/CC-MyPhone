@@ -4,6 +4,12 @@ import com.example.ccmyphone.Models.UserDetails;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public interface ApplicationConstants {
 
     String APPNAME = "CC MyPhone";

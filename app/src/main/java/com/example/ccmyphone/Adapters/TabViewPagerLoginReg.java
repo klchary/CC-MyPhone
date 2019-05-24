@@ -14,6 +14,12 @@ import com.example.ccmyphone.NetworkFragment;
 import com.example.ccmyphone.R;
 import com.example.ccmyphone.RegisterFragment;
 
+/**
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class TabViewPagerLoginReg extends FragmentStatePagerAdapter {
 
 //    extends SmartFragmentStatePagerAdapter

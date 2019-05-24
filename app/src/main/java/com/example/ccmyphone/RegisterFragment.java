@@ -36,10 +36,12 @@ import static com.example.ccmyphone.ApplicationConstants.REG_SUCCESS;
 import static com.example.ccmyphone.ApplicationConstants.REG_TO_LOGIN;
 import static com.example.ccmyphone.ApplicationConstants.DATABASE_REF_USERS;
 
-
 /**
- * A simple {@link Fragment} subclass.
- */
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class RegisterFragment extends Fragment {
 
     String TAG = "RegisterFragment";

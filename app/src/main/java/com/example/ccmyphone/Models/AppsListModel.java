@@ -4,6 +4,12 @@ import android.graphics.drawable.Drawable;
 
 import java.util.List;
 
+/**
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class AppsListModel {
 
     private String appName;

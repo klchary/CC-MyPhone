@@ -12,6 +12,12 @@ import android.os.Bundle;
 import com.example.ccmyphone.Adapters.TabViewPagerOriginal;
 import com.example.ccmyphone.Adapters.TabViewPagerTotaliser;
 
+/**
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class TotaliserActivity extends AppCompatActivity {
 
     static boolean totaliserActive = false;

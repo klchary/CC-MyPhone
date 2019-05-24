@@ -32,6 +32,12 @@ import java.util.Map;
 
 import static com.example.ccmyphone.ApplicationConstants.DATABASE_REF_USERS;
 
+/**
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class AdminPanelActivity extends AppCompatActivity {
 
     String TAG = "AdminPanelActivity";

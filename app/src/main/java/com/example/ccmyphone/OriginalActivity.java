@@ -11,6 +11,12 @@ import android.os.Bundle;
 import com.example.ccmyphone.Adapters.TabViewPagerDevice;
 import com.example.ccmyphone.Adapters.TabViewPagerOriginal;
 
+/**
+ * Created by CHINNA CHARY on Friday, 24 May 2019
+ * Package Name com.example.ccmyphone
+ * Project Name CCMyPhone
+ **/
+
 public class OriginalActivity extends AppCompatActivity {
 
     static boolean originalActive = false;
