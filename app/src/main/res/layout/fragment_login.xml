@@ -16,7 +16,6 @@
         android:layout_centerInParent="true"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="10dp"
-        app:cardElevation="6dp"
         app:cardPreventCornerOverlap="true">
 
         <RelativeLayout

@@ -28,6 +28,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,6 +38,7 @@ import java.util.TimeZone;
 import static com.example.ccmyphone.ApplicationConstants.ADMOB_ADUNIT_ID_GUEST_USER_BANNER;
 import static com.example.ccmyphone.ApplicationConstants.ADMOB_ADUNIT_ID_GUEST_USER_FULL;
 import static com.example.ccmyphone.ApplicationConstants.ADMOB_APPID;
+import static com.example.ccmyphone.ApplicationConstants.CC_MyPhone_PATH;
 import static com.example.ccmyphone.ApplicationConstants.SHARED_PERSISTENT_VALUES;
 import static com.example.ccmyphone.ApplicationConstants.USER_DETAILS;
 
@@ -70,6 +72,8 @@ public class MasterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master);
         FindAllViews();
+        checkAndRequestPermissions();
+        createDirectory();
 
         MobileAds.initialize(this, ADMOB_APPID);
         AdView adView = new AdView(this);
@@ -178,8 +182,6 @@ public class MasterActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        checkAndRequestPermissions();
 
 //        masterAcAdBanner.setAdListener(new AdListener() {
 //            @Override
@@ -434,6 +436,14 @@ public class MasterActivity extends AppCompatActivity {
         btnCateTotaliser = findViewById(R.id.btnCateTotaliser);
         btnCateOriginal = findViewById(R.id.btnCateOriginal);
         userName = findViewById(R.id.userName);
+    }
+
+    public void createDirectory() {
+        File dir = new File(CC_MyPhone_PATH);
+        if (!dir.exists()) {
+            if (dir.mkdir())
+                Log.e("CreateDirectory", "Main Directory Created : " + dir);
+        }
     }
 
 }

@@ -135,7 +135,7 @@ public class AdminPanelActivity extends AppCompatActivity {
                             userViewMobile.setText(userMobileData);
                             userViewName.setText(userNameData);
                             userViewPassword.setText("Password: " + userPasswordData);
-                            usberViewDeviceName.setText("Password: " + userDeviceNameData);
+                            usberViewDeviceName.setText("Device Name: " + userDeviceNameData);
                             userViewRegTime.setText("Reg Time: " + userRegTimeData);
                             userViewLoginTime.setText("Login Time: " + userLoginTimeData);
                             userViewIsActive.setText("Is Active: " + userIsActiveData);

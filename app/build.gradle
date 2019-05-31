@@ -3,10 +3,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            keyAlias 'myReleaseKey'
-            keyPassword '56158@Chinna'
-            storeFile file('C:/Users/CHINNA/Desktop/Android Projects/CCMyPhone/MyReleaseKey.jks')
-            storePassword '56158@Chinnachary'
+            keyAlias 'ReleaseKey'
+            keyPassword '56158@Chary'
+            storeFile file('C:\\Users\\CHINNA\\Desktop\\Android Projects\\CCMyPhone\\CCMyPhoneRelease.jks')
+            storePassword '56158@Chinna'
         }
     }
     compileSdkVersion 28

@@ -1,5 +1,7 @@
 package com.example.ccmyphone;
 
+import android.os.Environment;
+
 import com.example.ccmyphone.Models.UserDetails;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -13,6 +15,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public interface ApplicationConstants {
 
     String APPNAME = "CC MyPhone";
+
+    String CC_MyPhone_PATH = Environment.getExternalStorageDirectory().toString() + "/CC MyPhone";
 
     UserDetails USER_DETAILS_ALL = new UserDetails();
 
@@ -43,7 +47,7 @@ public interface ApplicationConstants {
     String USER_DETAILS = "userdetails";
 
     String REG_ERROR = "Something went wrong, Please try again after some time";
-    String ALREADY_REG_ERROR = "Already registered with given Credentials, Please Try again or Register";
+    String ALREADY_REG_ERROR = "Already registered with given Credentials, Please Try to Login or Register";
     String REG_SUCCESS = "Registration Successful, Please Login to Continue";
     String REG_TO_LOGIN = "LOGIN";
 
