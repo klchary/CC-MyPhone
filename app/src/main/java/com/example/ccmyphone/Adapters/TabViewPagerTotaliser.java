@@ -5,14 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.ccmyphone.APPsFragment;
-import com.example.ccmyphone.BatteryFragment;
-import com.example.ccmyphone.ConverterFragment;
-import com.example.ccmyphone.GeneralCalculatorFragment;
-import com.example.ccmyphone.GeneralFragment;
-import com.example.ccmyphone.MemoryFragment;
-import com.example.ccmyphone.NetworkFragment;
-import com.example.ccmyphone.PercentageFragment;
+import com.example.ccmyphone.TotaliserFragments.ConverterFragment;
+import com.example.ccmyphone.DeviceInfoFragments.GeneralFragment;
+import com.example.ccmyphone.TotaliserFragments.PercentageFragment;
 import com.example.ccmyphone.R;
 
 /**
@@ -44,12 +39,8 @@ public class TabViewPagerTotaliser extends FragmentStatePagerAdapter {
                 return new PercentageFragment();
             case 1:
                 return new ConverterFragment();
-            case 2:
-                return new GeneralCalculatorFragment();
-//            case 3:
-//                return new NetworkFragment();
-//            case 4:
-//                return new APPsFragment();
+//            case 2:
+//                return new GeneralCalculatorFragment();
             default:
                 return new GeneralFragment();
         }
@@ -69,12 +60,8 @@ public class TabViewPagerTotaliser extends FragmentStatePagerAdapter {
                 return mContext.getString(R.string.PercentageFragmentTab);
             case 1:
                 return mContext.getString(R.string.ConverterFragmentTab);
-            case 2:
-                return mContext.getString(R.string.GeneralCalculatorFragmentTab);
-//            case 3:
-//                return mContext.getString(R.string.NetworkFragmentTab);
-//            case 4:
-//                return mContext.getString(R.string.APPsFragmentTab);
+//            case 2:
+//                return mContext.getString(R.string.GeneralCalculatorFragmentTab);
             default:
                 return null;
         }

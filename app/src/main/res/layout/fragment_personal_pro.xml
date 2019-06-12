@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ResumeActivity">
+
+    <Button
+        android:id="@+id/btnPersonalDetails"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/Green_Normal"
+        android:text="Personal Details"
+        android:textColor="@color/Black" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layoutPPBottom"
+        android:layout_below="@+id/btnPersonalDetails">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilNickName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:hint="NickName(Optional)">
+
+                <EditText
+                    android:id="@+id/etNickName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_android_mobile"
+                    android:drawablePadding="6dp"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    android:textAllCaps="false"
+                    android:textColor="@color/Black"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:hint="Full Name*">
+
+                <EditText
+                    android:id="@+id/etFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_android_mobile"
+                    android:drawablePadding="6dp"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    android:textAllCaps="false"
+                    android:textColor="@color/Black"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilFatherName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:hint="Father Name*">
+
+                <EditText
+                    android:id="@+id/etFatherName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_android_mobile"
+                    android:drawablePadding="6dp"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    android:textAllCaps="false"
+                    android:textColor="@color/Black"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilMotherName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:hint="Mother Name*">
+
+                <EditText
+                    android:id="@+id/etMotherName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_android_mobile"
+                    android:drawablePadding="6dp"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    android:textAllCaps="false"
+                    android:textColor="@color/Black"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilMobileNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:hint="Mobile No*">
+
+                <EditText
+                    android:id="@+id/etMobileNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_android_mobile"
+                    android:drawablePadding="6dp"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:textAllCaps="false"
+                    android:textColor="@color/Black"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilEmailId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:hint="Email Id*">
+
+                <EditText
+                    android:id="@+id/etEmailId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_android_mobile"
+                    android:drawablePadding="6dp"
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true"
+                    android:textAllCaps="false"
+                    android:textColor="@color/Black"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilLandLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:hint="Land Line (Optional)">
+
+                <EditText
+                    android:id="@+id/etLandLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_android_mobile"
+                    android:drawablePadding="6dp"
+                    android:inputType="phone"
+                    android:singleLine="true"
+                    android:textAllCaps="false"
+                    android:textColor="@color/Black"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilDoB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/dobDatePicker"
+                    android:hint="Date of Birth (DD/MM/YYYY)*">
+
+                    <EditText
+                        android:id="@+id/etDoB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_android_mobile"
+                        android:drawablePadding="6dp"
+                        android:inputType="phone"
+                        android:singleLine="true"
+                        android:textAllCaps="false"
+                        android:textColor="@color/Black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageButton
+                    android:id="@+id/dobDatePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_calender" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <RadioGroup
+                    android:id="@+id/radioGrGender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="4dp"
+                    android:weightSum="2">
+
+                    <RadioButton
+                        android:id="@+id/radiobtnMale"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/male_gender_toggle_check"
+                        android:button="@null" />
+
+                    <RadioButton
+                        android:id="@+id/radiobtnFeMale"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/female_gender_toggle_check"
+                        android:button="@null" />
+
+                </RadioGroup>
+
+                <Spinner
+                    android:id="@+id/spinnerMStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/MaritalSEntries" />
+
+                <Spinner
+                    android:id="@+id/spinnerNationality"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/NationalityEntries" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/layoutPPBottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/Green_Normal"
+            android:text="Personal Details"
+            android:textAllCaps="false"
+            android:textColor="@color/Black"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/Green_Normal"
+            android:text="Address Details"
+            android:textAllCaps="false"
+            android:textColor="@color/Black" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

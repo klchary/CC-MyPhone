@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#F0FDFA"
     android:orientation="vertical"
-    tools:context=".PercentageFragment">
+    tools:context=".TotaliserFragments.PercentageFragment">
 
     <RelativeLayout
         android:layout_width="260dp"

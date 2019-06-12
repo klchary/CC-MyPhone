@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="6dp"
     android:background="@drawable/background_image"
-    tools:context=".LoginFragment">
+    tools:context=".LoginRegActFrag.LoginFragment">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

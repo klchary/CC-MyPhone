@@ -63,4 +63,17 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="dob_selected_date">%1$d/%2$d/%3$d</string>
+
+    <string-array name="NationalityEntries">
+        <item name="Indian">Indian</item>
+        <item name="Nepal">Nepal</item>
+        <item name="Other Country">Other Country</item>
+    </string-array>
+
+    <string-array name="MaritalSEntries">
+        <item name="Single">Single</item>
+        <item name="Married">Married</item>
+    </string-array>
+
 </resources>

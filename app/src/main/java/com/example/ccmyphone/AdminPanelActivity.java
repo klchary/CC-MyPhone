@@ -1,5 +1,6 @@
 package com.example.ccmyphone;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -109,6 +110,7 @@ public class AdminPanelActivity extends AppCompatActivity {
                 alertLayout.setContentView(R.layout.userview_dialoglayout);
 
                 database.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
@@ -140,6 +142,13 @@ public class AdminPanelActivity extends AppCompatActivity {
                             userViewLoginTime.setText("Login Time: " + userLoginTimeData);
                             userViewIsActive.setText("Is Active: " + userIsActiveData);
                             userViewIsLoggedIn.setText("Is LoggedIn: " + userIsLoggedInData);
+
+                            if (userMobileData.equalsIgnoreCase("9581474449")){
+                                userViewIcon.setBackground(getResources().getDrawable(R.drawable.admin_icon));
+                            }else {
+                                userViewIcon.setBackground(getResources().getDrawable(R.drawable.user_icon));
+                            }
+
                         } else {
                             Log.d(TAG, "dataSnapshot Not Exists... " + dataSnapshot + dataSnapshot.exists());
                         }

@@ -5,13 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.ccmyphone.APPsFragment;
-import com.example.ccmyphone.BatteryFragment;
-import com.example.ccmyphone.GeneralFragment;
-import com.example.ccmyphone.MemoryFragment;
-import com.example.ccmyphone.NetworkFragment;
 import com.example.ccmyphone.R;
-import com.example.ccmyphone.TorchFragment;
+import com.example.ccmyphone.OriginalFragments.TorchFragment;
 
 /**
  * Created by CHINNA CHARY on Friday, 24 May 2019

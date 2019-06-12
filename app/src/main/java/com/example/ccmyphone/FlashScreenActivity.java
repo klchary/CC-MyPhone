@@ -14,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.example.ccmyphone.LoginRegActFrag.LoginRegisterActivity;
 import com.example.ccmyphone.Models.UserDetails;
 import com.google.gson.Gson;
 

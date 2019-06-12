@@ -1,25 +1,18 @@
 package com.example.ccmyphone.Adapters;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ccmyphone.Models.UserDetails;
 import com.example.ccmyphone.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -66,6 +59,8 @@ public class AdminUsersListAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.adminpanel_userslist, parent, false);
 
             listViewHolder.userMobileAP = convertView.findViewById(R.id.userMobileAP);
+            listViewHolder.userNameContactsAP = convertView.findViewById(R.id.userNameContactsAP);
+            listViewHolder.userImageIcon = convertView.findViewById(R.id.userImageIcon);
 
             convertView.setTag(listViewHolder);
         } else {
@@ -74,53 +69,56 @@ public class AdminUsersListAdapter extends BaseAdapter {
 
         listViewHolder.userMobileAP.setText(list.get(position));
 
-//        listViewHolder.userMobileAP.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DatabaseReference database = FirebaseDatabase.getInstance().getReference().child(list.get(position));
-//                Log.d(TAG, "databaseREference " + database);
-//                database.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        if (dataSnapshot.exists()) {
-//                            String userMobileData = dataSnapshot.child("userMobile").getValue().toString();
-//                            String userPasswordData = dataSnapshot.child("password").getValue().toString();
-//                            String userNameData = dataSnapshot.child("userName").getValue().toString();
-//                            Log.d(TAG, "userDetails " + userMobileData + userNameData + userPasswordData);
-//
-//                            final Dialog alertLayout = new Dialog(context, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
-//                            alertLayout.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                            alertLayout.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//                            alertLayout.setContentView(R.layout.userview_dialoglayout);
-//
-//                            TextView userViewMobile = alertLayout.findViewById(R.id.userViewMobile);
-//                            TextView userViewName = alertLayout.findViewById(R.id.userViewName);
-//                            ImageView userViewIcon = alertLayout.findViewById(R.id.userViewIcon);
-//                            TextView userViewPassword = alertLayout.findViewById(R.id.userViewPassword);
-//
-//                            userViewMobile.setText(userMobileData);
-//                            userViewName.setText(userNameData);
-//                            userViewPassword.setText(userPasswordData);
-//
-//                            alertLayout.show();
-//                        }else {
-//                            Log.d(TAG, "dataSnapshot Not Exists... " + dataSnapshot + dataSnapshot.exists());
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
-//            }
-//        });
+        String mobileNumber = listViewHolder.userMobileAP.getText().toString().trim();
+        String contactName = getContactName(mobileNumber, context);
+
+        listViewHolder.userNameContactsAP.setText(contactName);
+
+        if (mobileNumber.equalsIgnoreCase("9581474449")){
+            listViewHolder.userImageIcon.setBackground(context.getResources().getDrawable(R.drawable.admin_icon));
+        }else {
+            listViewHolder.userImageIcon.setBackground(context.getResources().getDrawable(R.drawable.user_icon));
+        }
 
         return convertView;
     }
 
     static class ViewHolder {
-        TextView userMobileAP, userNameAP;
+        TextView userMobileAP, userNameContactsAP;
+        ImageView userImageIcon;
+    }
+
+
+    public boolean contactExists(Context context, String number) {
+        if (number != null) {
+            Uri lookupUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
+            String[] mPhoneNumberProjection = {ContactsContract.PhoneLookup._ID,
+                    ContactsContract.PhoneLookup.NUMBER, ContactsContract.PhoneLookup.DISPLAY_NAME};
+            try (Cursor cur = context.getContentResolver().query(lookupUri,
+                    mPhoneNumberProjection, null, null, null)) {
+                if (cur != null && cur.moveToFirst()) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            return false;
+        }
+    }// contactExists
+
+    public String getContactName(final String phoneNumber, Context context) {
+        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
+        String[] projection = new String[]{ContactsContract.PhoneLookup.DISPLAY_NAME};
+        String contactName = "";
+        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                contactName = cursor.getString(0);
+                Log.d(TAG, "Contact Name " + contactName);
+            }
+            cursor.close();
+        }
+        return contactName;
     }
 
 }

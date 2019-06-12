@@ -2,16 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="6dp">
 
-    <TextView
-        android:id="@+id/userMobileAP"
+    <ImageView
+        android:id="@+id/userImageIcon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:src="@drawable/admin_icon" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="6dp"
-        android:text="User Mobile"
-        android:textColor="@color/Black"
-        android:textSize="16sp" />
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/userNameContactsAP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="User Name Contact"
+            android:textColor="@color/Black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/userMobileAP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="User Mobile"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
 </LinearLayout>

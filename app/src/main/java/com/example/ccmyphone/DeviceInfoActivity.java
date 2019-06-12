@@ -48,7 +48,6 @@ public class DeviceInfoActivity extends AppCompatActivity implements BottomNavig
 
     public static DrawerLayout deviceDrawerLayout;
 
-    private TabLayout tabLayout;
     public static ViewPager viewPagerDevice;
 
     static boolean deviceInfoActive = false;
@@ -58,7 +57,7 @@ public class DeviceInfoActivity extends AppCompatActivity implements BottomNavig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_info);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPagerDevice = (ViewPager) findViewById(R.id.viewPager);
 
         fragmentLayout = findViewById(R.id.fragmentLayout);

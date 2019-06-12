@@ -8,8 +8,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.ccmyphone.Adapters.TabViewPagerDevice;
 import com.example.ccmyphone.Adapters.TabViewPagerOriginal;
+import com.example.ccmyphone.OriginalFragments.TorchFragment;
 
 /**
  * Created by CHINNA CHARY on Friday, 24 May 2019

@@ -52,9 +52,9 @@ public class MasterActivity extends AppCompatActivity {
 
     String TAG = "MasterActivity";
 
-    CardView cardMainDevice, cardMainTotaliser, cardMainOriginal;
-    ImageView ivCateDevice, ivCateTotaliser, ivCateOriginal;
-    Button btnCateDevice, btnCateTotaliser, btnCateOriginal;
+    CardView cardMainDevice, cardMainTotaliser, cardMainOriginal, cardMainResume;
+    ImageView ivCateDevice, ivCateTotaliser, ivCateOriginal, ivCateResume;
+    Button btnCateDevice, btnCateTotaliser, btnCateOriginal, btnCateResume;
     TextView userName;
 
     public static final int REQUIRED_MULTIPLE_PERMISSIONS = 100;
@@ -64,7 +64,7 @@ public class MasterActivity extends AppCompatActivity {
     Gson gson = new Gson();
     UserDetails userDetails;
 
-//    AdView masterAcAdBanner;
+    //    AdView masterAcAdBanner;
     private InterstitialAd mInterstitialAd;
 
     @Override
@@ -135,6 +135,14 @@ public class MasterActivity extends AppCompatActivity {
             }
         });
 
+        cardMainResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MasterActivity.this, ResumeActivity.class);
+                startActivity(intent);
+            }
+        });
+
         ivCateDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,6 +155,14 @@ public class MasterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MasterActivity.this, TotaliserActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ivCateResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MasterActivity.this, ResumeActivity.class);
                 startActivity(intent);
             }
         });
@@ -179,6 +195,14 @@ public class MasterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MasterActivity.this, OriginalActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnCateResume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MasterActivity.this, ResumeActivity.class);
                 startActivity(intent);
             }
         });
@@ -342,6 +366,7 @@ public class MasterActivity extends AppCompatActivity {
         int permissionFineLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int permissionLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
         int permissionPState = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+        int permissionContacts = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
         int permissionPNumbers = 0;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             permissionPNumbers = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS);
@@ -370,6 +395,9 @@ public class MasterActivity extends AppCompatActivity {
         }
         if (permissionPNumbers != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.READ_PHONE_NUMBERS);
+        }
+        if (permissionContacts != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_CONTACTS);
         }
 
         if (!listPermissionsNeeded.isEmpty()) {
@@ -419,6 +447,11 @@ public class MasterActivity extends AppCompatActivity {
                                 Log.e("msg", "Phone Numbers granted");
                             }
                             break;
+                        case Manifest.permission.READ_CONTACTS:
+                            if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                                Log.e("msg", "Phone Contacs granted");
+                            }
+                            break;
                     }
                 }
             }
@@ -429,12 +462,15 @@ public class MasterActivity extends AppCompatActivity {
         cardMainDevice = findViewById(R.id.cardMainDevice);
         cardMainTotaliser = findViewById(R.id.cardMainTotaliser);
         cardMainOriginal = findViewById(R.id.cardMainOriginal);
+        cardMainResume = findViewById(R.id.cardMainResume);
         ivCateDevice = findViewById(R.id.ivCateDevice);
         ivCateTotaliser = findViewById(R.id.ivCateTotaliser);
         ivCateOriginal = findViewById(R.id.ivCateOriginal);
+        ivCateResume = findViewById(R.id.ivCateResume);
         btnCateDevice = findViewById(R.id.btnCateDevice);
         btnCateTotaliser = findViewById(R.id.btnCateTotaliser);
         btnCateOriginal = findViewById(R.id.btnCateOriginal);
+        btnCateResume = findViewById(R.id.btnCateResume);
         userName = findViewById(R.id.userName);
     }
 
