@@ -1,4 +1,4 @@
-package com.example.ccmyphone.ResumeFragments;
+package com.example.ccmyphone.ResumeClassesAndFragments;
 
 
 import android.app.DatePickerDialog;
@@ -7,12 +7,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -23,9 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.ccmyphone.Models.EduQualifications;
-import com.example.ccmyphone.Models.PersonalProResume;
-import com.example.ccmyphone.Models.UserDetails;
+import com.example.ccmyphone.ResumeClassesAndFragments.ResumeEntity.PersonalProResume;
 import com.example.ccmyphone.OtherClasses.Utils;
 import com.example.ccmyphone.R;
 import com.google.gson.Gson;
@@ -34,8 +30,6 @@ import java.util.Calendar;
 
 import static com.example.ccmyphone.ApplicationConstants.RESUME_PERSONAL;
 import static com.example.ccmyphone.ApplicationConstants.RESUME_SHARED_VALUES;
-import static com.example.ccmyphone.ApplicationConstants.SHARED_PERSISTENT_VALUES;
-import static com.example.ccmyphone.ApplicationConstants.USER_DETAILS;
 
 /**
  * A simple {@link Fragment} subclass.

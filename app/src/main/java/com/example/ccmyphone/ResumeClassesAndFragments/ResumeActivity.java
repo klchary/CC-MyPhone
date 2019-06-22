@@ -1,4 +1,4 @@
-package com.example.ccmyphone;
+package com.example.ccmyphone.ResumeClassesAndFragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,8 +11,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.example.ccmyphone.OtherClasses.GenerateResume;
-import com.example.ccmyphone.ResumeFragments.PersonalProFragment;
+import com.example.ccmyphone.ResumeClassesAndFragments.ResumeFormats.DefaultResumeFormat;
+import com.example.ccmyphone.R;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -33,8 +33,8 @@ public class ResumeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resume);
-
-        LoadPersonDetailsFrag();
+        createDirectory();
+        LoadResumePreviewFrag();
 
     }
 
@@ -43,6 +43,13 @@ public class ResumeActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         PersonalProFragment personalProFragment = new PersonalProFragment();
         fragmentTransaction.add(R.id.resumeMainLayout, personalProFragment).commit();
+    }
+
+    private void LoadResumePreviewFrag() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        ResumePreviewFragment resumePreviewFragment = new ResumePreviewFragment();
+        fragmentTransaction.add(R.id.resumeMainLayout, resumePreviewFragment).commit();
     }
 
     @Override
@@ -57,12 +64,12 @@ public class ResumeActivity extends AppCompatActivity {
                         if (count <= 0) {
                             Log.d(TAG, "clipData count " + 0);
                         } else {
-                            GenerateResume generateResume = new GenerateResume();
+                            DefaultResumeFormat generateResume = new DefaultResumeFormat();
                             String imageUri = fileUriImage.toString();
 //                            generateResume.DefaultResume(this, fileUriImage);
                         }
                     } else if (data.getData() != null) {
-                        GenerateResume generateResume = new GenerateResume();
+                        DefaultResumeFormat generateResume = new DefaultResumeFormat();
                         fileUriImage = data.getData();
 //                        generateResume.DefaultResume(this, fileUriImage);
                     }
@@ -127,5 +134,13 @@ public class ResumeActivity extends AppCompatActivity {
         }
 
         return mediaFile;
+    }
+
+    public void createDirectory() {
+        File dir = new File(CC_MyPhone_RESUME);
+        if (!dir.exists()) {
+            if (dir.mkdir())
+                Log.e("CreateDirectory", "Main Directory Created : " + dir);
+        }
     }
 }

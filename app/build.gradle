@@ -51,6 +51,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-ads:17.2.1'
 
     implementation 'com.itextpdf:itextg:5.5.10'
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

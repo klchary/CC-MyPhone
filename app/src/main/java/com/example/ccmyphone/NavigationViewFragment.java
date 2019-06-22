@@ -73,6 +73,7 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
     String userSharedDetails;
     Gson gson = new Gson();
     UserDetails userDetails;
+    DatabaseReference database;
 
     public NavigationViewFragment() {
         // Required empty public constructor
@@ -110,6 +111,8 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
             } else {
                 navAdminPanel.setVisibility(View.GONE);
             }
+            String userMobileStr = userDetails.getUserMobile();
+            database = DATABASE_REF_USERS.child(userMobileStr);
         } else {
             navUserMobile.setVisibility(View.GONE);
             navAdminPanel.setVisibility(View.GONE);
@@ -184,9 +187,6 @@ public class NavigationViewFragment extends Fragment implements View.OnClickList
 
             }
         });
-
-        final String userMobileStr = userDetails.getUserMobile();
-        final DatabaseReference database = DATABASE_REF_USERS.child(userMobileStr);
 
         logoutUser.setOnClickListener(new View.OnClickListener() {
             @Override

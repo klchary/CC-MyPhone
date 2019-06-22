@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2"
+    tools:context=".ResumeClassesAndFragments.ResumePreviewFragment">
+
+    <LinearLayout
+        android:id="@+id/usersListViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/createResume"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Details"
+            android:textColor="@color/Black"
+            android:textSize="20sp" />
+
+        <ListView
+            android:id="@+id/usersListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </ListView>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resume Preview"
+            android:textColor="@color/Black"
+            android:textSize="20sp" />
+
+        <GridView
+            android:id="@+id/resumePreviewGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Bg"
+            android:numColumns="3"
+            android:scrollbars="none">
+
+        </GridView>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resume Review"
+            android:textColor="@color/Black"
+            android:textSize="20sp" />
+
+        <GridView
+            android:id="@+id/resumeReviewGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Bg"
+            android:numColumns="3"
+            android:scrollbars="none">
+
+        </GridView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/createResume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/Green_Normal"
+        android:text="Prepare Resume"
+        android:textColor="@color/Black"
+        android:textSize="20sp" />
+
+</RelativeLayout>

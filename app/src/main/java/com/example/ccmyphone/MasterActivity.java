@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.ccmyphone.Models.UserDetails;
 import com.example.ccmyphone.OtherClasses.PermissionsClass;
+import com.example.ccmyphone.ResumeClassesAndFragments.ResumeActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -29,11 +30,8 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.gson.Gson;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import static com.example.ccmyphone.ApplicationConstants.ADMOB_ADUNIT_ID_GUEST_USER_BANNER;
 import static com.example.ccmyphone.ApplicationConstants.ADMOB_ADUNIT_ID_GUEST_USER_FULL;

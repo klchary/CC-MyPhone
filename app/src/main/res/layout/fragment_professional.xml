@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ResumeClassesAndFragments.ResumeActivity">
+    tools:context=".ResumeClassesAndFragments.ProfessionalFragment">
 
     <Button
         android:id="@+id/btnEduDetails"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_toStartOf="@+id/addnewQuaLayout"
+        android:layout_toStartOf="@+id/addnewExpLayout"
         android:background="@color/Green_Normal"
-        android:text="Educational Details"
+        android:text="Professional Details"
         android:textColor="@color/Black" />
 
     <ImageView
-        android:id="@+id/addnewQuaLayout"
+        android:id="@+id/addnewExpLayout"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
@@ -25,20 +23,36 @@
         android:padding="6dp"
         android:src="@drawable/ic_plus_circle" />
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/layoutPPBottom"
         android:layout_below="@+id/btnEduDetails">
 
-        <LinearLayout
-            android:id="@+id/eduQuaLayout"
+        <CheckBox
+            android:id="@+id/fresherCheckbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginStart="10dp"
+            android:padding="10dp"
+            android:text="I don't have an experiance i am Fresher" />
 
-        </LinearLayout>
-    </ScrollView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/fresherCheckbox">
+
+            <LinearLayout
+                android:id="@+id/professionalExpLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/layoutPPBottom"
@@ -54,7 +68,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/Green_Normal"
-            android:text="Address Details"
+            android:text="Educational Qualifications"
             android:textAllCaps="false"
             android:textColor="@color/Black" />
 
@@ -64,11 +78,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/Green_Normal"
-            android:text="Work Details"
+            android:text="General Details"
             android:textAllCaps="false"
             android:textColor="@color/Black" />
 
     </LinearLayout>
-
 
 </RelativeLayout>

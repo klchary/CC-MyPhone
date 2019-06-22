@@ -1,11 +1,10 @@
-package com.example.ccmyphone.ResumeFragments;
+package com.example.ccmyphone.ResumeClassesAndFragments;
 
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.ccmyphone.R;
 
@@ -75,11 +75,12 @@ public class AddressFragment extends Fragment {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PersonalProFragment personalProFragment = new PersonalProFragment();
-                if (getFragmentManager() != null) {
-                    getFragmentManager().beginTransaction().replace(R.id.resumeMainLayout, personalProFragment)
-                            .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).commit();
-                }
+                Toast.makeText(getActivity(), "This Feature is disabled for demo version", Toast.LENGTH_LONG).show();
+//                PersonalProFragment personalProFragment = new PersonalProFragment();
+//                if (getFragmentManager() != null) {
+//                    getFragmentManager().beginTransaction().replace(R.id.resumeMainLayout, personalProFragment)
+//                            .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).commit();
+//                }
             }
         });
 

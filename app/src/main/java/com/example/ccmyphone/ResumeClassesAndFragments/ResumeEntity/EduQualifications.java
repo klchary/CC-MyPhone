@@ -1,4 +1,4 @@
-package com.example.ccmyphone.Models;
+package com.example.ccmyphone.ResumeClassesAndFragments.ResumeEntity;
 
 public class EduQualifications {
 

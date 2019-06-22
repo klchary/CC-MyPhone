@@ -1,4 +1,4 @@
-package com.example.ccmyphone.ResumeFragments;
+package com.example.ccmyphone.ResumeClassesAndFragments;
 
 
 import android.content.ContentResolver;
@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.ccmyphone.Models.EduQualifications;
-import com.example.ccmyphone.OtherClasses.GenerateResume;
+import com.example.ccmyphone.ResumeClassesAndFragments.ResumeEntity.EduQualifications;
+import com.example.ccmyphone.ResumeClassesAndFragments.ResumeFormats.DefaultResumeFormat;
 import com.example.ccmyphone.R;
 import com.google.gson.Gson;
 
@@ -39,7 +41,7 @@ public class EducationalFragment extends Fragment {
     String TAG = "EducationalFragment";
 
     LinearLayout eduQuaLayout;
-    Button btnEduDetails;
+    ImageView addnewQuaLayout;
     Button btnBack, btnNext;
 
     // Child Layout Views
@@ -125,14 +127,18 @@ public class EducationalFragment extends Fragment {
                 editor.putString(EDU_QUALIFICATIONS, qualificationArray.toString()).apply();
                 Bundle completeBundle = getArguments();
                 if (completeBundle != null) {
-                    GenerateResume generateResume = new GenerateResume();
                     String personalDetails = getArguments().getString(RESUME_PERSONAL);
                     String permaAddress = getArguments().getString(PERMANENT_ADDRESS);
                     String presentAddress = getArguments().getString(PRESENT_ADDRESS);
-                    String eduQualifications = getArguments().getString(EDU_QUALIFICATIONS);
-                    generateResume.DefaultResume(getActivity(), Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
-                                    "://" + getActivity().getResources().getDrawable(R.drawable.admin_icon)),
-                            personalDetails, permaAddress, presentAddress, qualificationArray.toString());
+                    bundle.putString(RESUME_PERSONAL, personalDetails);
+                    bundle.putString(PERMANENT_ADDRESS, permaAddress);
+                    bundle.putString(PRESENT_ADDRESS, presentAddress);
+                }
+                ProfessionalFragment professionalFragment = new ProfessionalFragment();
+                professionalFragment.setArguments(bundle);
+                if (getFragmentManager() != null) {
+                    getFragmentManager().beginTransaction().replace(R.id.resumeMainLayout, professionalFragment)
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).commit();
                 }
             }
         });
@@ -140,15 +146,16 @@ public class EducationalFragment extends Fragment {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddressFragment addressFragment = new AddressFragment();
-                if (getFragmentManager() != null) {
-                    getFragmentManager().beginTransaction().replace(R.id.resumeMainLayout, addressFragment)
-                            .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).commit();
-                }
+                Toast.makeText(getActivity(), "This Feature is disabled for demo version", Toast.LENGTH_LONG).show();
+//                AddressFragment addressFragment = new AddressFragment();
+//                if (getFragmentManager() != null) {
+//                    getFragmentManager().beginTransaction().replace(R.id.resumeMainLayout, addressFragment)
+//                            .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).commit();
+//                }
             }
         });
 
-        btnEduDetails.setOnClickListener(new View.OnClickListener() {
+        addnewQuaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AddChildEduQuaLayout(view);
@@ -169,13 +176,9 @@ public class EducationalFragment extends Fragment {
         gson = new Gson();
         qualificationArray = new JSONArray();
 
-        btnEduDetails = view.findViewById(R.id.btnEduDetails);
         btnBack = view.findViewById(R.id.btnBack);
         btnNext = view.findViewById(R.id.btnNext);
-
-        //Child Layout Views
-
-
+        addnewQuaLayout = view.findViewById(R.id.addnewQuaLayout);
     }
 
 }

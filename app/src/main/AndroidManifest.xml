@@ -21,8 +21,10 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
@@ -52,7 +54,7 @@
             android:name=".TotaliserActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ResumeActivity"
+            android:name=".ResumeClassesAndFragments.ResumeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AdminPanelActivity"
