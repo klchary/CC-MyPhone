@@ -121,7 +121,6 @@ public class DefaultResumeFormat {
             Log.d(TAG, "Social Cell added to table");
 
             document.add(userDetailsTable);
-
             resumeUtils.AddDividerVertical(document);
 
             resumeUtils.setHeadingTable("Educational Qualifications", document, 10f, 4f);
