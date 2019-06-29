@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.example.ccmyphone.Models.UserDetails;
 import com.example.ccmyphone.OtherClasses.PermissionsClass;
-import com.example.ccmyphone.ResumeClassesAndFragments.ResumeActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -133,14 +132,6 @@ public class MasterActivity extends AppCompatActivity {
             }
         });
 
-        cardMainResume.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MasterActivity.this, ResumeActivity.class);
-                startActivity(intent);
-            }
-        });
-
         ivCateDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,14 +144,6 @@ public class MasterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MasterActivity.this, TotaliserActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        ivCateResume.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MasterActivity.this, ResumeActivity.class);
                 startActivity(intent);
             }
         });
@@ -196,15 +179,6 @@ public class MasterActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        btnCateResume.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MasterActivity.this, ResumeActivity.class);
-                startActivity(intent);
-            }
-        });
-
 //        masterAcAdBanner.setAdListener(new AdListener() {
 //            @Override
 //            public void onAdLoaded() {

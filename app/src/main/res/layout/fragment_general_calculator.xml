@@ -182,7 +182,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/column4"
             android:layout_toEndOf="@+id/column3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

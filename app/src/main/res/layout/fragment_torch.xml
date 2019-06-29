@@ -48,7 +48,6 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/bntScreenFlash"
         android:text="Screen"
         android:textSize="20sp"
         android:textAllCaps="true"
