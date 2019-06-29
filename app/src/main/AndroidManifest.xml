@@ -54,9 +54,6 @@
             android:name=".TotaliserActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ResumeClassesAndFragments.ResumeActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".AdminPanelActivity"
             android:screenOrientation="portrait" />
         <activity
