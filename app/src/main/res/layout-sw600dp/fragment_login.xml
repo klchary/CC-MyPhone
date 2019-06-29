@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginFrag_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="6dp"
+    android:background="@drawable/background_image"
+    tools:context=".LoginRegActFrag.LoginFragment">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="10dp"
+        app:cardPreventCornerOverlap="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|top"
+                android:paddingTop="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_above="@+id/toRegister"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/logoImageCardLay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    app:cardBackgroundColor="@color/LauncherBg"
+                    app:cardCornerRadius="10dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:id="@+id/logoimage"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:padding="10dp"
+                        android:src="@drawable/app_image" />
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:hint="Mobile No:*">
+
+                    <EditText
+                        android:id="@+id/etMobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_android_mobile"
+                        android:drawablePadding="6dp"
+                        android:inputType="phone"
+                        android:singleLine="true"
+                        android:textAllCaps="false"
+                        android:textColor="@color/Black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:hint="Password*"
+                    app:passwordToggleContentDescription="Password"
+                    app:passwordToggleDrawable="@drawable/password_toggle"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/Black">
+
+                    <EditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_lock"
+                        android:drawablePadding="6dp"
+                        android:inputType="textPassword"
+                        android:singleLine="true"
+                        android:textAllCaps="false"
+                        android:textColor="@color/Black"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="LET ME IN" />
+
+                <TextView
+                    android:id="@+id/continueGuest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Want to Try ?"
+                    android:textAllCaps="false"
+                    android:textColor="@color/Blue"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_above="@+id/toRegister"
+                android:layout_marginTop="20dp"
+                android:background="@color/Silver" />
+
+            <TextView
+                android:id="@+id/toRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:minHeight="40dp"
+                android:textColor="@color/Green_Dark"
+                android:text="Not Registered Yet? Click Here"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

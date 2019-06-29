@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0FDFA"
+    android:orientation="vertical"
+    tools:context=".TotaliserFragments.PercentageFragment">
+
+    <RelativeLayout
+        android:layout_width="260dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:background="@drawable/spinner_bg">
+
+        <Spinner
+            android:id="@+id/spinnerPer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@+id/ivSpinner"
+            android:background="@android:color/transparent"
+            android:entries="@array/PercentageEntries"
+            android:spinnerMode="dialog" />
+
+        <ImageView
+            android:id="@+id/ivSpinner"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/dropdown" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/scoredLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/pl1"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <EditText
+                android:id="@+id/scoredPercentage"
+                android:layout_width="260dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Percentage %"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/total1"
+                android:layout_width="260dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Total"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/scoredBtn"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/pl1"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:background="@color/primaryTheme"
+            android:gravity="center"
+            android:text="Scored"
+            android:textAllCaps="false"
+            android:textColor="@color/White" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/percentageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/pl2"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <EditText
+                android:id="@+id/scored"
+                android:layout_width="260dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Scored"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/total2"
+                android:layout_width="260dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Total"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/percentBtn"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/pl2"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:background="@color/primaryTheme"
+            android:gravity="center"
+            android:text="Percentage"
+            android:textAllCaps="false"
+            android:textColor="@color/White" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/incDecLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/pl3"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <EditText
+                android:id="@+id/entryOne"
+                android:layout_width="260dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Value"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/entryTwo"
+                android:layout_width="260dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Original Value"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/differenceBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pl3"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:background="@color/primaryTheme"
+            android:gravity="center"
+            android:minWidth="200dp"
+            android:minHeight="40dp"
+            android:padding="6dp"
+            android:text="Difference"
+            android:textAllCaps="false"
+            android:textColor="@color/White" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/gstLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/pl4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Bill Amount"
+                android:textColor="@color/Black_Dark"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/billAmount"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Bill"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pl5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pl4"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="GST Tax (18%)"
+                android:textColor="@color/Black_Dark"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/gstTax"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:gravity="center"
+                android:hint="GST"
+                android:textColor="@color/Green_Dark" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pl6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pl5"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Total Bill"
+                android:textColor="@color/Black_Dark"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/totalBill"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:gravity="center"
+                android:hint="Total Bill"
+                android:textColor="@color/Black" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/amountBtn"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/pl6"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:background="@color/primaryTheme"
+            android:gravity="center"
+            android:text="Amount"
+            android:textAllCaps="false"
+            android:textColor="@color/White" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

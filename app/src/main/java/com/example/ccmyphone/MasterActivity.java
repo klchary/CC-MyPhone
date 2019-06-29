@@ -49,9 +49,9 @@ public class MasterActivity extends AppCompatActivity {
 
     String TAG = "MasterActivity";
 
-    CardView cardMainDevice, cardMainTotaliser, cardMainOriginal, cardMainResume;
-    ImageView ivCateDevice, ivCateTotaliser, ivCateOriginal, ivCateResume;
-    Button btnCateDevice, btnCateTotaliser, btnCateOriginal, btnCateResume;
+    CardView cardMainDevice, cardMainTotaliser, cardMainOriginal;
+    ImageView ivCateDevice, ivCateTotaliser, ivCateOriginal;
+    Button btnCateDevice, btnCateTotaliser, btnCateOriginal;
     TextView userName;
 
     public static final int REQUIRED_MULTIPLE_PERMISSIONS = 100;
@@ -434,15 +434,12 @@ public class MasterActivity extends AppCompatActivity {
         cardMainDevice = findViewById(R.id.cardMainDevice);
         cardMainTotaliser = findViewById(R.id.cardMainTotaliser);
         cardMainOriginal = findViewById(R.id.cardMainOriginal);
-        cardMainResume = findViewById(R.id.cardMainResume);
         ivCateDevice = findViewById(R.id.ivCateDevice);
         ivCateTotaliser = findViewById(R.id.ivCateTotaliser);
         ivCateOriginal = findViewById(R.id.ivCateOriginal);
-        ivCateResume = findViewById(R.id.ivCateResume);
         btnCateDevice = findViewById(R.id.btnCateDevice);
         btnCateTotaliser = findViewById(R.id.btnCateTotaliser);
         btnCateOriginal = findViewById(R.id.btnCateOriginal);
-        btnCateResume = findViewById(R.id.btnCateResume);
         userName = findViewById(R.id.userName);
     }
 

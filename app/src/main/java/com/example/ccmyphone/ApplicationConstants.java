@@ -17,7 +17,6 @@ public interface ApplicationConstants {
     String APPNAME = "CC MyPhone";
 
     String CC_MyPhone_PATH = Environment.getExternalStorageDirectory().toString() + "/CC MyPhone";
-    String CC_MyPhone_RESUME = CC_MyPhone_PATH + "/Resume";
 
     UserDetails USER_DETAILS_ALL = new UserDetails();
 
@@ -53,14 +52,5 @@ public interface ApplicationConstants {
     String REG_TO_LOGIN = "LOGIN";
 
     String OK = "OK";
-
-    String RESUME_SHARED_VALUES = "RESUME SHARED VALUES";
-    String RESUME_PERSONAL = "RESUME_PERSONAL";
-    String PERMANENT_ADDRESS = "PERMANENT_ADDRESS";
-    String PRESENT_ADDRESS = "PRESENT_ADDRESS";
-    String EDU_QUALIFICATIONS = "EDU_QUALIFICATIONS";
-    String PROFESSIONAL_DETAILS = "PROFESSIONAL_DETAILS";
-    String LANGUAGES_KNOWN = "LANGUAGES_KNOWN";
-    String USER_HOBBIES = "USER_HOBBIES";
 
 }
