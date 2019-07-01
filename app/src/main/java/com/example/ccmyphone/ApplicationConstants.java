@@ -16,6 +16,9 @@ public interface ApplicationConstants {
 
     String APPNAME = "CC MyPhone";
 
+    String AMAZON_APPID = "amzn1.devportal.mobileapp.ec34e4ef18ab442babc8044ae23bba8c";
+    String AMAZON_RELEASEID = "amzn1.devportal.apprelease.f7af1012eaf844d49de6dd8a533da9d4";
+
     String CC_MyPhone_PATH = Environment.getExternalStorageDirectory().toString() + "/CC MyPhone";
 
     UserDetails USER_DETAILS_ALL = new UserDetails();
