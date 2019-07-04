@@ -31,14 +31,10 @@ public interface ApplicationConstants {
     DatabaseReference DATABASE_REF = FirebaseDatabase.getInstance().getReference();
     DatabaseReference DATABASE_REF_USERS = FirebaseDatabase.getInstance().getReference().child("USERS");
 
-    String ADMOB_APPID = "ca-app-pub-2479880548676052~2800021293";
-    String ADMOB_ADUNIT_ID_GUEST_USER_BANNER = "ca-app-pub-2479880548676052/9441930191";
-    String ADMOB_ADUNIT_ID_GUEST_USER_FULL = "ca-app-pub-2479880548676052/2842407416";
+    String ADMOB_APPID = "ca-app-pub-2479880548676052~4765835890";
+    String ADMOB_ADUNIT_ID_BANNER = "ca-app-pub-2479880548676052/7634282638";
+    String ADMOB_ADUNIT_ID_FULL_SCREEN = "ca-app-pub-2479880548676052/4433404223";
     String ADMOB_TESTUNIT_ID = "ca-app-pub-3940256099942544/6300978111";
-
-    String APPID = "2366302220";
-    String ADUNIT_ID_FULL = "2366300712";
-    String ADUNIT_ID_BANNER = "2366329210";
 
     boolean TRUE = true;
     boolean FALSE = false;

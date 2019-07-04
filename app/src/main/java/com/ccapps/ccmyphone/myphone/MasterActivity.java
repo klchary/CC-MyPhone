@@ -32,8 +32,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ccapps.ccmyphone.myphone.ApplicationConstants.ADMOB_ADUNIT_ID_GUEST_USER_BANNER;
-import static com.ccapps.ccmyphone.myphone.ApplicationConstants.ADMOB_ADUNIT_ID_GUEST_USER_FULL;
+import static com.ccapps.ccmyphone.myphone.ApplicationConstants.ADMOB_ADUNIT_ID_BANNER;
+import static com.ccapps.ccmyphone.myphone.ApplicationConstants.ADMOB_ADUNIT_ID_FULL_SCREEN;
 import static com.ccapps.ccmyphone.myphone.ApplicationConstants.ADMOB_APPID;
 import static com.ccapps.ccmyphone.myphone.ApplicationConstants.CC_MyPhone_PATH;
 import static com.ccapps.ccmyphone.myphone.ApplicationConstants.SHARED_PERSISTENT_VALUES;
@@ -75,12 +75,12 @@ public class MasterActivity extends AppCompatActivity {
         MobileAds.initialize(this, ADMOB_APPID);
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdUnitId(ADMOB_ADUNIT_ID_GUEST_USER_BANNER);
+        adView.setAdUnitId(ADMOB_ADUNIT_ID_BANNER);
         AdRequest adRequest = new AdRequest.Builder().build();
 //        masterAcAdBanner.loadAd(adRequest);
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(ADMOB_ADUNIT_ID_GUEST_USER_FULL);
+        mInterstitialAd.setAdUnitId(ADMOB_ADUNIT_ID_FULL_SCREEN);
         AdRequest adRequestFull = new AdRequest.Builder().addTestDevice("deviceid").build();
 //        mInterstitialAd.loadAd(adRequestFull);
 
