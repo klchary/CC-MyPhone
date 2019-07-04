@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CC MyPhone</string>
+    <string name="app_name">My Phone</string>
 
     // Activities
     <string name="MasterActivity">MasterActivity</string>

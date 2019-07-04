@@ -82,7 +82,7 @@
 
     <fragment
         android:id="@+id/navigationView"
-        class="com.example.ccmyphone.NavigationViewFragment"
+        class="com.ccapps.ccmyphone.myphone.NavigationViewFragment"
         android:layout_width="260dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"

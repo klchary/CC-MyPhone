@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "610100917097",
-    "firebase_url": "https://cc-myphone.firebaseio.com",
-    "project_id": "cc-myphone",
-    "storage_bucket": "cc-myphone.appspot.com"
+    "project_number": "1003194436307",
+    "firebase_url": "https://my-phone-ccapps.firebaseio.com",
+    "project_id": "my-phone-ccapps",
+    "storage_bucket": "my-phone-ccapps.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:610100917097:android:5f1504a31f02ae55",
+        "mobilesdk_app_id": "1:1003194436307:android:09b87a8ed76b3b32",
         "android_client_info": {
-          "package_name": "com.example.ccmyphone"
+          "package_name": "com.ccapps.ccmyphone.myphone"
         }
       },
       "oauth_client": [
         {
-          "client_id": "610100917097-p6285r39d69ffofaeimhrbvgbqikri2a.apps.googleusercontent.com",
+          "client_id": "1003194436307-temc3nmgb4h9i444me96agp9u4pacgcg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.ccmyphone",
-            "certificate_hash": "328d9ca27e5e58545590c9cb5c7a16a15e2d5c08"
+            "package_name": "com.ccapps.ccmyphone.myphone",
+            "certificate_hash": "7741136794a61cd6196aecebf66fae188f584e28"
           }
         },
         {
-          "client_id": "610100917097-sv865peuuke29s8on7q2ob8usdjtblav.apps.googleusercontent.com",
+          "client_id": "1003194436307-sdreorecl2etst9rging4rj2h2jhc0v2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBJN6bsSqzghAZelCg3_lOJDJ7hNsh4zLw"
+          "current_key": "AIzaSyDK-OzBUL6YCUIbWYnENbqLfnR05UQqA18"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "610100917097-sv865peuuke29s8on7q2ob8usdjtblav.apps.googleusercontent.com",
+              "client_id": "1003194436307-sdreorecl2etst9rging4rj2h2jhc0v2.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
