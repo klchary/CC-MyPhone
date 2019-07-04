@@ -23,9 +23,10 @@ public interface ApplicationConstants {
 
     UserDetails USER_DETAILS_ALL = new UserDetails();
 
-    String FIREBASE_PROJECT_NUMBER = "610100917097";
-    String FIREBASE_URL = "https://cc-myphone.firebaseio.com";
-    String FIREBASE_PROJECT_ID = "cc-myphone";
+    String FIREBASE_PROJECT_NUMBER = "1003194436307";
+    String FIREBASE_URL = "https://my-phone-ccapps.firebaseio.com";
+    String FIREBASE_PROJECT_ID = "my-phone-ccapps";
+    String FIREBASE_STRG_BCKT = "my-phone-ccapps.appspot.com";
 
     DatabaseReference DATABASE_REF = FirebaseDatabase.getInstance().getReference();
     DatabaseReference DATABASE_REF_USERS = FirebaseDatabase.getInstance().getReference().child("USERS");
