@@ -32,7 +32,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = Objects.requireNonNull(this.getWindow());
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getResources().getColor(R.color.Background));
+            window.setStatusBarColor(getResources().getColor(R.color.MainColor));
         }
 
         loadLoginFragment();

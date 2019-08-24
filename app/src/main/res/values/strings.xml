@@ -60,4 +60,6 @@
         <item name="YARD">Yard</item>
     </string-array>
 
+    <string name="appVersion">%1$s %2$s</string>
+
 </resources>

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.CardView;
@@ -13,6 +15,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ccapps.ccmyphone.myphone.LoginRegActFrag.LoginRegisterActivity;
 import com.ccapps.ccmyphone.myphone.Models.UserDetails;
@@ -35,6 +38,7 @@ public class FlashScreenActivity extends Activity {
 
     CardView logoImageCardLay;
     ImageView flashScreenLogo;
+    TextView appVersion;
     SharedPreferences sharedpref;
     String userSharedDetails;
     Gson gson = new Gson();
@@ -46,13 +50,21 @@ public class FlashScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_flash_screen);
 
         flashScreenLogo = findViewById(R.id.flashScreenLogo);
         logoImageCardLay = findViewById(R.id.logoImageCardLay);
         bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.bounce);
         logoImageCardLay.startAnimation(bounceAnimation);
+        appVersion = findViewById(R.id.appVersion);
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pInfo.versionName;
+            appVersion.setText(getString(R.string.appVersion, "App Version: ", version));
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
         sharedpref = getSharedPreferences(SHARED_PERSISTENT_VALUES, Context.MODE_PRIVATE);
         userSharedDetails = sharedpref.getString(USER_DETAILS, null);

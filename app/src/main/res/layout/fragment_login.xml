@@ -5,39 +5,33 @@
     android:id="@+id/loginFrag_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="6dp"
     android:background="@drawable/background_image"
     tools:context=".LoginRegActFrag.LoginFragment">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        android:layout_centerInParent="true"
+        android:layout_height="match_parent"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="10dp"
-        app:cardPreventCornerOverlap="true">
+        app:cardElevation="6dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center|top"
-                android:paddingTop="30dp"
-                android:layout_alignParentTop="true"
+                android:layout_height="match_parent"
                 android:layout_above="@+id/toRegister"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/logoImageCardLay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
                     app:cardBackgroundColor="@color/LauncherBg"
                     app:cardCornerRadius="10dp"
                     app:cardPreventCornerOverlap="true"
@@ -138,9 +132,9 @@
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
                 android:minHeight="40dp"
-                android:textColor="@color/Green_Dark"
                 android:text="Not Registered Yet? Click Here"
                 android:textAllCaps="false"
+                android:textColor="@color/Green_Dark"
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
